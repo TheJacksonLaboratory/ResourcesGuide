@@ -387,6 +387,12 @@ div.tocify {
      
   </a>
 </li>
+<li>
+  <a href="https://github.com/TheJacksonLaboratory/ResourcesGuide.git">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -488,6 +494,46 @@ From the FAIR publication:<br />
 <li>Instead of installing a new copy of each package for each project, renv creates a “playlist” for each project that draws from a single global cache</li>
 <li>Integrates python as well: <a href="https://rstudio.github.io/renv/articles/python.html" class="uri">https://rstudio.github.io/renv/articles/python.html</a></li>
 </ul>
+</div>
+<div id="working-with-github" class="section level2">
+<h2>Working with github</h2>
+<p><a href="https://git-scm.com/book/en/v2" class="uri">https://git-scm.com/book/en/v2</a></p>
+<p>One way to get started -<br />
+<strong>Pushing an existing project folder to a new remote repo:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Create a new remote (empty) repository under <a href="https://github.com/TheJacksonLaboratory">the Jackson Laboratory account</a><br />
+</li>
+</ol>
+<ul>
+<li>do not initialize with README/.gitignore/license</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Initiate your project folder as a local git repo and link it to the remote one:</li>
+</ol>
+<pre><code>cd myproject
+git init
+git remote add origin https://github.com/TheJacksonLaboratory/myproject.git</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Track and commit everything that’s currently in the project folder, and push to the remote repo</li>
+</ol>
+<pre><code>git add .
+git commit -m &quot;initial commit&quot;
+git push -u origin master</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Make any changes and repeat step 3 (with a different and informative commit message)</li>
+<li>Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with <code>git pull</code></li>
+</ol>
+<p><strong>Note:</strong> If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the `<code>git remote add</code> comand in step 1. You will then have a .gitignore file already in there. It’s a good idea to add LICENSE and README files as well.</p>
+<p>Another way to get started -<br />
+<strong>Cloning an existing remote repo to a new local folder:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Clone the repo from github to your local machine</li>
+</ol>
+<pre><code>git clone https://github.com/TheJacksonLaboratory/someproject.git</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Make changes and repeat step 3 above</li>
+<li>Repeat step 5 above</li>
+</ol>
 </div>
 
 

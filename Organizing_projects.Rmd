@@ -96,3 +96,38 @@ A few pointers:
 * call renv::restore() to install all packages in the lockfile (e.g., when starting a session on a different system); inform users of the need to do that
 * Instead of installing a new copy of each package for each project, renv creates a "playlist" for each project that draws from a single global cache
 * Integrates python as well: https://rstudio.github.io/renv/articles/python.html
+
+## Working with github
+https://git-scm.com/book/en/v2  
+
+One way to get started -  
+**Pushing an existing project folder to a new remote repo:**  
+
+1. Create a new remote (empty) repository under [the Jackson Laboratory account](https://github.com/TheJacksonLaboratory)  
+  - do not initialize with README/.gitignore/license
+2. Initiate your project folder as a local git repo and link it to the remote one:
+```
+cd myproject
+git init
+git remote add origin https://github.com/TheJacksonLaboratory/myproject.git
+```
+3. Track and commit everything that's currently in the project folder, and push to the remote repo
+```
+git add .
+git commit -m "initial commit"
+git push -u origin master
+```
+4. Make any changes and repeat step 3 (with a different and informative commit message)
+5. Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with ```git pull```
+
+**Note:** If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the ```git remote add`` comand in step 1. You will then have a .gitignore file already in there. It's a good idea to add LICENSE and README files as well.
+
+Another way to get started -  
+**Cloning an existing remote repo to a new local folder:**
+
+1. Clone the repo from github to your local machine
+```
+git clone https://github.com/TheJacksonLaboratory/someproject.git
+```
+2. Make changes and repeat step 3 above
+3. Repeat step 5 above
