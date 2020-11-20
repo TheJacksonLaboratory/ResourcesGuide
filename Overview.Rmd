@@ -1,0 +1,105 @@
+---
+title: "Overview of computational resources"
+author: "Carter Lab"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    theme: cerulean
+    highlight: textmate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+```
+
+## HPCC
+https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx  
+https://github.com/TheJacksonLaboratory/IntroToHPC  
+
+## Storage
+https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx   
+
+**tier1** is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.  
+/home/ Personal space; by default, only the user can view and access.  
+/projects/carter-lab/ Projects in this space should aim to follow some basic rules for reproducibility and sharabilty (see below)  
+/sdata/carter-lab/ for secured data, same as lab's projects  
+/fastscratch/ for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
+
+Files on tier1 can be recovered within [7 days of deletion](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx)  
+
+**tier2** is best used for research project that are developed mainly in [Rstudio Server], as well as "cold data". Can only be accessed with Globus or from RStudio Server (/tier2/carter-lab/)
+
+**/unixhome** is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.
+
+Use [Globus](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx) to transfer data between the different storages. Use [Globus CLI](https://docs.globus.org/cli/quickstart/) to incorporate data transfer in the script whenever applicable.  
+You can also use [SCP](https://haydenjames.io/linux-securely-copy-files-using-scp/) from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome 
+
+## Rstudio Server
+
+1. open a ticket with IT to request an account
+2. Go to https://rstudio.jax.org/  
+2. Sign in with your jax credential  
+3. Navigate to tier2 space: Click on the three dots in the upper-right corner of the files   management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
+
+For organization sake, avoid using the space provided with Rstudio Server except as a dumpster/attic. Use tier2 for shareablilty and collaboration.
+
+## Shiny server
+Ask IT to add you as a Shiny user. You can log into it either from RStudio Server or https://rshiny.jax.org/connect/
+
+## carterdev
+Hosts shiny apps and websites for large collaborative projects.
+
+## JAXREG
+https://jaxreg.jax.org/  
+A platform for Singularity containers by JAX HPC users. The Carter lab has its own team space there. Once you login with your jax credentials, you can upload containers and create collections. You can then either make it public - open to the whole jax community - or you can make it private and invite team members and anyone else at jax.
+
+## Jax github
+Mostly for code and text. Main advantage is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories.    
+https://github.com/TheJacksonLaboratory  
+https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx  
+
+The Carter lab has its own team space inside Jax account. When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private.  
+**Note:** There is no difference in the definition of *public* and *private* repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.   
+
+
+**Size limit?
+
+## Dropbox 
+
+* Individaul accounts only (no lab account).  
+* Plays nicely with R projects and RStudio.  
+* Version control and backup of the whole project folder.  
+* Allows sharing of whole project folder or any part of it.  
+* Files can be set up to be ignored during synchronization in either direction: they can be [saved only on local machines](https://help.dropbox.com/files-folders/restore-delete/ignored-files) (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).   
+
+**Note:** only one account can be linked to one device. You can't have both personal and jax account on the same device. If you have your personal account currently linked to your jax device, you'd need to unlink that account first, and then link the jax account. Once unlilnked, all files on your personal account that have been synced to the device will still be saved on the device but no longer synced with your account.  
+
+To get started you need to request IT to open a dropbox account for you (if you haven't been added already), then you will recieve an email with a link to activate the account, download the desktop app, and get started. By default, all files are set up as Smart Sync, which means they are not saved on your local machine for off-line use, so make sure you reveiw the Sync settings under Preferences. To make a file/folder available off-line right-click it in your local file viewer and choose Smart Sync -> Local
+
+## Box
+Personal accounts as well as [lab's account](https://thejacksonlaboratory.ent.box.com/folder/49919058619)  
+Doesn't work with R projects, but good for sharing documents within the lab, across jax, and outside jax. A favorite of HR.  
+Can be used for showcasing project reports (e.g., rendered markdown files), but it's best to avoid storing there shareable data and project folders.  
+
+## Get connected, get help
+
+* [slack](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/How-to-use-Slack.aspx): Look for the CarterLabJax workspace and The Jackson Laboratory workspace. Once logged into a woekspace, you can browse and join channels.  
+* [hpctalks](https://hpctalk.jax.org/)
+* [helpdesk self-service](https://jax.service-now.com/jax)
+* [webex](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx)
+* [Interest groups and Journal clubs](https://jacksonlaboratory.sharepoint.com/:x:/r/sites/ResearchResources/_layouts/15/Doc.aspx?sourcedoc=%7B3C15F833-3032-4560-831B-D6F02A6E6757%7D&file=Interest%20Groups%20and%20Journal%20Clubs%2009.2020.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1)
+
+## Training
+Jax resrources:  
+https://jacksonlaboratory.sharepoint.com/sites/JAXBioinformaticsTrainingProgram  
+https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx  
+http://jaxbhflash02.jax.org/index/default.aspx   
+Software carpentry:   
+https://carpentries-incubator.github.io/singularity-introduction/index.html   
+RStudio:  
+https://education.rstudio.com/  
+Others:  
+https://kbroman.org/steps2rr/  
+https://dataoneorg.github.io/Education/

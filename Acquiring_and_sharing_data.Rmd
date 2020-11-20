@@ -1,0 +1,152 @@
+---
+title: "Acquiring and Sharing Data"
+author: "Carter Lab"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    theme: cerulean
+    highlight: textmate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+```
+
+**Goals:**
+
+* Keep shared data in a stable shared location
+* Link to data instead of copying/moving data
+* Incorporate data linking in your script (not just console)
+* Treat processed data and results as "raw" data objects for sharing purposes
+* Describe data: origin, what's been done with it, what the columns/rows mean, etc.
+* keep data files together with their metadata and any processing scripts when applicable, either physically or with a reliable link between them (e.g., via RStudio Connect or pins).
+
+A good way to interact with data objects is in a manner similar to working with git for developing code: "pushing" and "pulling" data objects to and from repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance, and promotes transparency and reproducibility. Git repositories, however, are limited in size and are therefore not suitable for sharing large data objects and developing research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as [Globus CLI](https://docs.globus.org) and the R [```pins``` package](http://pins.rstudio.com). In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason.   
+
+Sharing data between "native" projects on the same file system can be done using the R package pins (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with Synapse and RStudio Connect can be done using either their own clients (see below) or with ```pins```.  
+
+![image](images/data_share.png)
+
+
+To read more about data provenance and management:
+https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf
+https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance
+https://docs.synapse.org/articles/provenance.html
+
+## From Scientific Services
+Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the [Globus web interface](https://docs.globus.org/how-to/get-started/).  
+
+* Keep data files together with all the metadata that came with them.  
+* Keep data in a shared designated location, not in your home directory and not under your name. For example ```/projects/hepatocytes/data/RRBS/``` and not ```/projects/hepatocytes/USERNAME/data/RRBS``` nor ```/projects/hepatocytes/data/USERNAME/RRBS```    
+* Set permissions to be accessible to everyone in the Carter-Lab group: ```chmod -R 775```
+* Don't change file names or content. Leave the raw data raw.
+
+## From Synapse
+https://r-docs.synapse.org/articles/synapser.html  
+Often the best way to work with data from Synapse is to download/upload it directly from Synapse using its [R](https://r-docs.synapse.org/articles/synapser.html), [pyhton](https://python-docs.synapse.org/build/html/index.html), or [CLI](https://python-docs.synapse.org/build/html/CommandLineClient.html) clients.  
+For example, using the R package ```synapser```:  
+The function ```synGet()``` downloads the data into a cache folder on your home directory (```~/.synapseCache```) on whichever file system you're on, so that every time you run the code, it checks your cached copy against the original on Synapse and re-downloads it only if there has been changes since the last download. The cache location is specified in ```~/.synapseConfig```.  
+For example, if I need to use mayo metadata (syn11384571) in my analysis:
+```{r}
+# input code
+library(tidyverse)
+
+synLogin()
+
+# reading in the file and modifying it for my needs
+mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
+  select(WGS_Participant_ID, ApoE, Diagnosis) %>%
+  mutate(cohort="mayo")
+```
+See [here](https://r-docs.synapse.org/articles/manageSynapseCredentials.html) on how to specify your login credentials in ```.synapseConfig```  
+This works the same from your local machine or RStudio Server. The config file and cache folders will be on your RStudio Server home directory (```/unixhome```).  
+
+It is also possible to upload (push/publish) your results back to synapse, specify its relations to other synapse entities, and include the scripts that were used for generating your results from those entities. This allows other users to interact with your results with synGet() as described above.  
+
+If you're working on tier1 or tier2 with secured and/or very heavy data you can change the cache folder to the general sdata folder so that the data remain in a secured location and you don't need to download your own copy if one is already available in that folder.
+To do that, open the ```.synapseConfig``` file in your home directory and edit the caching part to look like this:
+```
+###########################
+# Caching                 #
+###########################
+
+## your downloaded files are cached to avoid repeat downloads of the same file. change 'location' to use a different folder on your computer as the cache location
+[cache]
+location = /tier2/carter-lab/sdata/synapseData
+```
+It is also possible to provide a different path to download a file from synapse, thus bypassing the cache. This is useful if we want to keep files in a more visible location than the cache. It would still check for updates before downloading, saving time while incorporating data transfer in the script. For example:
+```{r}
+file <- "NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt"
+synid <- synFindEntityId(file, parent="syn11707420")
+synpath <- synapser::synGet(synid, downloadLocation="sdata/AMPAD/synapseData/ROSMAP/WGS/")$path
+# using fread because it's a very big file:
+annot <- data.table::fread(file=synpath, sep="\t") 
+
+```
+## From RStudio Connect
+[RStudio Connect](https://docs.rstudio.com/connect/user/) is useful for sharing markdown reports, R objects, and various files between different projects from different locations. It is especially useful for projects that are being developed on RStudio Server and live on tier2. From RStudio you can easily [publish content](https://docs.rstudio.com/connect/user/publishing/) to RStudio Connect using the publish button in either the editor or the preview windows.  
+
+Using the package [```connectapi```](https://rstudio.github.io/connectapi/) it is very similar to working with Synapse.  
+Another option is to use ```pins``` and its built-in [RStudio Connect board](https://docs.rstudio.com/connect/user/pins/) functionality (see below).   
+
+## Using pins
+http://pins.rstudio.com/  
+The R package ```pins``` works by pinning data objects to boards (See image below). A type of board is basically a connection to a type of location (data repository), such as RStudio Connect and Github, or another folder. Registering a board opens that connection for that session. The local board (local to whichever file system you're on) is by default the cache folder, which by default is ```~/Library/Caches/pins``` on a mac, and is registered automatically when loading the package. You can see it under the connections tab in RStudio.  
+The function ```pin()``` sends ('pushes') an object from the current workspace into the specified board. If ```board='local'``` the object is pinned into the cache, thus made available to other projects on that file system and to future sessions. The function ```pin_get()``` retrieves ('pulls') the object from the board into the workspace via the cache - or from the cache if ```board='local'``` - while checking the original source for updates. In either cases, some basic standardized information about the object is being logged into a text file in the cache folder, creating basic documentation on what is stored there.   
+
+![image](images/pins2.png)
+
+
+There can be many connections open to one type of board in a given session, but you'd need to register them separately (per session) under different names.
+
+### Between projects in the same file system
+Often we generate results in one project that we then need to use in another "native" project that lives in the same file system (e.g., both projects are on tier2 and probably synced to your local machine). We can either publish these results to RStudio Connect (or to Synapse) and interact with them as described above, or we can pin the results to the local cache (local to the system we're working in) and pull them into the other project from there, as shown below.   
+  
+For example, say I generated a dataframe object with the archetype classification for ROSMAP patients as part of the ampad_archetypes project that lives on my mac and on tier2. The script that created that result is in ```ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd```. At the end of that Rmarkdown file I include a chunk that pins the generated data object to a local board:
+```{r}
+# output chunk of 1_fit_archetypes.Rmd
+pin(archetypes_meta, 
+    name = "archetypes_meta_k3p20_AD", 
+    description = "Archetype classification. Output of ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd",
+    board = "local")
+```
+Now I can close that session, start a new one within a different project, say ```ampad_ADvariants``` and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and further modify it.
+```{r}
+# input chunk of ampad_ADvariants_MCA.Rmd, 
+archetypes <- pin_get("archetypes_meta_k3p20_AD", board="local") %>%
+  select(wgs_id, Archetype) %>%
+  filter(!is.na(wgs_id))
+```
+
+This works the same way from RStudio Server, so it's possible to do the same between projects that live on tier2. The local board in this case is on your home dir on the RStudio Server ```~/.cache/pins```. To see this information you can type ```pins::board_get("local")```
+
+If you're working with secure data from Synapse (for example), you'd want to retrieve it from the sdata folder or directly from Synapse, and pin your results back to that folder for later use (when applicable). For this purpose, you'd want to register a new local board that points to the cache on sdata (once per session). For example, you might have a code chunk like this in your markdown file:
+```{r}
+pins::board_register_local(name = "sdata", cache = "/sdata/pins")
+
+synapser::synLogin()
+
+mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
+  select(WGS_Participant_ID, ApoE, Diagnosis) %>%
+  mutate(cohort="mayo") %>%
+  pins::pin(name="mayo_metadata_wgs_apoe_diagnosis", 
+        description="ouput of <path/rmd_file> etc", 
+        board="sdata")
+```
+
+And to retrieve the modified file in another session:
+```{r}
+board_register_local(name = "sdata", cache = "/sdata/pins")
+pin_find("mayo", board="sdata") # see everything available in that board for mayo cohort
+pin_info("mayo_metadata_wgs_apoe_diagnosis") # retrieve info for this data frame
+mayo <- pin_get("mayo_metadata_wgs_apoe_diagnosis", board="sdata")
+```
+
+### Between different file systems
+A good way to share data and results between different projects (whether on the same file system or not) is via a remote server such as RStudio Connect or Synapse. ```pins``` has a built-in board functionality for RStudio Connect, github, and any url, as well as other common services. It also has functions to create new types of boards, so it's probably possible to create a board for Dropbox and Synapse as well.  
+See [here](http://pins.rstudio.com/articles/boards-rsconnect.html) and [here](http://pins.rstudio.com/articles/use-cases/reuse-tidy-datasets.html) for how to use pins with RStudio Connect.
+
+Before using RStudio Connect as a board, you need to authenticate it first. If you're working with RStudio, you can register the RStudio Connect account in RStudio using Tools -> Global Options -> Publishing -> Connect, and then you simply register the board with ```board_register_rsconnect(name="jax_rsconnect", server = "https://rshiny.jax.org")``` (the name can be anything) and use the same chuncks of code as above but with "jax_rsconnect" as a board.  
+If you want to register the board from outside RStudio, you'll need to include an API key in that command as shown [here](https://docs.rstudio.com/connect/user/pins/) 
