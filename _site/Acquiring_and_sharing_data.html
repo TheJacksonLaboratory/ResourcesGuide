@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2020-11-21" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -407,7 +407,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-11-20</h4>
+<h4 class="date">2020-11-21</h4>
 
 </div>
 
@@ -424,7 +424,7 @@ div.tocify {
 <p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance, and promotes transparency and reproducibility. Git repositories, however, are limited in size and are therefore not suitable for sharing large data objects and developing research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason.</p>
 <p>Sharing data between “native” projects on the same file system can be done using the R package pins (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
 <div class="figure">
-<img src="images/data_share.png" alt="image" />
+<img src="../images/data_share.png" alt="image" />
 <p class="caption">image</p>
 </div>
 <p>To read more about data provenance and management: <a href="https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf" class="uri">https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf</a> <a href="https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance" class="uri">https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance</a> <a href="https://docs.synapse.org/articles/provenance.html" class="uri">https://docs.synapse.org/articles/provenance.html</a></p>
@@ -442,9 +442,10 @@ div.tocify {
 </div>
 <div id="from-synapse" class="section level2">
 <h2>From Synapse</h2>
-<p><a href="https://r-docs.synapse.org/articles/synapser.html" class="uri">https://r-docs.synapse.org/articles/synapser.html</a><br />
-Often the best way to work with data from Synapse is to download/upload it directly from Synapse using its <a href="https://r-docs.synapse.org/articles/synapser.html">R</a>, <a href="https://python-docs.synapse.org/build/html/index.html">pyhton</a>, or <a href="https://python-docs.synapse.org/build/html/CommandLineClient.html">CLI</a> clients.<br />
-For example, using the R package <code>synapser</code>:<br />
+<p><a href="https://docs.synapse.org/articles/" class="uri">https://docs.synapse.org/articles/</a><br />
+Often the best way to work with data that lives on Synapse is to download/upload it directly from Synapse using its <a href="https://r-docs.synapse.org/articles/synapser.html">R</a>, <a href="https://python-docs.synapse.org/build/html/index.html">pyhton</a>, or <a href="https://python-docs.synapse.org/build/html/CommandLineClient.html">CLI</a> clients.<br />
+See <a href="https://docs.synapse.org/articles/provenance.html">here</a> for how provenance works on Synapse.</p>
+<p>For example, using the R package <code>synapser</code>:<br />
 The function <code>synGet()</code> downloads the data into a cache folder on your home directory (<code>~/.synapseCache</code>) on whichever file system you’re on, so that every time you run the code, it checks your cached copy against the original on Synapse and re-downloads it only if there has been changes since the last download. The cache location is specified in <code>~/.synapseConfig</code>.<br />
 For example, if I need to use mayo metadata (syn11384571) in my analysis:</p>
 <pre class="r"><code># input code
@@ -458,16 +459,18 @@ mayo &lt;- read_csv(synapser::synGet(&quot;syn11384571&quot;)$path) %&gt;%
   mutate(cohort=&quot;mayo&quot;)</code></pre>
 <p>See <a href="https://r-docs.synapse.org/articles/manageSynapseCredentials.html">here</a> on how to specify your login credentials in <code>.synapseConfig</code><br />
 This works the same from your local machine or RStudio Server. The config file and cache folders will be on your RStudio Server home directory (<code>/unixhome</code>).</p>
-<p>It is also possible to upload (push/publish) your results back to synapse, specify its relations to other synapse entities, and include the scripts that were used for generating your results from those entities. This allows other users to interact with your results with synGet() as described above.</p>
-<p>If you’re working on tier1 or tier2 with secured and/or very heavy data you can change the cache folder to the general sdata folder so that the data remain in a secured location and you don’t need to download your own copy if one is already available in that folder. To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this:</p>
+<p>It is also possible to upload (push/publish) your results back to synapse, specify its relations to other synapse entities, and include the scripts that were used for generating your results from those entities. This allows other users to interact with your results with synGet() as described above.<br />
+See <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/606653">here</a> for an example of how to upload an analysis script and results and describe them using Synapse provenance tool.</p>
+<p>Since we usually work with secured and/or very heavy data from Synapse, we have synapse cache folder inside the sdata folder on both tier1 and tier2 to ensure that the data remain in a secured location when downloaded. Using this cache folder instead of the one on your home directory will also spare you the need to download your own copy, saving you space.<br />
+To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this:</p>
 <pre><code>###########################
 # Caching                 #
 ###########################
 
 ## your downloaded files are cached to avoid repeat downloads of the same file. change &#39;location&#39; to use a different folder on your computer as the cache location
 [cache]
-location = /tier2/carter-lab/sdata/synapseData</code></pre>
-<p>It is also possible to provide a different path to download a file from synapse, thus bypassing the cache. This is useful if we want to keep files in a more visible location than the cache. It would still check for updates before downloading, saving time while incorporating data transfer in the script. For example:</p>
+location = /tier2/carter-lab/sdata/.synapseCache</code></pre>
+<p>It is also possible to provide a different path to download a file from synapse, thus bypassing the cache. This is useful if we want to keep files in a more visible location than the cache. It would still check for updates before downloading and allow you to incorporate data transfer in the script. For example:</p>
 <pre class="r"><code>file &lt;- &quot;NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt&quot;
 synid &lt;- synFindEntityId(file, parent=&quot;syn11707420&quot;)
 synpath &lt;- synapser::synGet(synid, downloadLocation=&quot;sdata/AMPAD/synapseData/ROSMAP/WGS/&quot;)$path
@@ -486,7 +489,7 @@ Another option is to use <code>pins</code> and its built-in <a href="https://doc
 The R package <code>pins</code> works by pinning data objects to boards (See image below). A type of board is basically a connection to a type of location (data repository), such as RStudio Connect and Github, or another folder. Registering a board opens that connection for that session. The local board (local to whichever file system you’re on) is by default the cache folder, which by default is <code>~/Library/Caches/pins</code> on a mac, and is registered automatically when loading the package. You can see it under the connections tab in RStudio.<br />
 The function <code>pin()</code> sends (‘pushes’) an object from the current workspace into the specified board. If <code>board='local'</code> the object is pinned into the cache, thus made available to other projects on that file system and to future sessions. The function <code>pin_get()</code> retrieves (‘pulls’) the object from the board into the workspace via the cache - or from the cache if <code>board='local'</code> - while checking the original source for updates. In either cases, some basic standardized information about the object is being logged into a text file in the cache folder, creating basic documentation on what is stored there.</p>
 <div class="figure">
-<img src="images/pins2.png" alt="image" />
+<img src="../images/pins2.png" alt="image" />
 <p class="caption">image</p>
 </div>
 <p>There can be many connections open to one type of board in a given session, but you’d need to register them separately (per session) under different names.</p>
@@ -505,7 +508,7 @@ archetypes &lt;- pin_get(&quot;archetypes_meta_k3p20_AD&quot;, board=&quot;local
   select(wgs_id, Archetype) %&gt;%
   filter(!is.na(wgs_id))</code></pre>
 <p>This works the same way from RStudio Server, so it’s possible to do the same between projects that live on tier2. The local board in this case is on your home dir on the RStudio Server <code>~/.cache/pins</code>. To see this information you can type <code>pins::board_get(&quot;local&quot;)</code></p>
-<p>If you’re working with secure data from Synapse (for example), you’d want to retrieve it from the sdata folder or directly from Synapse, and pin your results back to that folder for later use (when applicable). For this purpose, you’d want to register a new local board that points to the cache on sdata (once per session). For example, you might have a code chunk like this in your markdown file:</p>
+<p>If you’re working with secure data from Synapse (for example), you’d want to retrieve it from the sdata folder or directly from Synapse, and perhaps pin your results back to that folder for later use (when applicable). For this purpose, you’d want to register a new local board that points to the pins cache on sdata (once per session). For example, you might have a code chunk like this in your Rmarkdown file:</p>
 <pre class="r"><code>pins::board_register_local(name = &quot;sdata&quot;, cache = &quot;/sdata/pins&quot;)
 
 synapser::synLogin()
@@ -516,7 +519,8 @@ mayo &lt;- read_csv(synapser::synGet(&quot;syn11384571&quot;)$path) %&gt;%
   pins::pin(name=&quot;mayo_metadata_wgs_apoe_diagnosis&quot;, 
         description=&quot;ouput of &lt;path/rmd_file&gt; etc&quot;, 
         board=&quot;sdata&quot;)</code></pre>
-<p>And to retrieve the modified file in another session:</p>
+<p>Please see above instructions on how to direct <code>synGet()</code> to download data into the secured cache folder on tier1 and tier2 instead of your home directory.</p>
+<p>In order to retrieve the modified file in another session:</p>
 <pre class="r"><code>board_register_local(name = &quot;sdata&quot;, cache = &quot;/sdata/pins&quot;)
 pin_find(&quot;mayo&quot;, board=&quot;sdata&quot;) # see everything available in that board for mayo cohort
 pin_info(&quot;mayo_metadata_wgs_apoe_diagnosis&quot;) # retrieve info for this data frame
