@@ -5,8 +5,8 @@ account: habera
 server: rshiny.jax.org
 hostUrl: https://rshiny.jax.org/__api__
 appId: 167
-bundleId: 795
+bundleId: 806
 url: https://rshiny.jax.org/content/167/
-when: 1605903629.68644
+when: 1605996327.78163
 asMultiple: FALSE
 asStatic: TRUE

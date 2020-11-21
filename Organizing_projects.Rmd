@@ -48,7 +48,7 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
   * Syncronize the local and remote copies using Globus, FileZila, or the like.  
   * Consider [using git](https://git-scm.com/book/en/v2) for version control and sharing of code.  
 
-![image](../images/local_remote.png)
+![image](images/local_remote.png)
 
 **Other good references:**  
 https://datacarpentry.org/organization-genomics/  
@@ -88,7 +88,7 @@ https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/
 
 Below are two examples for conventional project structure and naming  
 
-![image](../images/projectStructure.png)
+![image](images/projectStructure.png)
 
 ## Recording the computational environment
 The R package [```renv```](https://rstudio.github.io/renv/articles/renv.html) provides a good way to record the R version and all the packages that your project requires to run, [regardless of whether you end up dockerizing your project or not](https://rstudio.github.io/renv/articles/docker.html). This is the newest incarnation of ```packrat```, by the same developers, so if you've been using ```packrat```, it's a good idea to upgrade to renv.

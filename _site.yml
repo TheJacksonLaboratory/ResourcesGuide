@@ -1,5 +1,4 @@
 name: "ResourcesGuide"
-output_dir: "../_site"
 navbar:
   title: "Computational resources"
   type: "inverse"

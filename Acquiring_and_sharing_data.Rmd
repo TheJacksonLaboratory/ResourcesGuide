@@ -28,7 +28,7 @@ A good way to interact with data objects is in a manner similar to working with 
 
 Sharing data between "native" projects on the same file system can be done using the R package pins (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with Synapse and RStudio Connect can be done using either their own clients (see below) or with ```pins```.  
 
-![image](../images/data_share.png)
+![image](images/data_share.png)
 
 
 To read more about data provenance and management:
@@ -103,7 +103,7 @@ http://pins.rstudio.com/
 The R package ```pins``` works by pinning data objects to boards (See image below). A type of board is basically a connection to a type of location (data repository), such as RStudio Connect and Github, or another folder. Registering a board opens that connection for that session. The local board (local to whichever file system you're on) is by default the cache folder, which by default is ```~/Library/Caches/pins``` on a mac, and is registered automatically when loading the package. You can see it under the connections tab in RStudio.  
 The function ```pin()``` sends ('pushes') an object from the current workspace into the specified board. If ```board='local'``` the object is pinned into the cache, thus made available to other projects on that file system and to future sessions. The function ```pin_get()``` retrieves ('pulls') the object from the board into the workspace via the cache - or from the cache if ```board='local'``` - while checking the original source for updates. In either cases, some basic standardized information about the object is being logged into a text file in the cache folder, creating basic documentation on what is stored there.   
 
-![image](../images/pins2.png)
+![image](images/pins2.png)
 
 
 There can be many connections open to one type of board in a given session, but you'd need to register them separately (per session) under different names.
