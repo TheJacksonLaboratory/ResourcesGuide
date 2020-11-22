@@ -126,7 +126,7 @@ git push -u origin master
 4. Make any changes and repeat step 3 (with a different and informative commit message)
 5. Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with ```git pull```
 
-**Note:** If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the ```git remote add`` comand in step 1. You will then have a .gitignore file already in there. It's a good idea to add LICENSE and README files as well.
+**Note:** If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the ```git remote add``` comand in step 1. You will then have a .gitignore file already in there. It's a good idea to add LICENSE and README files as well.
 
 Another way to get started -  
 **Cloning an existing remote repo to a new local folder:**

@@ -86,7 +86,7 @@ Can be used for showcasing project reports (e.g., rendered markdown files), but 
 
 ## Get connected, get help
 
-* [slack](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/How-to-use-Slack.aspx): Look for the CarterLabJax workspace and The Jackson Laboratory workspace. Once logged into a woekspace, you can browse and join channels.  
+* [slack](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/How-to-use-Slack.aspx): Look for the CarterLabJax workspace and The Jackson Laboratory workspace. Once logged into a workspace, you can browse and join channels.  
 * [hpctalks](https://hpctalk.jax.org/)
 * [helpdesk self-service](https://jax.service-now.com/jax)
 * [webex](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx)
