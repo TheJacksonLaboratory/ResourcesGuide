@@ -465,14 +465,15 @@ This works the same from your local machine or RStudio Server. The config file a
 <p>It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. In the same way you upload the script that was used for generating those results and specify their relations as their provenance. This allows other users to interact with your results with synGet() as described above.</p>
 <p>See <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/606653">here</a> for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The html report in that example includes input and output chunks that illustrate the use of <code>synapser</code> to download and upload data from and to Synapse.</p>
 <p>Since we usually work with secured and/or very heavy data from Synapse, we have synapse cache folder inside the sdata folder on both tier1 and tier2 to ensure that the data remain in a secured location when downloaded. Using this cache folder instead of the one on your home directory will also spare you the need to download your own copy, saving you space.<br />
-To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this:</p>
+To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this for tier2 data:</p>
 <pre><code>###########################
 # Caching                 #
 ###########################
 
 ## your downloaded files are cached to avoid repeat downloads of the same file. change &#39;location&#39; to use a different folder on your computer as the cache location
 [cache]
-location = /tier2/carter-lab/sdata/.synapseCache</code></pre>
+location = /tier2/carter-lab/sdata/AMPAD/.synapseCache</code></pre>
+<p>The location on tier1 is <code>/sdata/carter-lab/carter/AMPAD/.synapseCache</code></p>
 <p>It is also possible to provide a different path to download a file from synapse, thus bypassing the cache. This is useful if we want to keep files in a more visible location than the cache. It would still check for updates before downloading and allow you to incorporate data transfer in the script. For example:</p>
 <pre class="r"><code>file &lt;- &quot;NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt&quot;
 synid &lt;- synFindEntityId(file, parent=&quot;syn11707420&quot;)
