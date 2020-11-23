@@ -22,14 +22,14 @@ https://github.com/TheJacksonLaboratory/IntroToHPC
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx   
 
 **tier1** is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.  
-/home/ Personal space; by default, only the user can view and access.  
-/projects/carter-lab/ Projects in this space should aim to follow some basic rules for reproducibility and sharabilty (see below)  
-/sdata/carter-lab/ for secured data, same as lab's projects  
-/fastscratch/ for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
+```/home/``` Personal space; by default, only the user can view and access.  
+```/projects/carter-lab/``` for shared project files  
+```/sdata/carter-lab/``` for secured data  
+```/fastscratch/``` for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
 
 Files on tier1 can be recovered within [7 days of deletion](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx)  
 
-**tier2** is best used for research project that are developed mainly in [Rstudio Server], as well as "cold data". Can only be accessed with Globus or from RStudio Server (/tier2/carter-lab/)
+**tier2** is best used for research project that are developed mainly in [Rstudio Server], as well as "cold data". Can only be accessed with Globus or from RStudio Server. Projects that use secured data should be in ```/tier2/carter-lab/sdata/```
 
 **/unixhome** is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.
 

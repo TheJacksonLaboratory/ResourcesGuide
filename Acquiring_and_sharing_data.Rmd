@@ -56,14 +56,14 @@ For example, if I need to use mayo metadata (syn11384571) in my analysis:
 # input code
 library(tidyverse)
 
-synLogin()
+synLogin() # include this in every chunk that connects to Synapse
 
 # reading in the file and modifying it for my needs
 mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
   select(WGS_Participant_ID, ApoE, Diagnosis) %>%
   mutate(cohort="mayo")
 ```
-See [here](https://r-docs.synapse.org/articles/manageSynapseCredentials.html) on how to specify your login credentials in ```.synapseConfig```  
+See [here](https://r-docs.synapse.org/articles/manageSynapseCredentials.html) on how to specify your login credentials in ```.synapseConfig```.  
 This works the same from your local machine or RStudio Server. The config file and cache folders will be on your RStudio Server home directory (```/unixhome```).  
 
 It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the ```synStore()``` function. In the same way you upload the script that was used for generating those results and specify their relations as their provenance. This allows other users to interact with your results with synGet() as described above.  
@@ -129,11 +129,11 @@ archetypes <- pin_get("archetypes_meta_k3p20_AD", board="local") %>%
 
 This works the same way from RStudio Server, so it's possible to do the same between projects that live on tier2. The local board in this case is on your home dir on the RStudio Server ```~/.cache/pins```. To see this information you can type ```pins::board_get("local")```
 
-If you're working with secure data from Synapse (for example), you'd want to retrieve it from the sdata folder or directly from Synapse, and perhaps pin your results back to that folder for later use (when applicable). For this purpose, you'd want to register a new local board that points to the pins cache on sdata (once per session). For example, you might have a code chunk like this in your Rmarkdown file:
+If you're working with secure data from Synapse (for example), and you want to pin your results locally for later use, you'd need to pin them to the sdata folder (on tier1 or tier2) instead of the cache. For this purpose, you'd want to register a new local board that points to the pins cache on sdata (once per session). For example, you might have a code chunk like this in your Rmarkdown file:
 ```{r}
-pins::board_register_local(name = "sdata", cache = "/sdata/pins")
+pins::board_register_local(name = "sdata", cache = "/sdata/.cache/pins")
 
-synapser::synLogin()
+synapser::synLogin() # include this in every chunk that connects to Synapse
 
 mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
   select(WGS_Participant_ID, ApoE, Diagnosis) %>%
@@ -142,11 +142,11 @@ mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
         description="ouput of <path/rmd_file> etc", 
         board="sdata")
 ```
-Please see above instructions on how to direct ```synGet()``` to download data into the secured cache folder on tier1 and tier2 instead of your home directory.
+Please see instructions above on how to direct ```synGet()``` to download data into the secured cache folder on tier1 and tier2 instead of your home directory.
 
 In order to retrieve the modified file in another session:
 ```{r}
-board_register_local(name = "sdata", cache = "/sdata/pins")
+board_register_local(name = "sdata", cache = "/sdata/.cache/pins")
 pin_find("mayo", board="sdata") # see everything available in that board for mayo cohort
 pin_info("mayo_metadata_wgs_apoe_diagnosis") # retrieve info for this data frame
 mayo <- pin_get("mayo_metadata_wgs_apoe_diagnosis", board="sdata")

@@ -421,12 +421,12 @@ div.tocify {
 <h2>Storage</h2>
 <p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx</a></p>
 <p><strong>tier1</strong> is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.<br />
-/home/ Personal space; by default, only the user can view and access.<br />
-/projects/carter-lab/ Projects in this space should aim to follow some basic rules for reproducibility and sharabilty (see below)<br />
-/sdata/carter-lab/ for secured data, same as lab’s projects<br />
-/fastscratch/ for temporary files. <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx">See here for usage guidelines</a></p>
+<code>/home/</code> Personal space; by default, only the user can view and access.<br />
+<code>/projects/carter-lab/</code> for shared project files<br />
+<code>/sdata/carter-lab/</code> for secured data<br />
+<code>/fastscratch/</code> for temporary files. <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx">See here for usage guidelines</a></p>
 <p>Files on tier1 can be recovered within <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx">7 days of deletion</a></p>
-<p><strong>tier2</strong> is best used for research project that are developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as well as “cold data”. Can only be accessed with Globus or from RStudio Server (/tier2/carter-lab/)</p>
+<p><strong>tier2</strong> is best used for research project that are developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as well as “cold data”. Can only be accessed with Globus or from RStudio Server. Projects that use secured data should be in <code>/tier2/carter-lab/sdata/</code></p>
 <p><strong>/unixhome</strong> is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.</p>
 <p>Use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a> to transfer data between the different storages. Use <a href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to incorporate data transfer in the script whenever applicable.<br />
 You can also use <a href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a> from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome</p>
