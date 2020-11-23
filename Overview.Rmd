@@ -99,6 +99,7 @@ https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentatio
 http://jaxbhflash02.jax.org/index/default.aspx   
 Software carpentry:   
 https://carpentries-incubator.github.io/singularity-introduction/index.html   
+https://hpc-carpentry.github.io/  
 RStudio:  
 https://education.rstudio.com/  
 Others:  

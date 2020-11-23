@@ -66,9 +66,11 @@ mayo <- read_csv(synapser::synGet("syn11384571")$path) %>%
 See [here](https://r-docs.synapse.org/articles/manageSynapseCredentials.html) on how to specify your login credentials in ```.synapseConfig```.  
 This works the same from your local machine or RStudio Server. The config file and cache folders will be on your RStudio Server home directory (```/unixhome```).  
 
-It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the ```synStore()``` function. In the same way you upload the script that was used for generating those results and specify their relations as their provenance. This allows other users to interact with your results with synGet() as described above.  
+It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the ```synStore()``` function. This allows other users to interact with your results with synGet() as described above. With this function you can also upload the script that was used for generating those results and specify their relations as their provenance.  
 
-See [here](https://www.synapse.org/#!Synapse:syn7419026/wiki/606653) for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The html report in that example includes input and output chunks that illustrate the use of ```synapser``` to download and upload data from and to Synapse.
+The package [knit2synapse](https://github.com/Sage-Bionetworks/knit2synapse) allows you to knit Rmarkdown files directly to synapse as a wiki page.    
+
+See [here](https://www.synapse.org/#!Synapse:syn7419026/wiki/606653) for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The html report in that example includes input and output chunks that demonstrate the use of ```synapser``` to download and upload data directly from and to Synapse.
 
 Since we usually work with secured and/or very heavy data from Synapse, we have synapse cache folder inside the sdata folder on both tier1 and tier2 to ensure that the data remain in a secured location when downloaded. Using this cache folder instead of the one on your home directory will also spare you the need to download your own copy, saving you space.  
 To do that, open the ```.synapseConfig``` file in your home directory and edit the caching part to look like this for tier2 data:

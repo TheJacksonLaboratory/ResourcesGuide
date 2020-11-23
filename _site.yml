@@ -13,8 +13,8 @@ navbar:
         href: Organizing_projects.html
       - text: "Acquiring Data"
         href: Acquiring_and_sharing_data.html
-      - text: "Working with HPC"
-        href: Working_with_the_hpc_cluster.html
+      - text: "Working with HPCC"
+        href: Working_with_hpcc.html
       - text: "Containerizing"
         href: Containerizing.html
       - text: "Publishing"

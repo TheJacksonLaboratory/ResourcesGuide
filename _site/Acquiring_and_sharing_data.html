@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-11-22" />
+<meta name="date" content="2020-11-23" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -371,7 +371,7 @@ div.tocify {
       <a href="Acquiring_and_sharing_data.html">Acquiring Data</a>
     </li>
     <li>
-      <a href="Working_with_the_hpc_cluster.html">Working with HPC</a>
+      <a href="Working_with_hpcc.html">Working with HPCC</a>
     </li>
     <li>
       <a href="Containerizing.html">Containerizing</a>
@@ -407,7 +407,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-11-22</h4>
+<h4 class="date">2020-11-23</h4>
 
 </div>
 
@@ -462,8 +462,9 @@ mayo &lt;- read_csv(synapser::synGet(&quot;syn11384571&quot;)$path) %&gt;%
   mutate(cohort=&quot;mayo&quot;)</code></pre>
 <p>See <a href="https://r-docs.synapse.org/articles/manageSynapseCredentials.html">here</a> on how to specify your login credentials in <code>.synapseConfig</code>.<br />
 This works the same from your local machine or RStudio Server. The config file and cache folders will be on your RStudio Server home directory (<code>/unixhome</code>).</p>
-<p>It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. In the same way you upload the script that was used for generating those results and specify their relations as their provenance. This allows other users to interact with your results with synGet() as described above.</p>
-<p>See <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/606653">here</a> for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The html report in that example includes input and output chunks that illustrate the use of <code>synapser</code> to download and upload data from and to Synapse.</p>
+<p>It is also possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. This allows other users to interact with your results with synGet() as described above. With this function you can also upload the script that was used for generating those results and specify their relations as their provenance.</p>
+<p>The package <a href="https://github.com/Sage-Bionetworks/knit2synapse">knit2synapse</a> allows you to knit Rmarkdown files directly to synapse as a wiki page.</p>
+<p>See <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/606653">here</a> for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The html report in that example includes input and output chunks that demonstrate the use of <code>synapser</code> to download and upload data directly from and to Synapse.</p>
 <p>Since we usually work with secured and/or very heavy data from Synapse, we have synapse cache folder inside the sdata folder on both tier1 and tier2 to ensure that the data remain in a secured location when downloaded. Using this cache folder instead of the one on your home directory will also spare you the need to download your own copy, saving you space.<br />
 To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this for tier2 data:</p>
 <pre><code>###########################
