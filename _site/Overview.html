@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-11-23" />
+<meta name="date" content="2020-11-24" />
 
 <title>Overview of computational resources</title>
 
@@ -407,7 +407,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Overview of computational resources</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-11-23</h4>
+<h4 class="date">2020-11-24</h4>
 
 </div>
 
@@ -431,6 +431,10 @@ div.tocify {
 <p>Use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a> to transfer data between the different storages. Use <a href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to incorporate data transfer in the script whenever applicable.<br />
 You can also use <a href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a> from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome</p>
 </div>
+<div id="synapse" class="section level2">
+<h2>Synapse</h2>
+<p><a href="https://www.synapse.org/#" class="uri">https://www.synapse.org/#</a> This is an online platform for managing and sharing research projects. It provides a remote data repository for storing and sharing results in a reproducible and reusable manner. We use it mostly for AMP-AD-related projects, but other projects can be hosted there as well. We have a private workspace there that can be accessed <a href="https://www.synapse.org/#!Synapse:syn23573590/wiki/">here</a>. You’d need to register and be added to the Carter Lab team. See the <a href="https://rshiny.jax.org/connect/#/apps/167/access">full resource guide</a> for more details (under Acquiring and Sharing Data).</p>
+</div>
 <div id="rstudio-server" class="section level2">
 <h2>Rstudio Server</h2>
 <ol style="list-style-type: decimal">
@@ -449,7 +453,7 @@ You can also use <a href="https://haydenjames.io/linux-securely-copy-files-using
 </div>
 <div id="carterdev" class="section level2">
 <h2>carterdev</h2>
-<p>Hosts shiny apps and websites for large collaborative projects.</p>
+<p>Development space. Hosts shiny apps and websites for ongoing projects. To connect typr <a href="http://carterdev:3838/" class="uri">http://carterdev:3838/</a> in your browser.</p>
 </div>
 <div id="jaxreg" class="section level2">
 <h2>JAXREG</h2>
@@ -458,13 +462,12 @@ A platform for Singularity containers by JAX HPC users. The Carter lab has its o
 </div>
 <div id="jax-github" class="section level2">
 <h2>Jax github</h2>
-<p>Mostly for code and text. Main advantage is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories.<br />
-<a href="https://github.com/TheJacksonLaboratory" class="uri">https://github.com/TheJacksonLaboratory</a><br />
+<p>The main advantage of using github is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, rather than whole research projects.</p>
+<p><a href="https://github.com/TheJacksonLaboratory" class="uri">https://github.com/TheJacksonLaboratory</a><br />
 <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx</a><br />
 <a href="https://git-scm.com/book/en/v2" class="uri">https://git-scm.com/book/en/v2</a></p>
 <p>The Carter lab has its own team space inside Jax account. When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private. Also, it will be less visible to other jax members when it’s under your personal account.<br />
 <strong>Note:</strong> There is no difference in the definition of <em>public</em> and <em>private</em> repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.</p>
-<p>**Size limit?</p>
 </div>
 <div id="dropbox" class="section level2">
 <h2>Dropbox</h2>
@@ -473,7 +476,7 @@ A platform for Singularity containers by JAX HPC users. The Carter lab has its o
 </li>
 <li>Plays nicely with R projects and RStudio.<br />
 </li>
-<li>Version control and backup of the whole project folder.<br />
+<li>Allows version control and backup with unlimited size.<br />
 </li>
 <li>Allows sharing of whole project folder or any part of it.<br />
 </li>

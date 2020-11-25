@@ -36,6 +36,10 @@ Files on tier1 can be recovered within [7 days of deletion](https://jacksonlabor
 Use [Globus](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx) to transfer data between the different storages. Use [Globus CLI](https://docs.globus.org/cli/quickstart/) to incorporate data transfer in the script whenever applicable.  
 You can also use [SCP](https://haydenjames.io/linux-securely-copy-files-using-scp/) from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome 
 
+## Synapse
+https://www.synapse.org/#
+This is an online platform for managing and sharing research projects. It provides a remote data repository for storing and sharing results in a reproducible and reusable manner. We use it mostly for AMP-AD-related projects, but other projects can be hosted there as well. We have a private workspace there that can be accessed [here](https://www.synapse.org/#!Synapse:syn23573590/wiki/). You'd need to register and be added to the Carter Lab team. See the [full resource guide](https://rshiny.jax.org/connect/#/apps/167/access) for more details (under Acquiring and Sharing Data). 
+
 ## Rstudio Server
 
 1. open a ticket with IT to request an account
@@ -49,14 +53,15 @@ For organization sake, avoid using the space provided with Rstudio Server except
 Ask IT to add you as a Shiny user. You can log into it either from RStudio Server or https://rshiny.jax.org/connect/
 
 ## carterdev
-Hosts shiny apps and websites for large collaborative projects.
+Development space. Hosts shiny apps and websites for ongoing projects. To connect typr http://carterdev:3838/ in your browser.
 
 ## JAXREG
 https://jaxreg.jax.org/  
 A platform for Singularity containers by JAX HPC users. The Carter lab has its own team space there. Once you login with your jax credentials, you can upload containers and create collections. You can then either make it public - open to the whole jax community - or you can make it private and invite team members and anyone else at jax.
 
 ## Jax github
-Mostly for code and text. Main advantage is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories.    
+The main advantage of using github is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, rather than whole research projects. 
+
 https://github.com/TheJacksonLaboratory  
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx  
 https://git-scm.com/book/en/v2  
@@ -65,13 +70,11 @@ The Carter lab has its own team space inside Jax account. When making new reposi
 **Note:** There is no difference in the definition of *public* and *private* repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.   
 
 
-**Size limit?
-
 ## Dropbox 
 
 * Individaul accounts only (no lab account).  
 * Plays nicely with R projects and RStudio.  
-* Version control and backup of the whole project folder.  
+* Allows version control and backup with unlimited size.  
 * Allows sharing of whole project folder or any part of it.  
 * Files can be set up to be ignored during synchronization in either direction: they can be [saved only on local machines](https://help.dropbox.com/files-folders/restore-delete/ignored-files) (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).   
 
