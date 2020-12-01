@@ -37,20 +37,19 @@ Use [Globus](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages
 You can also use [SCP](https://haydenjames.io/linux-securely-copy-files-using-scp/) from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome 
 
 ## Synapse
-https://www.synapse.org/#
-This is an online platform for managing and sharing research projects. It provides a remote data repository for storing and sharing results in a reproducible and reusable manner. We use it mostly for AMP-AD-related projects, but other projects can be hosted there as well. We have a private workspace there that can be accessed [here](https://www.synapse.org/#!Synapse:syn23573590/wiki/). You'd need to register and be added to the Carter Lab team. See the [full resource guide](https://rshiny.jax.org/connect/#/apps/167/access) for more details (under Acquiring and Sharing Data). 
+https://www.synapse.org/  
+This is an online platform for managing and sharing data and research projects. It provides a data repository for storing and sharing results in a reproducible and reusable manner. We have [a private workspace there](https://www.synapse.org/#!Synapse:syn23573590/wiki/), which can be used for any project, and a separate space specifically for [Model-AD](https://www.synapse.org/#!Synapse:syn7419026/wiki/586126). You'd need to register and be added to the Carter Lab team. See the [full resource guide](https://rshiny.jax.org/connect/#/apps/167/access) for more details on how to use this platform (under Acquiring and Sharing Data). 
 
 ## Rstudio Server
 
 1. open a ticket with IT to request an account
-2. Go to https://rstudio.jax.org/  
-2. Sign in with your jax credential  
-3. Navigate to tier2 space: Click on the three dots in the upper-right corner of the files   management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
+2. Go to https://rstudio.jax.org/ and sign in with your jax credential  
+3. To navigate to tier2 space: Click on the three dots in the upper-right corner of the files   management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
 
-For organization sake, avoid using the space provided with Rstudio Server except as a dumpster/attic. Use tier2 for shareablilty and collaboration.
+The space provided with Rstudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.
 
-## Shiny server
-Ask IT to add you as a Shiny user. You can log into it either from RStudio Server or https://rshiny.jax.org/connect/
+## Shiny server and RStudio Connect
+Ask IT to add you as a Shiny user. You can log into it either from RStudio Server or https://rshiny.jax.org/connect/. You can publish other files as well, e.g., Rmarkdown reports or csv files, not just shiny apps.
 
 ## carterdev
 Development space. Hosts shiny apps and websites for ongoing projects. To connect typr http://carterdev:3838/ in your browser.
