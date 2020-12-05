@@ -1,4 +1,5 @@
 name: "ResourcesGuide"
+output_dir: "docs"
 navbar:
   title: "Computational resources"
   type: "inverse"
@@ -20,8 +21,6 @@ navbar:
       - text: "Publishing"
         href: Publishing.html
     right:
-  - icon: fa-calendar-alt
-    href: https://jacksonlaboratory.sharepoint.com/sites/CarterLab/Lists/Calendar/calendar.aspx
   - icon: fa-github
     href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
 
