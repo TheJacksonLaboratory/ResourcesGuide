@@ -1,3 +1,3 @@
 # ResourcesGuide
-This project provides an overview of the various computational resources we have at the Carter Lab and how to get started with them, as well as some best-practice guidelines for promoting reproducibility. This is not meant to be a comprehensive tutorial, but more of a continuously-evolving road map. You can view the full guide [here](https://thejacksonlaboratory.github.io/ResourcesGuide/)
+This project provides an overview of the various computational resources we have at the Carter Lab and how to get started with them, as well as some best-practice guidelines for promoting reproducibility. This is not meant to be a comprehensive tutorial, but more of a continuously-evolving road map. You can view the full guide [here](https://thejacksonlaboratory.github.io/ResourcesGuide/).  
 Feel free to contribute and provide feedback either through github or by contacting annat.haber@jax.org.
