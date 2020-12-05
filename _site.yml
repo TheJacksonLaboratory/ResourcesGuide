@@ -1,4 +1,5 @@
 name: "ResourcesGuide"
+output_dir: "docs"
 navbar:
   title: "Computational resources"
   type: "inverse"
