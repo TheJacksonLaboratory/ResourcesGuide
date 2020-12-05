@@ -1,0 +1,32 @@
+name: "ResourcesGuide"
+output_dir: "docs"
+navbar:
+  title: "Computational resources"
+  type: "inverse"
+  left:
+  - text: "Home"
+    href: index.html
+  - text: "Overview"
+    href: Overview.html
+  - text: "How to"
+    menu:
+      - text: "Organizing Projects"
+        href: Organizing_projects.html
+      - text: "Acquiring Data"
+        href: Acquiring_and_sharing_data.html
+      - text: "Working with HPCC"
+        href: Working_with_hpcc.html
+      - text: "Containerizing"
+        href: Containerizing.html
+      - text: "Publishing"
+        href: Publishing.html
+    right:
+  - icon: fa-github
+    href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
+
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    theme: cerulean
+    highlight: textmate
