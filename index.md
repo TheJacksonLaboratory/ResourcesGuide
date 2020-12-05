@@ -1,0 +1,10 @@
+---
+title: "Home"
+output:
+  html_document:
+    toc: false
+---
+
+
+
+This document provides an overview of the various computational resources we have at the carter Lab and how to get started with them, as well as some best-practice guidelines for promoting reproducibility. This is not meant to be a comprehensive tutorial, but more of a continuously-evolving road map. To contribute please use the [github](https://github.com/TheJacksonLaboratory/ResourcesGuide) repository. You're welcome to provide any feedback by either opening an issue on github or contacting annat.haber@jax.org. 

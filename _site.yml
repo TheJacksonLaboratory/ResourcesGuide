@@ -1,5 +1,4 @@
 name: "ResourcesGuide"
-output_dir: "docs"
 navbar:
   title: "Computational resources"
   type: "inverse"
@@ -26,6 +25,7 @@ navbar:
 
 output:
   html_document:
+    keep_md: true
     toc: yes
     toc_float: yes
     theme: cerulean
