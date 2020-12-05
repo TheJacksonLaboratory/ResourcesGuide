@@ -2,12 +2,6 @@
 title: "Organizing Projects"
 author: "Carter Lab"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: yes
-    toc_float: yes
-    theme: cerulean
-    highlight: textmate
 ---
 
 ```{r setup, include=FALSE}
@@ -138,5 +132,3 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 ```
 2. Make changes and repeat step 3 above
 3. Repeat step 5 above
-
-**See [here](https://resources.github.com/whitepapers/github-and-rstudio/) for a clear and basic introduction to using github and RStudio**

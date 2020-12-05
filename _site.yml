@@ -1,7 +1,7 @@
 name: "ResourcesGuide"
+output_dir: "docs"
 navbar:
   title: "Computational resources"
-  type: "inverse"
   left:
   - text: "Home"
     href: index.html
@@ -28,4 +28,3 @@ output:
     toc: yes
     toc_float: yes
     theme: cerulean
-    highlight: textmate
