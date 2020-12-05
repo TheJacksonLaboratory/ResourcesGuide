@@ -28,13 +28,13 @@ To that end, we can think of a computational project as a data object in the bro
 
 * To allow both humans and machines to make sense of the data as is
 * To allow the reader/collaborator to reproduce the whole paper/analysis with a click of a button (or a few)
-* To provide a record of our *in silico* experiments similar to [a wet-lab notebook](https://snco.com/standards-keeping-laboratory-notebook/?gclid=CjwKCAiAqJn9BRB0EiwAJ1SztfIEQ-WHthk7yfS2kGQ9Ednvk1cnthKj1uRTTrtgV-AC_AkUUl9flhoCyiUQAvD_BwE)
+* To provide a record of our *in silico* experiments similar to [a wet-lab notebook](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004385)
 
 Here are some rules of thumb for how to set up and organize a FAIR-compliant project. See below for more details. See other sections for acquiring and sharing data and for publishing.
 
 **Rules of thumb:**
 
-* Set up your project folder as a formal R project in RStudio, or some equivalent of that  
+* Set up your project folder as a formal R project in RStudio, or the equivalent of that in other IDE's   
 * Use standardized naming and structure following community conventions.  
 * Keep raw data separate from scripts and output (see separate section on acquiring data)
 * Treat input data as read-only and output as disposable. [Script everything](https://kbroman.org/steps2rr/pages/scripts.html). 
