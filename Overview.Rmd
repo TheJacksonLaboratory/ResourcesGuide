@@ -103,3 +103,4 @@ Others:
 https://kbroman.org/steps2rr/  
 https://dataoneorg.github.io/Education/
 https://lab.github.com/  
+https://compgenomr.github.io/book/  
