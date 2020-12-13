@@ -1,14 +1,14 @@
 name: "ResourcesGuide"
-output_dir: "docs"
+#output_dir: "docs"
 navbar:
-  title: "Computational resources"
+  title: "Computational Resources - Carter Lab"
   left:
   - text: "Home"
     href: index.html
-  - text: "Overview"
-    href: Overview.html
-  - text: "How to"
+  - text: "Guide"
     menu:
+      - text: "Overview"
+        href: Overview.html
       - text: "Organizing Projects"
         href: Organizing_projects.html
       - text: "Acquiring Data"

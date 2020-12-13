@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-12-12" />
+<meta name="date" content="2020-12-13" />
 
 <title>Organizing Projects</title>
 
@@ -347,23 +347,23 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Computational resources</a>
+      <a class="navbar-brand" href="index.html">Computational Resources - Carter Lab</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
   <a href="index.html">Home</a>
 </li>
-<li>
-  <a href="Overview.html">Overview</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    How to
+    Guide
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Overview.html">Overview</a>
+    </li>
     <li>
       <a href="Organizing_projects.html">Organizing Projects</a>
     </li>
@@ -401,7 +401,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Organizing Projects</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-12-12</h4>
+<h4 class="date">2020-12-13</h4>
 
 </div>
 
@@ -410,7 +410,7 @@ div.tocify {
 <p><strong>Motivation:</strong><br />
 From the FAIR publication:<br />
 “Beyond proper collection, annotation, and archival, data stewardship includes the notion of ‘long-term care’ of valuable digital assets, with the goal that they should be reusable for downstream investigations, either alone, or in combination with newly generated data… The principles apply not only to ‘data’ in the conventional sense, but also to the algorithms, tools, and workflows that led to that data: all components of the research process must be available to ensure transparency, reproducibility, and reusability.”</p>
-<p>To that end, we can think of a computational project as a data object in the broad sense - an identifiable digital item that includes data elements such as tables of measurements along with all the relevant metadata and scripts - and apply FAIR principles to all aspects of the project, including organization, development, and publication. Project components may be of any level of complexity and appear in any form or syntax. Documentation of wet-lab components can and should be included in some form as well.</p>
+<p>To that end, we can think of a computational project as a data object in the broad sense - an identifiable digital item that includes data elements such as tables of measurements along with all the relevant metadata and scripts - and apply FAIR principles to all aspects of the project, including organization, development, and publication. Project components may be of any level of complexity and appear in any form or syntax. Documentation of wet-lab components can and should be included in some form as well, as they are part of the data provenance.</p>
 <p><strong>Goals:</strong></p>
 <ul>
 <li>To allow both humans and machines to make sense of the data as is</li>
@@ -420,14 +420,13 @@ From the FAIR publication:<br />
 <p>Here are some rules of thumb for how to set up and organize a FAIR-compliant project. See below for more details. See other sections for acquiring and sharing data and for publishing.</p>
 <p><strong>Rules of thumb:</strong></p>
 <ul>
-<li>Set up your project folder as a formal R project in RStudio, or the equivalent of that in other IDE’s<br />
+<li>Set up your project folder as a formal R project in RStudio, or the equivalent of that in other IDEs<br />
 </li>
-<li>Use standardized naming and structure following community conventions.<br />
-</li>
+<li>Use standardized naming and structure following <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/">community conventions</a></li>
 <li>Keep raw data separate from scripts and output (see separate section on acquiring data)</li>
-<li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a>.</li>
+<li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a></li>
 <li>Include a “dumbed-down” <a href="https://data.research.cornell.edu/content/readme">README file</a> as a walk-through (maybe a flow chart; maybe md file)</li>
-<li><p>Include a license file as needed; CC-0 and CC-BY are <a href="https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/">commonly used</a></p></li>
+<li>Include a license file as needed; CC-0 and CC-BY are <a href="https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/">commonly used</a></li>
 <li>If your project involves working on several file systems, duplicate whole project folders, not bits and pieces of data/code (see image below).
 <ul>
 <li>Consider syncing your local copy with Dropbox for extra backup and version control.</li>
@@ -445,32 +444,31 @@ From the FAIR publication:<br />
 <p class="caption">image</p>
 </div>
 <p><strong>Other good references:</strong><br />
-<a href="https://datacarpentry.org/organization-genomics/" class="uri">https://datacarpentry.org/organization-genomics/</a><br />
-<a href="https://datacarpentry.org/shell-genomics/06-organization/index.html" class="uri">https://datacarpentry.org/shell-genomics/06-organization/index.html</a><br />
-<a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
+<a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a> <a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
 <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2" class="uri">https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2</a><br />
 <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20" class="uri">https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20</a><br />
 <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424" class="uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424</a><br />
 <a href="https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf" class="uri">https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf</a></p>
 <div id="r-projects-and-rmarkdown" class="section level2">
 <h2>R projects and Rmarkdown</h2>
-<p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own project set up.</p>
-<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with jupyter notebooks. Both RMarkdown and jupyter notebooks can run code in many languages, not just r or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
-<p>If your project is very complex you can use <a href="https://www.gnu.org/software/make/">GNU Make</a> to put all the steps together in a reproducible manner, as shown <a href="https://kbroman.org/steps2rr/pages/automate.html">here</a>.</p>
-<p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file that can be read as a final document in git repositories, while rmarkdown and other file types can only be read as code (see <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison).<br />
+<p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. <a href="https://code.visualstudio.com/docs/setup/setup-overview">Visual Studio</a>.</p>
+<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just r or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
+<p>If your project is very complex you can also use <a href="https://www.gnu.org/software/make/">GNU Make</a> to put all the steps together in a reproducible manner, as shown <a href="https://kbroman.org/steps2rr/pages/automate.html">here</a>.</p>
+<p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. This is helpful if you want to publish it on Github Pages. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison.<br />
 To save a markdown version while rendering it as html:</p>
 <pre><code>output: 
   html_document:
     keep_md: true</code></pre>
 <p>You don’t have to use RStudio to genearte reports with R Markdown, you can use the <code>rmarkdown</code> package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.</p>
-<p>Two other major advances in the R world in recent years include the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://ggplot2.tidyverse.org/index.html">ggplot</a> approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see <a href="https://peerj.com/preprints/3180v1/">here</a>). These tools are the gold standard in data science these days (if using R) and are well worth learning.</p>
+<p>Two other major advances in the R world in recent years include the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://ggplot2.tidyverse.org/index.html">ggplot</a> approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see <a href="https://peerj.com/preprints/3180v1/">here</a> for examples).</p>
 </div>
 <div id="folder-structure-and-naming" class="section level2">
 <h2>Folder structure and naming</h2>
-<p>Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles would be the same for other languages and IDEs.</p>
-<p>Some examples: ProjectTemplate, makeProject, prodigenr, <a href="http://drivendata.github.io/cookiecutter-data-science/">cookiecutter</a><br />
+<p>Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are be the same for other languages and IDEs.</p>
+<p>Some examples: <a href="http://projecttemplate.net/">ProjectTemplate</a>, <a href="https://cran.r-project.org/web/packages/prodigenr/vignettes/prodigenr.html">prodigenr</a>, <a href="http://drivendata.github.io/cookiecutter-data-science/">cookiecutter</a><br />
 <a href="http://kbroman.org/steps2rr/pages/organize.html" class="uri">http://kbroman.org/steps2rr/pages/organize.html</a><br />
-<a href="https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/" class="uri">https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/</a></p>
+<a href="https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/" class="uri">https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/</a><br />
+<a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a></p>
 <p>Below are two examples for conventional project structure and naming</p>
 <div class="figure">
 <img src="images/projectStructure.png" alt="image" />
@@ -533,6 +531,8 @@ git push -u origin master</code></pre>
 <li>Make changes and repeat step 3 above</li>
 <li>Repeat step 5 above</li>
 </ol>
+<p>See <a href="https://resources.github.com/whitepapers/github-and-rstudio/">here</a> on how to publish R markdown reports/websites on Github Pages.</p>
+<p>If you’re going to collaborate on code/text development through github, it helps to <a href="https://guides.github.com/introduction/flow/">understand the github flow</a> and how branching and forking works.</p>
 </div>
 
 
