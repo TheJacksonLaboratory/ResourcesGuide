@@ -406,15 +406,15 @@ div.tocify {
 </div>
 
 
-<p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It’s a good idea to set up the hpc environment with some “module-like” infrastructure to allow some flexibility in interactive sessions for development and testing. Otherwise need to either pull or build a container that has every needed package/software in it for every project. For a comparison of using a module-like set up vs containers see <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">here</a></p>
+<p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It’s a good idea to set up the hpc environment with some “module-like” infrastructure to allow some flexibility in interactive sessions for development and testing. For a comparison of using a module-like setup vs containers see <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">here</a></p>
 <div id="setting-up-your-hpc-environment" class="section level2">
 <h2>Setting up your hpc environment</h2>
 <p>Open a terminal app (either stand-alone or RStudio).<br />
-Tip: If you use the terminal tab in RStudio. You can then source code directly from your editor to the terminal with source code by pressing alt-cmd-enter when standing on the code line you want to source.</p>
+Tip: If you use the terminal tab in RStudio, you can then source code directly from your editor to the terminal by pressing alt-cmd-enter.</p>
 <ol style="list-style-type: decimal">
 <li>Log into sumner</li>
 </ol>
-<pre class="bash"><code>ssh USERNAME@login.sumner.jax.org</code></pre>
+<pre class="bash"><code>ssh &lt;USERNAME&gt;@login.sumner.jax.org</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Create a directory for all your containers, packages, etc</li>
 </ol>
@@ -422,11 +422,11 @@ Tip: If you use the terminal tab in RStudio. You can then source code directly f
 <ol start="3" style="list-style-type: decimal">
 <li>Add bin into your $PATH<br />
 <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx</a><br />
-Open .bash_profile with a text editor</li>
+Open .bash_profile with a text editor:</li>
 </ol>
 <pre class="bash"><code>cd ~ # make sure you&#39;re in home dir
 nano .bash_profile # using nano to edit the file</code></pre>
-<p>And add these lines to the file</p>
+<p>And add these lines to the file:</p>
 <pre class="bash"><code>#Singularity Containers
 export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin elsewhere</code></pre>
 <p>Save and exit the editor, and restart your terminal.<br />
@@ -451,10 +451,7 @@ singularity pull --name R.sif docker://r-base:latest
 </ol>
 <p><strong>Type <code>logout</code> to close the connection to sumner</strong><br />
 See also <a href="https://hpctalk.jax.org/t/sumner-crash-course/77" class="uri">https://hpctalk.jax.org/t/sumner-crash-course/77</a></p>
-</div>
-<div id="installing-software-on-hpc" class="section level2">
-<h2>Installing software on hpc</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx</a><br />
+<p>See these links for installing software on the cluster: <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx</a><br />
 <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71" class="uri">https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71</a></p>
 </div>
 <div id="working-interactively-on-the-cluster" class="section level2">
@@ -462,7 +459,7 @@ See also <a href="https://hpctalk.jax.org/t/sumner-crash-course/77" class="uri">
 <p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx</a><br />
 Working interactively has the potential to drain the hpc resources for everyone else. Therefore, please keep in mind the following:<br />
 1. Shut down the session when you’re done working by typing <code>exit</code> or <code>ctrl-D</code>. Idle sessions are killed pretty quickly.<br />
-2. Don’t over-allocate resources when initializing the session. Over-allocation will get your session killed and your rapport with IT ruined.<br />
+2. Don’t over-allocate resources when initializing the session. Over-allocation will get your session killed and your rapport with IT tarnished.<br />
 3. Be prepared to lose your work at any time. Interactive sessions will be the first to go in times of high demand. Script everything.</p>
 <p>See <code>man srun</code> for options such as CPU and memory allocation</p>
 <div id="from-your-local-rstudio-app" class="section level3">
@@ -483,25 +480,24 @@ library(here) # once every session
 here()
 
 install.packages(&quot;tidyverse&quot;, dependencies = TRUE) # need to install some dependencies manually FIND CONTAINER TO REPLACE R.sif</code></pre>
-<p>tip: If you use the terminal tab in RStudio. You can then source code directly from your editor to the terminal with source code by pressing alt-cmd-enter when standing on the code line you want to source.</p>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
 <p><strong>Note:</strong><br />
 You can do the above from any tier1 folder.<br />
 If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before intializing the interactive session, before calling R.sif, or from inside R.</p>
-<p>This option is great for installing packages and doing simple tests on hpc while developing your project mostly on your local machine. You will need to synchronize your local project folder with a copy on tier1 (see section 5 [Organizing projects] below). However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 copy see the next section.<br />
-If you’re developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the [RStudio Server].</p>
+<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 folder see the next section.<br />
+If you’re developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.</p>
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
 <p>You can <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">run Rstudio Server on the hpc</a> and access it from a local browser via port 8787.<br />
 You’ll need to install it with singularity from <a href="https://www.rocker-project.org/use/singularity/">the rocker project</a>.<br />
-Here logging out of a session is crucial not only to avoid draining hpc resources but also to avoid RStudio session log filling up your home storage.</p>
+Logging out of a session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your home storage.</p>
 <p>Two other options are the R packages <a href="https://cran.r-project.org/web/packages/remoter/index.html">remoter</a> and <a href="https://github.com/cloudyr/rmote">rmote</a>, but on the face of it they don’t seem very helpful for most of our needs. Package rmote uses the cluster for computations while using local web browser for resulting graphics, but is not available for newer versions of R and doesn’t seem to be actively maintained anymore. Package remoter is part of <a href="https://pbdr.org/index.html">a big and actively maintained project</a>, and allows running remote sessions in parallel to local ones, including “remote” sessions on you local machine, but does not provide graphic interface and visualization for those sessions.</p>
 </div>
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">
 <h2>Submitting jobs to the cluster</h2>
-<p><a href="https://slurm.schedmd.com/rosetta.pdf" class="uri">https://slurm.schedmd.com/rosetta.pdf</a> <a href="https://slurm.schedmd.com/quickstart.html" class="uri">https://slurm.schedmd.com/quickstart.html</a></p>
+<p>See <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Research IT documentation</a> for how to submit jobs to the cluster. Also useful: <a href="https://slurm.schedmd.com/rosetta.pdf" class="uri">https://slurm.schedmd.com/rosetta.pdf</a> <a href="https://slurm.schedmd.com/quickstart.html" class="uri">https://slurm.schedmd.com/quickstart.html</a></p>
 </div>
 
 
