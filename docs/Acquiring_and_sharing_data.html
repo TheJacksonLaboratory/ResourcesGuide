@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-12-07" />
+<meta name="date" content="2020-12-12" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -371,7 +371,7 @@ div.tocify {
       <a href="Acquiring_and_sharing_data.html">Acquiring Data</a>
     </li>
     <li>
-      <a href="Working_with_hpcc.html">Working with HPCC</a>
+      <a href="Working_with_hpc.html">Working with HPC</a>
     </li>
     <li>
       <a href="Containerizing.html">Containerizing</a>
@@ -401,7 +401,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-12-07</h4>
+<h4 class="date">2020-12-12</h4>
 
 </div>
 
@@ -415,8 +415,8 @@ div.tocify {
 <li>Describe data: origin, what’s been done with it, what the columns/rows mean, etc.</li>
 <li>keep data files together with their metadata and any processing scripts when applicable, either physically or with a reliable link between them.</li>
 </ul>
-<p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason. If both input and output are managed in this way, the project folder itself becomes be a lot lighter and might be pushed to github.</p>
-<p>Sharing data between “native” projects on the same file system can be done using the R package <code>pins</code> (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
+<p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are (currently) limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason. Also, if both input and output are handled with such tools, the project folder itself becomes a lot lighter and might be pushed to github as is.</p>
+<p>Sharing data between “native” projects on the same file system can be done using the R package <code>pins</code> (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with servers such as Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
 <div class="figure">
 <img src="images/data_share.png" alt="image" />
 <p class="caption">image</p>
@@ -425,11 +425,12 @@ div.tocify {
 <a href="https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf" class="uri">https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf</a><br />
 <a href="https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance" class="uri">https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance</a><br />
 <a href="https://docs.synapse.org/articles/provenance.html" class="uri">https://docs.synapse.org/articles/provenance.html</a></p>
+<p>An example for a resource sharing plan to include in NIH grants: <a href="https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md" class="uri">https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md</a></p>
 <div id="from-scientific-services" class="section level2">
 <h2>From Scientific Services</h2>
 <p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a>.</p>
 <ul>
-<li>Keep data files together with all the metadata that came with them.<br />
+<li>Keep data files together with all the metadata that come with them.<br />
 </li>
 <li>Keep data in a shared designated location, not in your home directory and not under your name. For example <code>/projects/hepatocytes/data/RRBS/</code> and not <code>/projects/hepatocytes/USERNAME/data/RRBS</code> nor <code>/projects/hepatocytes/data/USERNAME/RRBS</code><br />
 </li>
@@ -440,7 +441,7 @@ div.tocify {
 <div id="from-synapse" class="section level2">
 <h2>From Synapse</h2>
 <p><a href="https://docs.synapse.org/articles/" class="uri">https://docs.synapse.org/articles/</a><br />
-Often the best way to work with data that lives on Synapse is to download/upload it directly from Synapse using its <a href="https://r-docs.synapse.org/articles/synapser.html">R</a>, <a href="https://python-docs.synapse.org/build/html/index.html">pyhton</a>, or <a href="https://python-docs.synapse.org/build/html/CommandLineClient.html">CLI</a> clients.<br />
+Often the best way to work with data that live on Synapse is to download/upload them directly from Synapse using its <a href="https://r-docs.synapse.org/articles/synapser.html">R</a>, <a href="https://python-docs.synapse.org/build/html/index.html">pyhton</a>, or <a href="https://python-docs.synapse.org/build/html/CommandLineClient.html">CLI</a> clients.<br />
 See <a href="https://docs.synapse.org/articles/provenance.html">here</a> for how provenance works on Synapse.</p>
 <p>For example, using the R package <code>synapser</code>:<br />
 The function <code>synGet()</code> downloads the data into a cache folder on your home directory (<code>~/.synapseCache</code>) on whichever file system you’re on, so that every time you run the code, it checks your cached copy against the original on Synapse and re-downloads it only if there has been changes since the last download. The cache location is specified in <code>~/.synapseConfig</code>.<br />

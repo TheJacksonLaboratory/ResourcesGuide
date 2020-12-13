@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-12-07" />
+<meta name="date" content="2020-12-12" />
 
 <title>Overview of computational resources</title>
 
@@ -371,7 +371,7 @@ div.tocify {
       <a href="Acquiring_and_sharing_data.html">Acquiring Data</a>
     </li>
     <li>
-      <a href="Working_with_hpcc.html">Working with HPCC</a>
+      <a href="Working_with_hpc.html">Working with HPC</a>
     </li>
     <li>
       <a href="Containerizing.html">Containerizing</a>
@@ -401,34 +401,39 @@ div.tocify {
 
 <h1 class="title toc-ignore">Overview of computational resources</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-12-07</h4>
+<h4 class="date">2020-12-12</h4>
 
 </div>
 
 
-<div id="hpcc" class="section level2">
-<h2>HPCC</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx</a><br />
-<a href="https://github.com/TheJacksonLaboratory/IntroToHPC" class="uri">https://github.com/TheJacksonLaboratory/IntroToHPC</a></p>
+<div id="jax-hpc" class="section level2">
+<h2>JAX HPC</h2>
+<p>The JAX HPC infrastructure consists of 2 main clusters available to all users: Sumner and Winter. The Sumner cluster is our general purpose compute cluster while Winter is our GPU based cluster. Research IT provides extensive documentation on what’s available and how to use it:<br />
+<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx</a><br />
+<a href="https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md" class="uri">https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md</a><br />
+See also the <a href="docs/Working_with_hpc.html">Working with HPC</a> section in this guide.</p>
 </div>
 <div id="storage" class="section level2">
 <h2>Storage</h2>
 <p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx</a></p>
 <p><strong>tier1</strong> is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.<br />
 <code>/home/</code> Personal space; by default, only the user can view and access.<br />
-<code>/projects/carter-lab/</code> for shared project files<br />
-<code>/sdata/carter-lab/</code> for secured data<br />
+<code>/projects/carter-lab/</code> for shared projects<br />
+<code>/sdata/carter-lab/</code> for shared project that involve secured data<br />
 <code>/fastscratch/</code> for temporary files. <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx">See here for usage guidelines</a></p>
 <p>Files on tier1 can be recovered within <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx">7 days of deletion</a></p>
-<p><strong>tier2</strong> is best used for research project that are developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as well as “cold data”. Can only be accessed with Globus or from RStudio Server. Projects that use secured data should be in <code>/tier2/carter-lab/sdata/</code></p>
+<p><strong>tier2</strong> is best used for research project that are developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as well as “cold data”. Can be accessed with Globus or from RStudio Server. Projects that involve secured data should be in <code>/tier2/carter-lab/sdata/</code></p>
 <p><strong>/unixhome</strong> is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.</p>
-<p>Use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a> to transfer data between the different storages. Use <a href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to incorporate data transfer in the script whenever applicable.<br />
-You can also use <a href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a> from within the terminal on RStudio Server to transfer files from tier1 into tier2 or unixhome</p>
+<p>You can use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a> or <a href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a> to transfer data between the different storages. You can also use <a href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to incorporate data transfer in the script whenever applicable.</p>
+</div>
+<div id="carterdev" class="section level2">
+<h2>carterdev</h2>
+<p>Development space for out lab. Hosts shiny apps and websites for ongoing projects. To connect type <a href="http://carterdev:3838/" class="uri">http://carterdev:3838/</a> in your browser.</p>
 </div>
 <div id="synapse" class="section level2">
 <h2>Synapse</h2>
 <p><a href="https://www.synapse.org/" class="uri">https://www.synapse.org/</a><br />
-This is an online platform for managing and sharing data and research projects. It provides a data repository for storing and sharing results in a reproducible and reusable manner. We have <a href="https://www.synapse.org/#!Synapse:syn23573590/wiki/">a private workspace there</a>, which can be used for any project, and a separate space specifically for <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/586126">Model-AD</a>. You’d need to register and be added to the Carter Lab team. See the Acquiring and Sharing Data section for more details on how to use this platform.</p>
+This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have <a href="https://www.synapse.org/#!Synapse:syn23573590/wiki/">a private workspace there</a>, which can be used for any project. There is also a separate space specifically for <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/586126">Model-AD</a>. You’d need to register on Synapse and then be added to the Carter Lab team. See the <a href="docs/Acquiring_and_sharing_data.html">Acquiring and Sharing Data</a> section for more details on how to use this platform.</p>
 </div>
 <div id="rstudio-server" class="section level2">
 <h2>Rstudio Server</h2>
@@ -440,13 +445,9 @@ This is an online platform for managing and sharing data and research projects. 
 </ol>
 <p>The space provided with Rstudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.</p>
 </div>
-<div id="shiny-server-and-rstudio-connect" class="section level2">
-<h2>Shiny server and RStudio Connect</h2>
-<p>Ask IT to add you as a Shiny user. You can log into it either from RStudio Server or <a href="https://rshiny.jax.org/connect/" class="uri">https://rshiny.jax.org/connect/</a>. You can publish other files as well, e.g., Rmarkdown reports or csv files, not just shiny apps.</p>
-</div>
-<div id="carterdev" class="section level2">
-<h2>carterdev</h2>
-<p>Development space. Hosts shiny apps and websites for ongoing projects. To connect typr <a href="http://carterdev:3838/" class="uri">http://carterdev:3838/</a> in your browser.</p>
+<div id="rstudio-connect" class="section level2">
+<h2>RStudio Connect</h2>
+<p>RStudio Connect is a publishing platform for sharing Shiny applications, R Markdown reports/websites, figures and tables, Jupyter Notebooks, etc. You need to ask IT to add you to this server specifically. You can log into it either from RStudio Server or <a href="https://rshiny.jax.org/connect/" class="uri">https://rshiny.jax.org/connect/</a>.</p>
 </div>
 <div id="jaxreg" class="section level2">
 <h2>JAXREG</h2>
@@ -455,35 +456,35 @@ A platform for Singularity containers by JAX HPC users. The Carter lab has its o
 </div>
 <div id="jax-github" class="section level2">
 <h2>Jax github</h2>
-<p>The main advantage of using github is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, rather than whole research projects.</p>
-<p><a href="https://github.com/TheJacksonLaboratory" class="uri">https://github.com/TheJacksonLaboratory</a><br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Github.aspx</a><br />
-<a href="https://git-scm.com/book/en/v2" class="uri">https://git-scm.com/book/en/v2</a></p>
-<p>The Carter lab has its own team space inside Jax account. When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private. Also, it will be less visible to other jax members when it’s under your personal account.<br />
+<p>The main advantage of using git and github is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, and for research projects that are light on data files.</p>
+<p>The Carter lab has its own team space inside the <a href="https://github.com/TheJacksonLaboratory">Jax account</a>. When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private. Also, it will be less visible to other jax members when it’s under your personal account.<br />
 <strong>Note:</strong> There is no difference in the definition of <em>public</em> and <em>private</em> repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.</p>
-<p>See <a href="https://lab.github.com/">here</a> for github courses</p>
+<p>See <a href="https://git-scm.com/book/en/v2">here</a> for git tutorial and <a href="https://lab.github.com/">here</a> for github courses</p>
+</div>
+<div id="box" class="section level2">
+<h2>Box</h2>
+<p>Personal accounts as well as <a href="https://thejacksonlaboratory.ent.box.com/folder/49919058619">lab’s account</a><br />
+Doesn’t work with RStudio projects, but good for sharing documents within the lab, across jax, and outside jax. A favorite of HR.<br />
+If you work with RStudio Projects it’s better to use Dropbox.</p>
 </div>
 <div id="dropbox" class="section level2">
 <h2>Dropbox</h2>
 <ul>
 <li>Individaul accounts only (no lab account).<br />
 </li>
-<li>Plays nicely with R projects and RStudio.<br />
+<li>Plays nicely with RStudio projects.<br />
 </li>
 <li>Allows version control and backup with unlimited size.<br />
 </li>
-<li>Allows sharing of whole project folder or any part of it.<br />
-</li>
-<li>Files can be set up to be ignored during synchronization in either direction: they can be <a href="https://help.dropbox.com/files-folders/restore-delete/ignored-files">saved only on local machines</a> (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).</li>
+<li>Files can be set up to be ignored during synchronization in either direction: they can be either <a href="https://help.dropbox.com/files-folders/restore-delete/ignored-files">saved only on local machines</a> (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).</li>
 </ul>
 <p><strong>Note:</strong> only one account can be linked to one device. You can’t have both personal and jax account on the same device. If you have your personal account currently linked to your jax device, you’d need to unlink that account first, and then link the jax account. Once unlilnked, all files on your personal account that have been synced to the device will still be saved on the device but no longer synced with your account.</p>
-<p>To get started you need to request IT to open a dropbox account for you (if you haven’t been added already), then you will recieve an email with a link to activate the account, download the desktop app, and get started. By default, all files are set up as Smart Sync, which means they are not saved on your local machine for off-line use, so make sure you reveiw the Sync settings under Preferences. To make a file/folder available off-line right-click it in your local file viewer and choose Smart Sync -&gt; Local</p>
+<p>To get started you need to request IT to open a dropbox account for you (if you haven’t been added already), activate the account via the email you’ll get, download the desktop app, and get started. By default, all files are set up as Smart Sync, which means they are not saved on your local machine for offline use, so make sure you reveiw the Sync settings under Preferences. To make a file/folder available offline, right-click it in your local file viewer and choose Smart Sync -&gt; Local</p>
 </div>
-<div id="box" class="section level2">
-<h2>Box</h2>
-<p>Personal accounts as well as <a href="https://thejacksonlaboratory.ent.box.com/folder/49919058619">lab’s account</a><br />
-Doesn’t work with R projects, but good for sharing documents within the lab, across jax, and outside jax. A favorite of HR.<br />
-Can be used for showcasing project reports (e.g., rendered markdown files), but it’s best to avoid storing there shareable data and project folders.</p>
+<div id="working-remotely" class="section level2">
+<h2>Working remotely</h2>
+<p>In order to work remotely using jax resources, you’ll need to <a href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx">connect via VPN</a>.<br />
+This will also provide you automatic access to full papers in any journals that jax library subscribes to.</p>
 </div>
 <div id="get-connected-get-help" class="section level2">
 <h2>Get connected, get help</h2>
@@ -493,6 +494,7 @@ Can be used for showcasing project reports (e.g., rendered markdown files), but 
 <li><a href="https://hpctalk.jax.org/">hpctalks</a></li>
 <li><a href="https://jax.service-now.com/jax">helpdesk self-service</a></li>
 <li><a href="https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx">webex</a></li>
+<li><a href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/Teams-and-Office-365-Groups.aspx">Microsof teams</a></li>
 <li><a href="https://jacksonlaboratory.sharepoint.com/:x:/r/sites/ResearchResources/_layouts/15/Doc.aspx?sourcedoc=%7B3C15F833-3032-4560-831B-D6F02A6E6757%7D&amp;file=Interest%20Groups%20and%20Journal%20Clubs%2009.2020.xlsx&amp;action=default&amp;mobileredirect=true&amp;DefaultItemOpen=1">Interest groups and Journal clubs</a></li>
 </ul>
 </div>
@@ -508,8 +510,9 @@ Software carpentry:<br />
 RStudio:<br />
 <a href="https://education.rstudio.com/" class="uri">https://education.rstudio.com/</a><br />
 Others:<br />
-<a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
-<a href="https://dataoneorg.github.io/Education/" class="uri">https://dataoneorg.github.io/Education/</a> <a href="https://lab.github.com/" class="uri">https://lab.github.com/</a></p>
+<a href="https://rafalab.github.io/dsbook/" class="uri">https://rafalab.github.io/dsbook/</a> <a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
+<a href="https://dataoneorg.github.io/Education/" class="uri">https://dataoneorg.github.io/Education/</a> <a href="https://lab.github.com/" class="uri">https://lab.github.com/</a><br />
+<a href="https://compgenomr.github.io/book/" class="uri">https://compgenomr.github.io/book/</a></p>
 </div>
 
 

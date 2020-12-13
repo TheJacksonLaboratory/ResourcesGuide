@@ -1,5 +1,5 @@
 name: "ResourcesGuide"
-output_dir: "docs"
+#output_dir: "docs"
 navbar:
   title: "Computational resources"
   left:
@@ -13,8 +13,8 @@ navbar:
         href: Organizing_projects.html
       - text: "Acquiring Data"
         href: Acquiring_and_sharing_data.html
-      - text: "Working with HPCC"
-        href: Working_with_hpcc.html
+      - text: "Working with HPC"
+        href: Working_with_hpc.html
       - text: "Containerizing"
         href: Containerizing.html
       - text: "Publishing"
