@@ -28,4 +28,4 @@ output:
     toc: yes
     toc_float: yes
     theme: cerulean
-    keep_md: true
+    #keep_md: true
