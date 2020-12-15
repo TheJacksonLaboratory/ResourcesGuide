@@ -59,7 +59,7 @@ If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can
 
 If your project is very complex you can also use [GNU Make](https://www.gnu.org/software/make/) to put all the steps together in a reproducible manner, as shown [here](https://kbroman.org/steps2rr/pages/automate.html).
 
-When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. This is helpful if you want to publish it on Github Pages. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison.  
+When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison.  
 To save a markdown version while rendering it as html:
 ```
 output: 
