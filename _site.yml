@@ -22,6 +22,8 @@ navbar:
     right:
   - icon: fa-github
     href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
+  - icon: fa-paper-plane
+    href: mailto:<annat.haber@jax.org>
 
 output:
   html_document:
