@@ -57,7 +57,7 @@ If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can
 
 [RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just r or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
 
-If your project is very complex you can also use [GNU Make](https://www.gnu.org/software/make/) to put all the steps together in a reproducible manner, as shown [here](https://kbroman.org/steps2rr/pages/automate.html).
+If your project is very complex you can also use [Make](https://www.gnu.org/software/make/) to put all the steps together in a reproducible manner, as shown [here](https://kbroman.org/steps2rr/pages/automate.html).
 
 When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison.  
 To save a markdown version while rendering it as html:
