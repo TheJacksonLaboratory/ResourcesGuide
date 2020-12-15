@@ -34,7 +34,7 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
 * Include a “dumbed-down” [README file](https://data.research.cornell.edu/content/readme) as a walk-through (maybe a flow chart; maybe md file)
 * Include a license file as needed; CC-0 and CC-BY are [commonly used](https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/)
 * If your project involves working on several file systems, duplicate whole project folders, not bits and pieces of data/code (see image below).  
-  * Consider syncing your local copy with Dropbox for extra backup and version control.
+  * Consider syncing your local copy with Box/Dropbox for extra backup and version control.
   * Keep a remote copy on tier1 if you're working on this project mainly on the cluster.  
   * Keep a remote copy on tier2 if you're working on this project mainly in Rstudio Server.  
   * Syncronize the local and remote copies using Globus, FileZila, or the like.  
@@ -43,6 +43,7 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
 ![image](images/local_remote.png)
 
 **Other good references:**  
+https://riojournal.com/article/56508    
 https://cran.r-project.org/web/views/ReproducibleResearch.html
 https://kbroman.org/steps2rr/  
 https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2  
@@ -133,4 +134,4 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 
 See [here](https://resources.github.com/whitepapers/github-and-rstudio/) on how to publish R markdown reports/websites on Github Pages.
 
-If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and how branching and forking works.
+If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching and forking works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/).

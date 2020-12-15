@@ -54,6 +54,7 @@ You need to ask IT to add you to this server specifically. You can log into it e
 ## Nextflow
 [Nextflow](https://www.nextflow.io/) is [a workflow management system](https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full) that has become popular in recent years in general and [at jax](https://github.com/lifebit-ai/jax-tutorial). It is also incorporated in the [Lifebit CloudOS](https://jacksonlaboratory.sharepoint.com/sites/CloudOS) platform (used by some labs at jax but not the Carter lab at this point).
 
+The main use of workflow management systems is in developing standardized pipelines that need to be run repeatedly (e.g., preliminary processing of RNA-seq fastq files).  
 Jax has in the past developed its own workflow management framework called [civet](https://github.com/TheJacksonLaboratory/civet), with a web-based interface called [JODAP](https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md). However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as [CWL](https://www.commonwl.org/), [WDL](https://openwdl.org/), or [Nextflow](https://www.nextflow.io/).
 
 ## JAXREG
