@@ -62,7 +62,7 @@ https://jaxreg.jax.org/
 A platform for Singularity containers by JAX HPC users. The Carter lab has its own team space there. Once you login with your jax credentials, you can upload containers and create collections. You can then either make it public - open to the whole jax community - or you can make it private and invite team members and anyone else at jax.
 
 ## Jax github
-The main advantage of using git and github is in version control (which dropbox has as well) and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, and for research projects that are light on data files. 
+The main advantage of using git and github is in its version control and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, and for research projects that are light on data files. 
 
 The Carter lab has its own team space inside the [Jax account](https://github.com/TheJacksonLaboratory). When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private. Also, it will be less visible to other jax members when it's under your personal account.  
 **Note:** There is no difference in the definition of *public* and *private* repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.   
@@ -78,7 +78,7 @@ If you work with RStudio Projects it's better to use Dropbox.
 
 * Individaul accounts only (no lab account).  
 * Plays nicely with RStudio projects.  
-* Allows version control and backup with unlimited size.  
+* Allows version control and backup with unlimited size (you'd need another tool to view version differences though).  
 * Files can be set up to be ignored during synchronization in either direction: they can be either [saved only on local machines](https://help.dropbox.com/files-folders/restore-delete/ignored-files) (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).   
 
 **Note:** only one account can be linked to one device. You can't have both personal and jax account on the same device. If you have your personal account currently linked to your jax device, you'd need to unlink that account first, and then link the jax account. Once unlilnked, all files on your personal account that have been synced to the device will still be saved on the device but no longer synced with your account.  
@@ -109,10 +109,10 @@ https://hpc-carpentry.github.io/
 RStudio:  
 https://education.rstudio.com/  
 Others:  
-https://rafalab.github.io/dsbook/
+https://rafalab.github.io/dsbook/  
 https://kbroman.org/steps2rr/  
-https://dataoneorg.github.io/Education/
+https://dataoneorg.github.io/Education/  
 https://lab.github.com/  
-https://compgenomr.github.io/book/  
+https://compgenomr.github.io/book/   
 
 ![image](images/googling.jpg)

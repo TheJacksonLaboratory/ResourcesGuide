@@ -44,9 +44,9 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
 
 **Other good references:**  
 https://riojournal.com/article/56508    
-https://cran.r-project.org/web/views/ReproducibleResearch.html
-https://kbroman.org/steps2rr/  
-https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2  
+https://cran.r-project.org/web/views/ReproducibleResearch.html  
+https://kbroman.org/steps2rr/   
+https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2   
 https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20  
 https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424  
 https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf  
@@ -72,7 +72,7 @@ You don't have to use RStudio to genearte reports with R Markdown, you can use t
 Two other major advances in the R world in recent years include the [tidyverse](https://www.tidyverse.org/) and [ggplot](https://ggplot2.tidyverse.org/index.html) approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see [here](https://peerj.com/preprints/3180v1/) for examples).  
 
 ## Folder structure and naming
-Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are be the same for other languages and IDEs.
+Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are the same for other languages and IDEs.
 
 Some examples: [ProjectTemplate](http://projecttemplate.net/), [prodigenr](https://cran.r-project.org/web/packages/prodigenr/vignettes/prodigenr.html), [cookiecutter](http://drivendata.github.io/cookiecutter-data-science/)  
 http://kbroman.org/steps2rr/pages/organize.html  
