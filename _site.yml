@@ -22,9 +22,12 @@ navbar:
     right:
   - icon: fa-github
     href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
+  - icon: fa-paper-plane
+    href: mailto:<annat.haber@jax.org>
 
 output:
   html_document:
     toc: yes
     toc_float: yes
     theme: cerulean
+    #keep_md: true

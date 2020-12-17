@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-12-14" />
+<meta name="date" content="2020-12-17" />
 
 <title>Organizing Projects</title>
 
@@ -29,6 +29,15 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -74,6 +83,7 @@ h6 {
   text-align: left;
 }
 </style>
+
 
 
 
@@ -383,7 +393,13 @@ div.tocify {
 </li>
 <li>
   <a href="https://github.com/TheJacksonLaboratory/ResourcesGuide.git">
-    <span class="fa fa-github"></span>
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="mailto:&lt;annat.haber@jax.org&gt;">
+    <span class="fas fa-paper-plane"></span>
      
   </a>
 </li>
@@ -401,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Organizing Projects</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-12-14</h4>
+<h4 class="date">2020-12-17</h4>
 
 </div>
 
@@ -445,7 +461,8 @@ From the FAIR publication:<br />
 </div>
 <p><strong>Other good references:</strong><br />
 <a href="https://riojournal.com/article/56508" class="uri">https://riojournal.com/article/56508</a><br />
-<a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a> <a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
+<a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a><br />
+<a href="https://kbroman.org/steps2rr/" class="uri">https://kbroman.org/steps2rr/</a><br />
 <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2" class="uri">https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/2</a><br />
 <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20" class="uri">https://www.tandfonline.com/doi/abs/10.1080/00031305.2017.1375986?journalCode=utas20</a><br />
 <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424" class="uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424</a><br />
@@ -454,8 +471,8 @@ From the FAIR publication:<br />
 <h2>R projects and Rmarkdown</h2>
 <p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. <a href="https://code.visualstudio.com/docs/setup/setup-overview">Visual Studio</a>.</p>
 <p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just r or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
-<p>If your project is very complex you can also use <a href="https://www.gnu.org/software/make/">GNU Make</a> to put all the steps together in a reproducible manner, as shown <a href="https://kbroman.org/steps2rr/pages/automate.html">here</a>.</p>
-<p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. This is helpful if you want to publish it on Github Pages. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison.<br />
+<p>If your project is very complex you can also use <a href="https://www.gnu.org/software/make/">Make</a> to put all the steps together in a reproducible manner, as shown <a href="https://kbroman.org/steps2rr/pages/automate.html">here</a>.</p>
+<p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison.<br />
 To save a markdown version while rendering it as html:</p>
 <pre><code>output: 
   html_document:
@@ -465,7 +482,7 @@ To save a markdown version while rendering it as html:</p>
 </div>
 <div id="folder-structure-and-naming" class="section level2">
 <h2>Folder structure and naming</h2>
-<p>Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are be the same for other languages and IDEs.</p>
+<p>Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are the same for other languages and IDEs.</p>
 <p>Some examples: <a href="http://projecttemplate.net/">ProjectTemplate</a>, <a href="https://cran.r-project.org/web/packages/prodigenr/vignettes/prodigenr.html">prodigenr</a>, <a href="http://drivendata.github.io/cookiecutter-data-science/">cookiecutter</a><br />
 <a href="http://kbroman.org/steps2rr/pages/organize.html" class="uri">http://kbroman.org/steps2rr/pages/organize.html</a><br />
 <a href="https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/" class="uri">https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/</a><br />
@@ -533,7 +550,8 @@ git push -u origin master</code></pre>
 <li>Repeat step 5 above</li>
 </ol>
 <p>See <a href="https://resources.github.com/whitepapers/github-and-rstudio/">here</a> on how to publish R markdown reports/websites on Github Pages.</p>
-<p>If you’re going to collaborate on code/text development through github, it helps to <a href="https://guides.github.com/introduction/flow/">understand the github flow</a> and <a href="https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/">how branching and forking works</a>.</p>
+<p>If you’re going to collaborate on code/text development through github, it helps to <a href="https://guides.github.com/introduction/flow/">understand the github flow</a> and <a href="https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/">how branching works</a>.<br />
+It is also a good idea to work with a graphic client such as the one provided in RStudio or Visual Studio, or the stand-alone <a href="https://desktop.github.com/">GitHub Desktop</a>, rather than working from the command line.</p>
 </div>
 
 
@@ -547,7 +565,7 @@ git push -u origin master</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
