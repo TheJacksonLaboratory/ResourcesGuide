@@ -97,6 +97,7 @@ A few pointers:
 * Integrates python as well: https://rstudio.github.io/renv/articles/python.html
 
 ## Working with github
+https://www.atlassian.com/git/tutorials/what-is-version-control
 https://git-scm.com/book/en/v2  
 https://lab.github.com/githubtraining/introduction-to-github  
 
@@ -115,7 +116,7 @@ git remote add origin https://github.com/TheJacksonLaboratory/myproject.git
 ```
 git add .
 git commit -m "initial commit"
-git push -u origin master
+git push -u origin main
 ```
 4. Make any changes and repeat step 3 (with a different and informative commit message)
 5. Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with ```git pull```
@@ -135,4 +136,4 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 See [here](https://resources.github.com/whitepapers/github-and-rstudio/) on how to publish R markdown reports/websites on Github Pages.
 
 If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/).  
-It is also a good idea to work with a graphic client such as the one provided in RStudio or Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. 
+It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. 

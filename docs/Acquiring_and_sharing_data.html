@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2020-12-17" />
+<meta name="date" content="2020-12-20" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2020-12-17</h4>
+<h4 class="date">2020-12-20</h4>
 
 </div>
 
@@ -432,7 +432,7 @@ div.tocify {
 <li>Describe data: origin, what’s been done with it, what the columns/rows mean, etc.</li>
 <li>keep data files together with their metadata and any processing scripts when applicable, either physically or with a reliable link between them.</li>
 </ul>
-<p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are (currently) limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason. Also, if both input and output are handled with such tools, the project folder itself becomes a lot lighter and might be pushed to github as is.</p>
+<p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are (currently) limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason.</p>
 <p>Sharing data between “native” projects on the same file system can be done using the R package <code>pins</code> (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with servers such as Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
 <div class="figure">
 <img src="images/data_share.png" alt="image" />
