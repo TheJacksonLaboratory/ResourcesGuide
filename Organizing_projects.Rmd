@@ -7,9 +7,11 @@ date: "`r Sys.Date()`"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 ```
+## FAIR Principles
 
 In 2016 a consortium of scientists and organizations published ["The FAIR Guiding Principles for scientific data management and stewardship”](https://www.nature.com/articles/sdata201618
-). It has since been endorsed by [G20](https://www.dtls.nl/2016/09/13/g20-endorse-fair-principles/), [library associations](https://libereurope.eu/blog/2017/12/08/implementing-fair-data-principles-role-libraries/), and [many other](https://en.wikipedia.org/wiki/FAIR_data#Acceptance_and_implementation_of_FAIR_data_principles) [research organizations](https://www.sciencedirect.com/science/article/pii/S1359644618303039).
+). It has since been endorsed by [G20](https://www.dtls.nl/2016/09/13/g20-endorse-fair-principles/), [library associations](https://libereurope.eu/blog/2017/12/08/implementing-fair-data-principles-role-libraries/), and [many other](https://en.wikipedia.org/wiki/FAIR_data#Acceptance_and_implementation_of_FAIR_data_principles) [research organizations](https://www.sciencedirect.com/science/article/pii/S1359644618303039).  
+[FAIR](https://www.go-fair.org/fair-principles/) stands for Findable, Accessible, Interoperable, Reusable
 
 **Motivation:**  
 From the FAIR publication:  
@@ -136,4 +138,5 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 See [here](https://resources.github.com/whitepapers/github-and-rstudio/) on how to publish R markdown reports/websites on Github Pages.
 
 If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/).  
+It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. 
 
