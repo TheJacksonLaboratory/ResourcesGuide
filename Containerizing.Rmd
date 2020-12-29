@@ -8,3 +8,5 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 ```
 
+[Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
+[Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
