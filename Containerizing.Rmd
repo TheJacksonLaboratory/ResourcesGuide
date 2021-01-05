@@ -11,13 +11,13 @@ knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 
 From the [Singularity documentation](https://sylabs.io/guides/3.5/user-guide/introduction.html#why-use-containers) on why we want to use containers:  
 A Unix operating system is broken into two primary components, the kernel space, and the user space. The Kernel talks to the hardware, and provides core system features. The user space is the environment that most people are most familiar with. A given operating system provides a fixed combination of kernel and user space.
-Containers change the user space into a swappable component. This means that the entire user space portion of a Linux operating system, including programs, custom configurations, and environment can be independent from whatever operating system is running underneath.
-Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have [full and direct access to all files ](https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files) you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts`/home/$USER`,`/tmp`, and`$PWD` into your container at runtime. You can specify additional directories to bind mount into your container with the `--bind` option.
+Containers change the user space into a swappable component. This means that the entire user space portion of a Linux operating system, including programs, custom configurations, and environment can be independent from whatever operating system is running underneath.  
+Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have [full and direct access to all files ](https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files) you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts`/home/$USER`,`/tmp`, and`$PWD` into your container at runtime. You can specify additional directories to bind mount into your container with the `--bind` option.  
 It is also possible to [start a shell](https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell) from within any container.
 
-Singularity uses [two formats for building images](https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch): sandbox and sif.
-*sif* isn't writable so in order to modify it you'd need to modify the def file and re-build the image.
-*sandbox* is basically a directory that can be modified directly, which may be useful for developing and debugging, but that makes it less reproducible. For reproducibility sake, you'd want to package it eventually as a sif file. The singularity build command allows you to convert from sandbox to sif format 
+Singularity uses [two formats for building images](https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch): sandbox and sif.  
+**sif** isn't writable so in order to modify it you'd need to modify the def file and re-build the image.
+**sandbox** is basically a directory that can be modified directly, which may be useful for developing and debugging, but that makes it less reproducible. For reproducibility sake, you'd want to package it eventually as a sif file. The singularity build command allows you to convert from sandbox to sif format 
 ```
 $ singularity build new-sif sandbox
 ```
