@@ -139,4 +139,4 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 See [here](https://resources.github.com/whitepapers/github-and-rstudio/) on how to publish R markdown reports/websites on Github Pages.
 
 If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/).  
-It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. 
+It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. This is especially useful for monitoring and managing complex merges. 
