@@ -11,7 +11,8 @@ knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It's a good idea to set up the hpc environment with some "module-like" infrastructure to allow some flexibility in interactive sessions for development and testing.
 For a comparison of using a module-like setup vs containers see [here](https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71)  
 
-[Introduction to HPC from the HPC Carpentry](https://hpc-carpentry.github.io/hpc-intro/)
+[Introduction to HPC from the HPC Carpentry](https://hpc-carpentry.github.io/hpc-intro/)  
+[Samir Amin's documentation](https://sumner.verhaaklab.com/)
 
 ## Setting up your hpc environment
 Open a terminal app (either stand-alone or RStudio).  
