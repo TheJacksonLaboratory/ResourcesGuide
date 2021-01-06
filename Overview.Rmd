@@ -13,7 +13,7 @@ The JAX HPC infrastructure consists of 2 main clusters available to all users: S
 Research IT provides extensive documentation on what's available and how to use it:  
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx  
 https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md  
-See also the [Working with HPC section](./docs/Working_with_hpc.html) in this guide and [Samir Amin's documentation](https://sumner.verhaaklab.com/).
+See also the [Working with HPC section](./docs/Working_with_hpc.html){target="_blank"} in this guide and [Samir Amin's documentation](https://sumner.verhaaklab.com/).
 
 ## Storage
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx
@@ -21,7 +21,7 @@ https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-
 **tier1** is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.  
 ```/home/``` Personal space; by default, only the user can view and access.  
 ```/projects/carter-lab/``` for shared projects  
-```/sdata/carter-lab/``` for shared project that involve secured data  
+```/sdata/carter-lab/``` for shared projects that involve secured data  
 ```/fastscratch/``` for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
 
 Files on tier1 can be recovered within [7 days of deletion](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx)  
@@ -37,7 +37,7 @@ Development space for out lab. Hosts shiny apps and websites for ongoing project
 
 ## Synapse
 https://www.synapse.org/  
-This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have [a private workspace there](https://www.synapse.org/#!Synapse:syn23573590/wiki/), which can be used for any project. There is also a separate space specifically for [Model-AD](https://www.synapse.org/#!Synapse:syn7419026/wiki/586126). You'd need to register on Synapse and then be added to the Carter Lab team. See the Acquiring and Sharing Data section in this guide for more details on how to use this platform. 
+This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have [a private workspace there](https://www.synapse.org/#!Synapse:syn23573590/wiki/), which can be used for any project. There is also a separate space specifically for [Model-AD](https://www.synapse.org/#!Synapse:syn7419026/wiki/586126) and [TREAT-AD](https://www.synapse.org/#!Synapse:syn21532474). You'd need to register on Synapse and then be added to the relevant team. See the Acquiring and Sharing Data section in this guide for more details on how to use this platform. 
 
 ## Rstudio Server
 
