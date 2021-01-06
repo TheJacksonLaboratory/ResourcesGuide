@@ -37,15 +37,15 @@ Development space for out lab. Hosts shiny apps and websites for ongoing project
 
 ## Synapse
 https://www.synapse.org/  
-This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have [a private workspace there](https://www.synapse.org/#!Synapse:syn23573590/wiki/), which can be used for any project. There is also a separate space specifically for [Model-AD](https://www.synapse.org/#!Synapse:syn7419026/wiki/586126) and [TREAT-AD](https://www.synapse.org/#!Synapse:syn21532474). You'd need to register on Synapse and then be added to the relevant team. See the Acquiring and Sharing Data section in this guide for more details on how to use this platform. 
+This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have [a private workspace there](https://www.synapse.org/#!Synapse:syn23573590/wiki/), which can be used for any project. There is also a separate space specifically for [Model-AD](https://www.synapse.org/#!Synapse:syn7419026/wiki/586126) and [TREAT-AD](https://www.synapse.org/#!Synapse:syn21532474). You'd need to register on Synapse and then be added to the relevant team. See the [Acquiring and Sharing Data](Acquiring_and_sharing_data.html) section in this guide for more details on how to use this platform. 
 
-## Rstudio Server
+## RStudio Server
 
-1. open a ticket with IT to request an account
+1. Open a ticket with IT to request an account
 2. Go to https://rstudio.jax.org/ and sign in with your jax credential  
-3. To navigate to tier2 space: Click on the three dots in the upper-right corner of the files   management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
+3. To navigate to tier2 space: Click on the three dots in the upper-right corner of the files management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
 
-The space provided with Rstudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.
+The space provided with RStudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.
 
 ## RStudio Connect
 RStudio Connect is a publishing platform for sharing Shiny applications, R Markdown reports/websites, figures and tables, Jupyter Notebooks, etc.
