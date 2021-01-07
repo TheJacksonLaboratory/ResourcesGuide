@@ -102,6 +102,7 @@ A few pointers:
 https://www.atlassian.com/git/tutorials/what-is-version-control
 https://git-scm.com/book/en/v2  
 https://lab.github.com/githubtraining/introduction-to-github  
+Specifically with R and RStudio: https://happygitwithr.com/  
 
 One way to get started -  
 **Pushing an existing project folder to a new remote repo:**  
