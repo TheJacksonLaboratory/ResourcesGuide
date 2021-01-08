@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-06" />
+<meta name="date" content="2021-01-08" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-06</h4>
+<h4 class="date">2021-01-08</h4>
 
 </div>
 
@@ -435,7 +435,7 @@ div.tocify {
 <p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are (currently) limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason.</p>
 <p>Sharing data between “native” projects on the same file system can be done using the R package <code>pins</code> (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with servers such as Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
 <div class="figure">
-<img src="images/data_share.png" alt="image" />
+<img src="images/data_share.png" alt="" />
 <p class="caption">image</p>
 </div>
 <p>To read more about data provenance and management:<br />
@@ -509,7 +509,7 @@ Another option is to use <code>pins</code> and its built-in <a href="https://doc
 The R package <code>pins</code> works by pinning data objects to boards (See image below). A type of board is basically a connection to a type of location (data repository), such as RStudio Connect and Github, or another folder. Registering a board opens that connection for that session. The local board (local to whichever file system you’re on) is by default the cache folder, which by default is <code>~/Library/Caches/pins</code> on a mac, and is registered automatically when loading the package. You can see it under the connections tab in RStudio.<br />
 The function <code>pin()</code> sends (‘pushes’) an object from the current workspace into the specified board. If <code>board='local'</code> the object is pinned into the cache, thus made available to other projects on that file system and to future sessions. The function <code>pin_get()</code> retrieves (‘pulls’) the object from the board into the workspace via the cache - or from the cache if <code>board='local'</code> - while checking the original source for updates. In either cases, some basic standardized information about the object is being logged into a text file in the cache folder, creating basic documentation on what is stored there.</p>
 <div class="figure">
-<img src="images/pins2.png" alt="image" />
+<img src="images/pins2.png" alt="" />
 <p class="caption">image</p>
 </div>
 <p>There can be many connections open to one type of board in a given session, but you’d need to register them separately (per session) under different names.</p>
@@ -527,7 +527,7 @@ pin(archetypes_meta,
 archetypes &lt;- pin_get(&quot;archetypes_meta_k3p20_AD&quot;, board=&quot;local&quot;) %&gt;%
   select(wgs_id, Archetype) %&gt;%
   filter(!is.na(wgs_id))</code></pre>
-<p>This works the same way from RStudio Server as from your local machine. The local board in RStudio Server is on your home dir on the RStudio Server <code>~/.cache/pins</code>. To see this information you can type <code>pins::board_get(&quot;local&quot;)</code></p>
+<p>This works the same way from RStudio Server as from your local machine. The local board in RStudio Server is on your home dir on the RStudio Server <code>~/.cache/pins</code>. To see this information you can type <code>pins::board_get("local")</code></p>
 <p>If you’re working with secure data, and you want to pin your results locally for later use, you’d need to pin them to the sdata folder (on tier1 or tier2) instead of the cache. For this purpose, you’d want to register a new local board that points to the pins cache on sdata (once per session). For example, you might have a code chunk like this in your Rmarkdown file:</p>
 <pre class="r"><code>pins::board_register_local(name = &quot;sdata&quot;, cache = &quot;/sdata/.cache/pins&quot;)
 
@@ -550,7 +550,7 @@ mayo &lt;- pin_get(&quot;mayo_metadata_wgs_apoe_diagnosis&quot;, board=&quot;sda
 <h3>Between different file systems</h3>
 <p>A good way to share data and results between different projects (whether on the same file system or not) is via a remote server such as RStudio Connect or Synapse. <code>pins</code> has a built-in board functionality for RStudio Connect, github, and any url, as well as other common services. It also has functions to create new types of boards, so it’s probably possible to create a board for Dropbox and Synapse as well.<br />
 See <a href="http://pins.rstudio.com/articles/boards-rsconnect.html">here</a> and <a href="http://pins.rstudio.com/articles/use-cases/reuse-tidy-datasets.html">here</a> for how to use pins with RStudio Connect.</p>
-<p>Before using RStudio Connect as a board, you need to authenticate it first. If you’re working with RStudio, you can register the RStudio Connect account in RStudio using Tools -&gt; Global Options -&gt; Publishing -&gt; Connect, and then you simply register the board with <code>board_register_rsconnect(name=&quot;jax_rsconnect&quot;, server = &quot;https://rshiny.jax.org&quot;)</code> (the name can be anything) and use the same chuncks of code as above but with “jax_rsconnect” as a board.<br />
+<p>Before using RStudio Connect as a board, you need to authenticate it first. If you’re working with RStudio, you can register the RStudio Connect account in RStudio using Tools -&gt; Global Options -&gt; Publishing -&gt; Connect, and then you simply register the board with <code>board_register_rsconnect(name="jax_rsconnect", server = "https://rshiny.jax.org")</code> (the name can be anything) and use the same chuncks of code as above but with “jax_rsconnect” as a board.<br />
 If you want to register the board from outside RStudio, you’ll need to include an API key in that command as shown <a href="https://docs.rstudio.com/connect/user/pins/">here</a></p>
 </div>
 </div>

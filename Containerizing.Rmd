@@ -27,3 +27,5 @@ See the [Sigularity tutorial here](https://singularity-tutorial.github.io/)
 Carpentry workshops:  
 [Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
 [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
+[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
+

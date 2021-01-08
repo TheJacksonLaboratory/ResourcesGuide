@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-06" />
+<meta name="date" content="2021-01-08" />
 
 <title>Working with the hpc cluster</title>
 
@@ -417,14 +417,15 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc cluster</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-06</h4>
+<h4 class="date">2021-01-08</h4>
 
 </div>
 
 
 <p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It’s a good idea to set up the hpc environment with some “module-like” infrastructure to allow some flexibility in interactive sessions for development and testing. For a comparison of using a module-like setup vs containers see <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">here</a></p>
 <p><a href="https://hpc-carpentry.github.io/hpc-intro/">Introduction to HPC from the HPC Carpentry</a><br />
-<a href="https://sumner.verhaaklab.com/">Samir Amin’s documentation</a></p>
+<a href="https://sumner.verhaaklab.com/">Samir Amin’s documentation</a><br />
+<a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop</a></p>
 <div id="setting-up-your-hpc-environment" class="section level2">
 <h2>Setting up your hpc environment</h2>
 <p>Open a terminal app (either stand-alone or RStudio).<br />
@@ -495,20 +496,17 @@ dir.create(&quot;~/bin/libs&quot;, recursive=T)
 # For example:
 install.packages(&quot;here&quot;, dependencies = TRUE) # only once
 library(here) # once every session
-here()
-
-install.packages(&quot;tidyverse&quot;, dependencies = TRUE) # need to install some dependencies manually FIND CONTAINER TO REPLACE R.sif</code></pre>
+here()</code></pre>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
 <p><strong>Note:</strong><br />
 You can do the above from any tier1 folder.<br />
-If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before intializing the interactive session, before calling R.sif, or from inside R.</p>
+If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
 <p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 folder see the next section.<br />
 If you’re developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.</p>
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
-<p>You can <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">run Rstudio Server on the hpc</a> and access it from a local browser via port 8787.<br />
-You’ll need to install it with singularity from <a href="https://www.rocker-project.org/use/singularity/">the rocker project</a>.<br />
+<p>You can run Rstudio Server on the hpc and access it from a local browser via port 8787. See instructions <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.<br />
 Logging out of a session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your home storage.</p>
 <p>Two other options are the R packages <a href="https://cran.r-project.org/web/packages/remoter/index.html">remoter</a> and <a href="https://github.com/cloudyr/rmote">rmote</a>, but on the face of it they don’t seem very helpful for most of our needs. Package rmote uses the cluster for computations while using local web browser for resulting graphics, but is not available for newer versions of R and doesn’t seem to be actively maintained anymore. Package remoter is part of <a href="https://pbdr.org/index.html">a big and actively maintained project</a>, and allows running remote sessions in parallel to local ones, including “remote” sessions on you local machine, but does not provide graphic interface and visualization for those sessions.</p>
 </div>
