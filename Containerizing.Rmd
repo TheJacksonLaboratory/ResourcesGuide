@@ -22,6 +22,11 @@ Singularity uses [two formats for building images](https://sylabs.io/guides/3.5/
 $ singularity build new-sif sandbox
 ```
 
+To see the def file of a sif image:
+```
+$ singularity inspect --deffile R.sif
+```
+
 See the [Sigularity tutorial here](https://singularity-tutorial.github.io/)  
 
 Carpentry workshops:  

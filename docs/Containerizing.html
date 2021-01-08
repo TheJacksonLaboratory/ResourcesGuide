@@ -429,6 +429,8 @@ It is also possible to <a href="https://sylabs.io/guides/3.5/user-guide/quick_st
 <p>Singularity uses <a href="https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch">two formats for building images</a>: sandbox and sif.<br />
 <strong>sif</strong> isn’t writable so in order to modify it you’d need to modify the def file and re-build the image. <strong>sandbox</strong> is basically a directory that can be modified directly, which may be useful for developing and debugging, but that makes it less reproducible. For reproducibility sake, you’d want to package it eventually as a sif file. The singularity build command allows you to convert from sandbox to sif format</p>
 <pre><code>$ singularity build new-sif sandbox</code></pre>
+<p>To see the def file of a sif image:</p>
+<pre><code>$ singularity inspect --deffile R.sif</code></pre>
 <p>See the <a href="https://singularity-tutorial.github.io/">Sigularity tutorial here</a></p>
 <p>Carpentry workshops:<br />
 <a href="https://carpentries-incubator.github.io/docker-introduction/">Introduction to Docker</a><br />
