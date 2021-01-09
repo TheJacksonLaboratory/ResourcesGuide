@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-08" />
+<meta name="date" content="2021-01-09" />
 
 <title>Working with the hpc cluster</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc cluster</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-08</h4>
+<h4 class="date">2021-01-09</h4>
 
 </div>
 
@@ -435,22 +435,19 @@ Tip: If you use the terminal tab in RStudio, you can then source code directly f
 </ol>
 <pre class="bash"><code>ssh &lt;USERNAME&gt;@login.sumner.jax.org</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Create a directory for all your containers, packages, etc</li>
+<li>Create a directory for all your containers, packages, etc and add it to your $PATH<br />
+<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx</a></li>
 </ol>
 <pre class="bash"><code>mkdir bin</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Add bin into your $PATH<br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx</a><br />
-Open .bash_profile with a text editor:</li>
-</ol>
+<p>Open .bash_profile with a text editor:</p>
 <pre class="bash"><code>cd ~ # make sure you&#39;re in home dir
 nano .bash_profile # using nano to edit the file</code></pre>
-<p>And add these lines to the file:</p>
+<p>And add these lines to the file (including the comment):</p>
 <pre class="bash"><code>#Singularity Containers
 export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin elsewhere</code></pre>
 <p>Save and exit the editor, and restart your terminal.<br />
 Now you can call containers by their name from anywhere in your home directory, without having to specify the path.</p>
-<ol start="4" style="list-style-type: decimal">
+<ol start="3" style="list-style-type: decimal">
 <li>Initialize an interactive session, load singularity, and pull containers:<br />
 Here we pull the latest r container and put it in the bin directory.<br />
 For easy reference we rename it R.sif<br />
@@ -464,7 +461,7 @@ singularity pull --name R.sif docker://r-base:latest
 # singularity pull docker://bioconductor/bioconductor_docker:devel</code></pre>
 <p>Now you can start an interactive session with R (see below) because a sif file can be used as an executable file on its own. You can do the same with any software, e.g., samtools from jaxreg</p>
 <p><strong>Close the interactive session by typing <code>exit</code> or <code>ctrl-D</code></strong></p>
-<ol start="5" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li>Add jax container registry as a remote endpoint:<br />
 <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx</a></li>
 </ol>

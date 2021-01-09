@@ -19,14 +19,14 @@ See also the [Working with HPC section](Working_with_hpc.html) in this guide and
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx
   
 **tier1** is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.  
-```/home/``` Personal space; by default, only the user can view and access.  
-```/projects/carter-lab/``` for shared projects  
-```/sdata/carter-lab/``` for shared projects that involve secured data  
-```/fastscratch/``` for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
+`/home/` Personal space; by default, only the user can view and access.  
+`/projects/carter-lab/` for shared projects  
+`/sdata/carter-lab/` for shared projects that involve secured data  
+`/fastscratch/` for temporary files. [See here for usage guidelines](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx)
 
 Files on tier1 can be recovered within [7 days of deletion](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx)  
 
-**tier2** is best used for research project that are developed mainly in [Rstudio Server], as well as "cold data". Can be accessed with Globus or from RStudio Server. Projects that involve secured data should be in ```/tier2/carter-lab/sdata/```
+**tier2** is best used for research project that are developed mainly in [Rstudio Server], as well as "cold data". Can be accessed with Globus or from RStudio Server. Projects that involve secured data should be in `/tier2/carter-lab/sdata/`
 
 **/unixhome** is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.
 
@@ -43,7 +43,7 @@ This is an online platform for hosting, managing, and sharing data and research 
 
 1. Open a ticket with IT to request an account
 2. Go to https://rstudio.jax.org/ and sign in with your jax credential  
-3. To navigate to tier2 space: Click on the three dots in the upper-right corner of the files management block. In the "go to folder" pop-up enter /tier2/carter-lab/.  
+3. To navigate to tier2 space: Click on the three dots in the upper-right corner of the files management block. In the "go to folder" pop-up enter `/tier2/carter-lab/`.  
 
 The space provided with RStudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.
 

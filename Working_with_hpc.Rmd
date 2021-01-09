@@ -24,19 +24,17 @@ Tip: If you use the terminal tab in RStudio, you can then source code directly f
 ssh <USERNAME>@login.sumner.jax.org
 ```
 
-2. Create a directory for all your containers, packages, etc    
+2. Create a directory for all your containers, packages, etc and add it to your $PATH  
+https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx  
 ```{bash}
 mkdir bin
 ```
-
-3. Add bin into your $PATH  
-https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx  
 Open .bash_profile with a text editor:
 ```{bash}
 cd ~ # make sure you're in home dir
 nano .bash_profile # using nano to edit the file
 ```
-And add these lines to the file:
+And add these lines to the file (including the comment):
 ```{bash}
 #Singularity Containers
 export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin elsewhere
@@ -44,7 +42,7 @@ export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin
 Save and exit the editor, and restart your terminal.  
 Now you can call containers by their name from anywhere in your home directory, without having to specify the path.
 
-4. Initialize an interactive session, load singularity, and pull containers:  
+3. Initialize an interactive session, load singularity, and pull containers:  
 Here we pull the latest r container and put it in the bin directory.  
 For easy reference we rename it R.sif  
 https://singularity-hub.org/collections/4747/usage  
@@ -59,12 +57,12 @@ singularity pull --name R.sif docker://r-base:latest
 Now you can start an interactive session with R (see below) because a sif file can be used as an executable file on its own. 
 You can do the same with any software, e.g., samtools from jaxreg
 
-**Close the interactive session by typing ```exit``` or ```ctrl-D```**  
+**Close the interactive session by typing `exit` or `ctrl-D`**  
 
-5. Add jax container registry as a remote endpoint:  
+4. Add jax container registry as a remote endpoint:  
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx  
 
-**Type ```logout``` to close the connection to sumner**  
+**Type `logout` to close the connection to sumner**  
 See also https://hpctalk.jax.org/t/sumner-crash-course/77  
 
 See these links for installing software on the cluster:
@@ -74,11 +72,11 @@ https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71
 ## Working interactively on the cluster
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx  
 Working interactively has the potential to drain the hpc resources for everyone else. Therefore, please keep in mind the following:  
-1. Shut down the session when you're done working by typing ```exit``` or ```ctrl-D```. Idle sessions are killed pretty quickly.  
+1. Shut down the session when you're done working by typing `exit` or `ctrl-D`. Idle sessions are killed pretty quickly.  
 2. Don't over-allocate resources when initializing the session. Over-allocation will get your session killed and your rapport with IT tarnished.   
 3. Be prepared to lose your work at any time. Interactive sessions will be the first to go in times of high demand. Script everything.  
 
-See ```man srun``` for options such as CPU and memory allocation  
+See `man srun` for options such as CPU and memory allocation  
 
 ### From your local RStudio app
 Open a new terminal in RStudio. Once logged into sumner enter this to start an interactive session with R:  
@@ -101,11 +99,11 @@ library(here) # once every session
 here()
 
 ```
-Type ```q()``` to quite R. You're still connected to the interactive session.  
+Type `q()` to quite R. You're still connected to the interactive session.  
 
 **Note:**  
 You can do the above from any tier1 folder.  
-If you want to work on a project in e.g., ```/sdata/```, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
+If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
 However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 folder see the next section.  

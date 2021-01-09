@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-08" />
+<meta name="date" content="2021-01-09" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-08</h4>
+<h4 class="date">2021-01-09</h4>
 
 </div>
 
@@ -445,10 +445,19 @@ div.tocify {
 <p>An example for a resource sharing plan to include in NIH grants: <a href="https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md" class="uri">https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md</a></p>
 <div id="from-scientific-services" class="section level2">
 <h2>From Scientific Services</h2>
-<p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a>.<br />
-* Keep data files together with all the metadata that come with them.<br />
-* Keep data in a shared designated location, not in your home directory and not under your name. For example <code>/projects/hepatocytes/data/RRBS/</code> and not <code>/projects/hepatocytes/USERNAME/data/RRBS</code> nor <code>/projects/hepatocytes/data/USERNAME/RRBS</code><br />
-* Set permissions to be accessible to everyone in the Carter-Lab group: <code>chmod -R 775</code> * Don’t change file names or content. Leave the raw data raw.</p>
+<p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a>.</p>
+<ul>
+<li>Keep data files together with all the metadata that come with them.<br />
+</li>
+<li>Keep data in a shared designated location, not in your home directory and not under your name.<br />
+For example: <code>/projects/hepatocytes/data/RRBS/</code><br />
+and not <code>/projects/hepatocytes/USERNAME/data/RRBS</code><br />
+nor <code>/projects/hepatocytes/data/USERNAME/RRBS</code><br />
+</li>
+<li>Set permissions to be accessible to everyone in the Carter-Lab group: <code>chmod -R 775</code><br />
+</li>
+<li>Don’t change file names or content. Leave the raw data raw.</li>
+</ul>
 </div>
 <div id="from-synapse" class="section level2">
 <h2>From Synapse</h2>
@@ -463,15 +472,14 @@ library(tidyverse)
 
 synLogin() # include this in every chunk that connects to Synapse
 
-# reading in the file and modifying it for my needs
-mayo &lt;- synapser::synGet(&quot;syn11384571&quot;)$path %&gt;%     # downloading the file from synapse to the cache
-  read_csv() %&gt;%                                     # loading it from the cache into the workspace
-  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;%
+mayo &lt;- synapser::synGet(&quot;syn11384571&quot;)$path %&gt;%  # downloading the file from synapse to the cache
+  read_csv() %&gt;%                                  # loading it from the cache into the workspace
+  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;% # modifying it for this analysis
   mutate(cohort=&quot;mayo&quot;)</code></pre>
 <p>See <a href="https://r-docs.synapse.org/articles/manageSynapseCredentials.html">here</a> on how to specify your login credentials in <code>.synapseConfig</code>.<br />
 This works the same way from your local machine or RStudio Server. The config file and cache folder will be on your RStudio Server home directory (<code>/unixhome</code>).</p>
 <p>Similarly, it is possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. This allows other users to interact with your results with synGet() as described above. With this function you can also upload the script that was used for generating those results and specify their relations as their provenance.</p>
-<p>This code takes the output file <em>ADvariants_anno.txt</em>, turns it into a file object that synapse understand, including the folder in which it should be stored (‘parent’), and stores it along with its provenance. The function <code>Activity()</code> generates a provenance object that specifies in this case the script that was used to generate it (also stored on synapse as ‘syn23595214’).</p>
+<p>This code takes the output file <code>ADvariants_anno.txt</code>, turns it into a file object that synapse understands, including the folder in which it should be stored (‘parent’), and stores it along with its provenance. The function <code>Activity()</code> generates a provenance object that specifies in this case the script that was used to generate it (also stored on synapse as ‘syn23595214’).</p>
 <pre class="r"><code>file &lt;- File(&quot;output/ADvariants_anno.txt&quot;,
              contentType = &quot;text/plain&quot;,
              description = &quot;LOAD variant list&quot;,
@@ -499,7 +507,7 @@ annot &lt;- data.table::fread(file=synpath, sep=&quot;\t&quot;) </code></pre>
 </div>
 <div id="from-rstudio-connect" class="section level2">
 <h2>From RStudio Connect</h2>
-<p><a href="https://docs.rstudio.com/connect/user/">RStudio Connect</a> is useful for sharing markdown reports, R objects, and various files between different projects from different locations. It is especially useful for projects that are being developed on RStudio Server and live on tier2. From RStudio you can easily <a href="https://docs.rstudio.com/connect/user/publishing/">publish content</a> to RStudio Connect using the publish button in either the editor or the preview windows.</p>
+<p><a href="https://docs.rstudio.com/connect/user/">RStudio Connect</a> is useful for sharing reports, R objects, and various files between different projects from different locations. It is especially useful for projects that are being developed on RStudio Server and live on tier2. From RStudio you can easily <a href="https://docs.rstudio.com/connect/user/publishing/">publish content</a> to RStudio Connect using the publish button in either the editor or the preview windows.</p>
 <p>Using the package <a href="https://rstudio.github.io/connectapi/"><code>connectapi</code></a> it is very similar to working with Synapse.<br />
 Another option is to use <code>pins</code> and its built-in <a href="https://docs.rstudio.com/connect/user/pins/">RStudio Connect board</a> functionality (see below).</p>
 </div>
@@ -516,7 +524,7 @@ The function <code>pin()</code> sends (‘pushes’) an object from the current 
 <div id="between-projects-in-the-same-file-system" class="section level3">
 <h3>Between projects in the same file system</h3>
 <p>Often we generate results in one project that we then need to use in another “native” project that lives in the same file system. We can either publish these results to RStudio Connect (or to Synapse) and interact with them as described above, or we can pin the results to the local cache (local to the system we’re working in) and pull them into the other project from there, as shown below.</p>
-<p>For example, say I generated a dataframe object with the archetype classification for ROSMAP patients as part of the ampad_archetypes project that lives on tier2. The script that created that result is in <code>ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd</code>. At the end of that Rmarkdown file I include a chunk that pins the generated data object to a local board:</p>
+<p>For example, say I generated a dataframe object with the archetype classification for ROSMAP patients as part of the ampad_archetypes project that lives on tier2. The script that created that result is in <code>/tier2/carter-lab/sdata/AMPAD/ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd</code>. At the end of that Rmarkdown file I include a chunk that pins the generated data object to a local board:</p>
 <pre class="r"><code># output chunk of 1_fit_archetypes.Rmd
 pin(archetypes_meta, 
     name = &quot;archetypes_meta_k3p20_AD&quot;, 

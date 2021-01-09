@@ -57,7 +57,7 @@ https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf
 
 If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can set up your project folder as [a formal R project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects). This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. [Visual Studio](https://code.visualstudio.com/docs/setup/setup-overview).
 
-[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just r or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
+[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
 
 If your project is very complex you can also use [Make](https://www.gnu.org/software/make/) to put all the steps together in a reproducible manner, as shown [here](https://kbroman.org/steps2rr/pages/automate.html).
 
@@ -69,7 +69,7 @@ output:
     keep_md: true
 ```
 
-You don't have to use RStudio to genearte reports with R Markdown, you can use the ```rmarkdown``` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.
+You don't have to use RStudio to genearte reports with R Markdown, you can use the `rmarkdown` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.
 
 Two other major advances in the R world in recent years include the [tidyverse](https://www.tidyverse.org/) and [ggplot](https://ggplot2.tidyverse.org/index.html) approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see [here](https://peerj.com/preprints/3180v1/) for examples).  
 
@@ -82,11 +82,12 @@ https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/
 https://cran.r-project.org/web/views/ReproducibleResearch.html  
 
 Below are two examples for conventional project structure and naming  
+See [here](https://www.dropbox.com/sh/sai3qc9wgj2hwbb/AAAgTQpKweghQqV5Sw7U5V2da?dl=0) for a real example
 
 ![image](images/projectStructure.png)
 
 ## Recording the computational environment
-The R package [```renv```](https://rstudio.github.io/renv/articles/renv.html) provides a good way to record the R version and all the packages that your project requires to run, [regardless of whether you end up dockerizing your project or not](https://rstudio.github.io/renv/articles/docker.html). This is the newest incarnation of ```packrat```, by the same developers, so if you've been using ```packrat```, it's a good idea to upgrade to renv.
+The R package [`renv`](https://rstudio.github.io/renv/articles/renv.html) provides a good way to record the R version and all the packages that your project requires to run, [regardless of whether you end up dockerizing your project or not](https://rstudio.github.io/renv/articles/docker.html). This is the newest incarnation of `packrat`, by the same developers, so if you've been using `packrat`, it's a good idea to upgrade to renv.
 
 A few pointers:
 
@@ -108,7 +109,7 @@ One way to get started -
 **Pushing an existing project folder to a new remote repo:**  
 
 1. Create a new remote (empty) repository under [the Jackson Laboratory account](https://github.com/TheJacksonLaboratory)  
-  - do not initialize with README/.gitignore/license
+  -- do not initialize with README/.gitignore/license
 2. Initiate your project folder as a local git repo and link it to the remote one:
 ```
 cd myproject
@@ -122,9 +123,9 @@ git commit -m "initial commit"
 git push -u origin main
 ```
 4. Make any changes and repeat step 3 (with a different and informative commit message).
-5. Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with ```git pull```
+5. Pull (fetch and merge) any changes that someone else may have pushed to the remote repo since the last time you worked on it with `git pull`
 
-**Note:** If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the ```git remote add``` command in step 1. You will then have a .gitignore file already in there. It's a good idea to add LICENSE and README files as well.  
+**Note:** If you set up your project folder as an RStudio project you have the option to initiate it as a git repo from the outset. In this case you just need to do the `git remote add` command in step 1. You will then have a .gitignore file already in there. It's a good idea to add LICENSE and README files as well.  
 See [here](https://labs.consol.de/development/git/2017/02/22/gitignore.html) for a good reference on how to write `.gitignore`.  
   
 Another way to get started -  
