@@ -103,7 +103,7 @@ This will also provide you automatic access to full papers in any journals that 
 [Jax Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx)  
 [Jax videos](http://jaxbhflash02.jax.org/index/default.aspx)   
 [Software Carpentry lessons](https://carpentries.org/community-lessons/)  
-[Software Carpentry on Programming with R](https://swcarpentry.github.io/r-novice-inflammation/)
+[Software Carpentry on Programming with R](https://swcarpentry.github.io/r-novice-inflammation/)  
 [HPC Carpentry lessons](https://www.hpc-carpentry.org/)  
 [RStudio lessons](https://education.rstudio.com/)  
 [GitHub lessons](https://lab.github.com/)  
