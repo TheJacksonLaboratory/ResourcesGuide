@@ -36,4 +36,4 @@ Carpentry workshops:
 [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
 [Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
 
-[Modifying basic R image and running as a pipeline on sumner](:https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
+[Modifying basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
