@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-11" />
+<meta name="date" content="2021-01-12" />
 
 <title>Working with the hpc cluster</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc cluster</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-11</h4>
+<h4 class="date">2021-01-12</h4>
 
 </div>
 
@@ -506,9 +506,67 @@ If you’re developing the project mostly with RStudio, it would probably be eas
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
-<p>You can run Rstudio Server on the hpc and access it from a local browser via port 8787. See instructions <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.<br />
-Logging out of a session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your home storage.</p>
-<p>Two other options are the R packages <a href="https://cran.r-project.org/web/packages/remoter/index.html">remoter</a> and <a href="https://github.com/cloudyr/rmote">rmote</a>, but on the face of it they don’t seem very helpful for most of our needs. Package rmote uses the cluster for computations while using local web browser for resulting graphics, but is not available for newer versions of R and doesn’t seem to be actively maintained anymore. Package remoter is part of <a href="https://pbdr.org/index.html">a big and actively maintained project</a>, and allows running remote sessions in parallel to local ones, including “remote” sessions on you local machine, but does not provide graphic interface and visualization for those sessions.</p>
+<p>You can run Rstudio Server on the hpc and access it from a local browser. See instructions <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
+<p>Here’s a similar solution put together by <a href="bill.flynn@jax.org">Bill Flynn</a>: Open an interactive session on sumner</p>
+<pre class="bash"><code>srun --pty -q batch bash
+module load singularity</code></pre>
+<p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with this content:</p>
+<pre><code>#!/usr/bin/env bash
+### SLURM HEADER
+#SBATCH --job-name=rstudio-flynnb  #!!
+#SBATCH --output=/home/flynnb/logs/rstudio-%j.log  #!!
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=bill.flynn@jax.org #!!
+#SBATCH --partition=compute
+#SBATCH --qos=batch
+#SBATCH --time=72:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=64GB
+#SBATCH --export=ALL
+### SLURM HEADER
+localcores=${SLURM_CPUS_PER_TASK}
+simg_path=&quot;/fastscratch/flynnb/rstudio.simg&quot; #!!
+work_dir=&quot;/fastscratch/flynnb/work&quot; #!!
+set -euo pipefail
+mkdir -p ${work_dir}
+cd ${work_dir}
+mkdir -p run tmp
+export PASSWORD=$(openssl rand -base64 15)
+PORT=$(shuf -i8899-11999 -n1)
+hostname_with_port=$(echo $(hostname -A):${PORT} | tr -d &quot; &quot;)
+cat 1&gt;&amp;2 &lt;&lt;EOF
+Login to ${hostname_with_port} with
+  username: ${USER}
+  password: ${PASSWORD}
+EOF
+module load singularity
+singularity exec \
+    -B $(pwd)/run:/run \
+    -B $(pwd)/tmp:/tmp \
+    ${simg_path} rserver \
+    --www-port ${PORT} \
+    --auth-none=0 --auth-pam-helper-path=pam-helper \
+    --auth-timeout-minutes=0 \
+    --auth-stay-signed-in-days=30</code></pre>
+<p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
+Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch</p>
+<pre><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
+sbatch launch_rstudio.sbatch</code></pre>
+<p>In the log file you’ll see</p>
+<pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
+  username: ....
+  password: ....</code></pre>
+<p>Go to that URL and enter these randomly-generated username and password.</p>
+<p><em>type <code>scancel &lt;job_id&gt;</code> in your terminal to end the session</em></p>
+<p><em>Note:</em></p>
+<ul>
+<li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
+</li>
+<li>Make sure all the directories in the launch file exist before running it.</li>
+<li></li>
+</ul>
 </div>
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">

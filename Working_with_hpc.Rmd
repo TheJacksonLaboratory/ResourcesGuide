@@ -113,10 +113,77 @@ If you're developing the project mostly with RStudio, it would probably be easie
 
 ### Remote RStudio
 
-You can run Rstudio Server on the hpc and access it from a local browser via port 8787. See instructions [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).  
-Logging out of a session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your home storage.  
+You can run Rstudio Server on the hpc and access it from a local browser. See instructions [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
-Two other options are the R packages [remoter](https://cran.r-project.org/web/packages/remoter/index.html) and [rmote](https://github.com/cloudyr/rmote), but on the face of it they don't seem very helpful for most of our needs. Package rmote uses the cluster for computations while using local web browser for resulting graphics, but is not available for newer versions of R and doesn't seem to be actively maintained anymore. Package remoter is part of [a big and actively maintained project](https://pbdr.org/index.html), and allows running remote sessions in parallel to local ones, including "remote" sessions on you local machine, but does not provide graphic interface and visualization for those sessions.
+Here's a similar solution put together by [Bill Flynn](bill.flynn@jax.org):
+Open an interactive session on sumner
+```{bash}
+srun --pty -q batch bash
+module load singularity
+```
+Open a text editor and create a file named `launch_rstudio.sbatch` with this content:
+```
+#!/usr/bin/env bash
+### SLURM HEADER
+#SBATCH --job-name=rstudio-flynnb  #!!
+#SBATCH --output=/home/flynnb/logs/rstudio-%j.log  #!!
+#SBATCH --mail-type=FAIL
+#SBATCH --mail-user=bill.flynn@jax.org #!!
+#SBATCH --partition=compute
+#SBATCH --qos=batch
+#SBATCH --time=72:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=64GB
+#SBATCH --export=ALL
+### SLURM HEADER
+localcores=${SLURM_CPUS_PER_TASK}
+simg_path="/fastscratch/flynnb/rstudio.simg" #!!
+work_dir="/fastscratch/flynnb/work" #!!
+set -euo pipefail
+mkdir -p ${work_dir}
+cd ${work_dir}
+mkdir -p run tmp
+export PASSWORD=$(openssl rand -base64 15)
+PORT=$(shuf -i8899-11999 -n1)
+hostname_with_port=$(echo $(hostname -A):${PORT} | tr -d " ")
+cat 1>&2 <<EOF
+Login to ${hostname_with_port} with
+  username: ${USER}
+  password: ${PASSWORD}
+EOF
+module load singularity
+singularity exec \
+    -B $(pwd)/run:/run \
+    -B $(pwd)/tmp:/tmp \
+    ${simg_path} rserver \
+    --www-port ${PORT} \
+    --auth-none=0 --auth-pam-helper-path=pam-helper \
+    --auth-timeout-minutes=0 \
+    --auth-stay-signed-in-days=30
+```
+Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
+Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch 
+```
+singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
+sbatch launch_rstudio.sbatch
+```
+In the log file you'll see 
+```
+Login to sumnerXYZ.sumner.jax.org:12345 with
+  username: ....
+  password: ....
+```
+Go to that URL and enter these randomly-generated username and password.
+
+*type `scancel <job_id>` in your terminal to end the session*  
+
+*Note:*  
+
+- Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.  
+- Make sure all the directories in the launch file exist before running it.
+- 
 
 ## Submitting jobs to the cluster
 See [Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx) for how to submit jobs to the cluster, and specifically [with containers instead of modules](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx).  
