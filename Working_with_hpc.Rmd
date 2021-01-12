@@ -165,7 +165,7 @@ singularity exec \
 ```
 Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
 Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch 
-```
+```{bash}
 singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch
 ```
