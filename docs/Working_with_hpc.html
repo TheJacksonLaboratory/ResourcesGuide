@@ -552,15 +552,15 @@ singularity exec \
     --auth-stay-signed-in-days=30</code></pre>
 <p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
 Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch</p>
-<pre><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
+<pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch</code></pre>
 <p>In the log file you’ll see</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....</code></pre>
 <p>Go to that URL and enter these randomly-generated username and password.</p>
-<p><em>type <code>scancel &lt;job_id&gt;</code> in your terminal to end the session</em></p>
-<p><em>Note:</em></p>
+<p><strong>type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong></p>
+<p><strong>Note:</strong></p>
 <ul>
 <li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
 </li>

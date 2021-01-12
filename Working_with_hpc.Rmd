@@ -177,9 +177,9 @@ Login to sumnerXYZ.sumner.jax.org:12345 with
 ```
 Go to that URL and enter these randomly-generated username and password.
 
-*type `scancel <job_id>` in your terminal to end the session*  
+**type `scancel <job_id>` in your terminal when you're ready to end the session**  
 
-*Note:*  
+**Note:**  
 
 - Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.  
 - Make sure all the directories in the launch file exist before running it.
