@@ -37,8 +37,9 @@ nano .bash_profile # using nano to edit the file
 And add these lines to the file (including the comment):
 ```{bash}
 #Singularity Containers
-export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin elsewhere
+export PATH=$PATH:~/bin
 ```
+Change the path accordingly if you want to put the bin elsewhere.  
 Save and exit the editor, and restart your terminal.  
 Now you can call containers by their name from anywhere in your home directory, without having to specify the path.
 

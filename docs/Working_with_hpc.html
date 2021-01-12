@@ -444,8 +444,9 @@ Tip: If you use the terminal tab in RStudio, you can then source code directly f
 nano .bash_profile # using nano to edit the file</code></pre>
 <p>And add these lines to the file (including the comment):</p>
 <pre class="bash"><code>#Singularity Containers
-export PATH=$PATH:~/bin # change the path accordingly if you want to put the bin elsewhere</code></pre>
-<p>Save and exit the editor, and restart your terminal.<br />
+export PATH=$PATH:~/bin</code></pre>
+<p>Change the path accordingly if you want to put the bin elsewhere.<br />
+Save and exit the editor, and restart your terminal.<br />
 Now you can call containers by their name from anywhere in your home directory, without having to specify the path.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Initialize an interactive session, load singularity, and pull containers:<br />
