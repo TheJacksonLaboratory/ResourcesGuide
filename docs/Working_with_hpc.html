@@ -487,7 +487,7 @@ R.sif</code></pre>
 <p>You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).</p>
 <p>Once you’re in R:</p>
 <pre class="r"><code># Specify libs before installing anything
-dir.create(&quot;~/bin/libs&quot;, recursive=T)
+# dir.create(&quot;~/bin/libs&quot;, recursive=T) # only the first time
 .libPaths(&quot;~/bin/libs&quot;) # once every session
 
 # For example:
@@ -495,10 +495,12 @@ install.packages(&quot;here&quot;, dependencies = TRUE) # only once
 library(here) # once every session
 here()</code></pre>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
-<p><strong>Note:</strong><br />
-You can do the above from any tier1 folder.<br />
-If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
-<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 folder see the next section.<br />
+<p><strong>Note:</strong></p>
+<ul>
+<li>This assumes the system dependencies of a given package exist already on the cluster. If not, you’d need to add the package to the container. See the <a href="Containerizing.html">Containerizing section</a></li>
+<li>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</li>
+</ul>
+<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
 If you’re developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.</p>
 </div>
 <div id="remote-rstudio" class="section level3">
@@ -510,7 +512,7 @@ Logging out of a session is crucial here not only to avoid draining hpc resource
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">
 <h2>Submitting jobs to the cluster</h2>
-<p>See <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Research IT documentation</a> for how to submit jobs to the cluster. Also useful: <a href="https://slurm.schedmd.com/rosetta.pdf" class="uri">https://slurm.schedmd.com/rosetta.pdf</a> <a href="https://slurm.schedmd.com/quickstart.html" class="uri">https://slurm.schedmd.com/quickstart.html</a></p>
+<p>See <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Research IT documentation</a> for how to submit jobs to the cluster, and specifically <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx">with containers instead of modules</a>. Also useful: <a href="https://slurm.schedmd.com/rosetta.pdf" class="uri">https://slurm.schedmd.com/rosetta.pdf</a> <a href="https://slurm.schedmd.com/quickstart.html" class="uri">https://slurm.schedmd.com/quickstart.html</a></p>
 </div>
 
 

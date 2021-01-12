@@ -90,7 +90,7 @@ You can now install R packages to your home directory to be available for future
 Once you're in R:
 ```{r}
 # Specify libs before installing anything
-dir.create("~/bin/libs", recursive=T)
+# dir.create("~/bin/libs", recursive=T) # only the first time
 .libPaths("~/bin/libs") # once every session
 
 # For example:
@@ -102,11 +102,12 @@ here()
 Type `q()` to quite R. You're still connected to the interactive session.  
 
 **Note:**  
-You can do the above from any tier1 folder.  
-If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
+
+- This assumes the system dependencies of a given package exist already on the cluster. If not, you'd need to add the package to the container. See the [Containerizing section](Containerizing.html)
+- You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
-However, in order to enjoy the full functionality of RStudio (and the Rproj setup) while working directly on your tier1 folder see the next section.  
+However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
 If you're developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.
 
 ### Remote RStudio
@@ -117,7 +118,7 @@ Logging out of a session is crucial here not only to avoid draining hpc resource
 Two other options are the R packages [remoter](https://cran.r-project.org/web/packages/remoter/index.html) and [rmote](https://github.com/cloudyr/rmote), but on the face of it they don't seem very helpful for most of our needs. Package rmote uses the cluster for computations while using local web browser for resulting graphics, but is not available for newer versions of R and doesn't seem to be actively maintained anymore. Package remoter is part of [a big and actively maintained project](https://pbdr.org/index.html), and allows running remote sessions in parallel to local ones, including "remote" sessions on you local machine, but does not provide graphic interface and visualization for those sessions.
 
 ## Submitting jobs to the cluster
-See [Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx) for how to submit jobs to the cluster.
+See [Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx) for how to submit jobs to the cluster, and specifically [with containers instead of modules](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx).
 Also useful:
 https://slurm.schedmd.com/rosetta.pdf
 https://slurm.schedmd.com/quickstart.html
