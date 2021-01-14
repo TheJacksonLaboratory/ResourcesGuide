@@ -26,7 +26,7 @@ To see the def file of a sif image:
 singularity inspect --deffile R.sif
 ```
 
-See the [Working With HPC](Working_with_hpc.html) section for how to use singularity containers on the cluster. See the [Jax singularity repository](https://jaxreg.jax.org/) to search and pull containers made by other jax users. Here we focus on building new containers and modifying existing ones.     
+See the [Working With HPC](Working_with_hpc.html) section for how to use singularity containers on the cluster. See the [Jax singularity registry](https://jaxreg.jax.org/) to search and pull containers made by other jax users. Here we focus on building new containers and modifying existing ones.     
 
 Here's an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
 The def file `R_bioc3_12_tidy1_3.def` can look like this:
