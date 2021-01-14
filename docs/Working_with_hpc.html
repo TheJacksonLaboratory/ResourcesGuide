@@ -557,8 +557,8 @@ singularity exec \
 Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch it:</p>
 <pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch</code></pre>
-<p>Here we’re using the rstudio image that includes tidyverse and devtools. This way we won’t need to worry about any system dependencies that they require.</p>
-<p>Next you need to open the log file generated in the script above under <code>#SBATCH --output=/home/flynnb/logs/rstudio-%j.log</code><br />
+<p>Here we’re using the rstudio image that includes tidyverse, biocmanager, and devtools, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. This way we don’t need to worry about any system dependencies that they require. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a></p>
+<p>Next you need to open the log file specified above under <code>#SBATCH --output=/home/flynnb/logs/rstudio-%j.log</code><br />
 In the log file you’ll see:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
@@ -570,7 +570,7 @@ In the log file you’ll see:</p>
 <li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
 </li>
 <li>Make sure all the directories in the launch file exist before running it.</li>
-<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to manage your packages.<br />
+<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your packages</a>.<br />
 </li>
 <li>See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers</li>
 </ul>

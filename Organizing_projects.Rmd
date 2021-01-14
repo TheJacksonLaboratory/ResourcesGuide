@@ -69,7 +69,7 @@ output:
     keep_md: true
 ```
 
-You don't have to use RStudio to genearte reports with R Markdown, you can use the `rmarkdown` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.
+You don't have to use RStudio to generate reports with R Markdown, you can use the `rmarkdown` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.
 
 Two other major advances in the R world in recent years include the [tidyverse](https://www.tidyverse.org/) and [ggplot](https://ggplot2.tidyverse.org/index.html) approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see [here](https://peerj.com/preprints/3180v1/) for examples).  
 

@@ -15,7 +15,7 @@ Containers change the user space into a swappable component. This means that the
 
 Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have [full and direct access to all files ](https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files) you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts`/home/$USER`,`/tmp`, and`$PWD` into your container at runtime. You can specify additional directories to bind mount into your container with the `--bind` option.  
 
-It is also possible to [start a shell](https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell) from within any container.
+It is also possible to [start a shell](https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell) from within any container with, e.g., `singularity shell R.sif`
 
 Singularity uses [two formats for building images](https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch): sandbox and sif.  
 `sif` isn't writable so in order to modify it you'd need to modify [the def file](https://sylabs.io/guides/3.0/user-guide/definition_files.html) and re-build the image.  
@@ -27,6 +27,16 @@ singularity inspect --deffile R.sif
 ```
 
 See the [Working With HPC](Working_with_hpc.html) section for how to use singularity containers on the cluster. See the [Jax singularity registry](https://jaxreg.jax.org/) to search and pull containers made by other jax users. Here we focus on building new containers and modifying existing ones.     
+
+Other useful references:  
+[Sigularity tutorial](https://singularity-tutorial.github.io/)   
+[Jax tutorial](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Hands-on--Basics-of-working-with-Singularity.aspx)   
+[How to modify basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
+
+Carpentry workshops:  
+[Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
+[Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
+[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
 
 Here's an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
 The def file `R_bioc3_12_tidy1_3.def` can look like this:
@@ -52,13 +62,34 @@ singularity exec bin/R_bioc3_12_tidy1_3.sif R
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
 
+You can use these packages with rstudio on the cluster as explained [here](Working_with_hpc.html#Remote_RStudio). If you need additional system dependencies you can build a new image as follows: ([modified from Selcan Aydin's file](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610639550000100?thread_ts=1610466397.059200&cid=CMKS61RLM):
+```
+Bootstrap: docker
+From: rocker/tidyverse:4.0.3
 
-**Useful references:**  
-[Sigularity tutorial](https://singularity-tutorial.github.io/)   
-[Jax tutorial](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Hands-on--Basics-of-working-with-Singularity.aspx)   
-[How to modify basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
+%labels
+    Author selcan.aydin@jax.org
+    R_VERSION 4.0.3
 
-Carpentry workshops:  
-[Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
-[Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
-[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
+%runscript
+    echo "Container was created $NOW"
+    echo "Arguments received: $*"
+    exec echo "$@"
+
+%post
+# add here any system dependencies you need 
+  apt-get update \
+    && apt-get install -y --no-install-recommends \
+    ssh \
+    bash \
+    pkg-config \
+    libjpeg62-dev \
+    libz-dev \
+    tk \
+    libxml2 \
+    libxml2-dev \
+    libbz2-dev \
+    liblzma-dev \
+    xterm \
+    x11-utils
+```
