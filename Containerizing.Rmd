@@ -52,7 +52,6 @@ singularity exec bin/R_bioc3_12_tidy1_3.sif R
 ```
 You can now install other packages on your home directory to be available for future sessions and read/write files from/to your projects and home directories.
 
-Coming soon: an example for submitting a job that renders an RMarkdown file.
 
 **Useful references:**  
 [Sigularity tutorial](https://singularity-tutorial.github.io/)   
