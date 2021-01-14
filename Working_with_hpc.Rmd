@@ -1,5 +1,5 @@
 ---
-title: "Working with the hpc cluster"
+title: "Working with the hpc clusters"
 author: "Carter Lab"
 date: "`r Sys.Date()`"
 ---
@@ -8,18 +8,17 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 ```
 
-Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It's a good idea to set up the hpc environment with some "module-like" infrastructure to allow some flexibility in interactive sessions for development and testing.
-For a comparison of using a module-like setup vs containers see [here](https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71)  
+Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using [singularity and containers](Containerizing.html). You might want to set up the hpc environment with some ["module-like" infrastructure](https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71) to allow some flexibility in interactive sessions for development and testing.
 
+Other useful references:  
+[Jax RIT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Intro-to-HPC---Documentation.aspx)
 [Introduction to HPC from the HPC Carpentry](https://hpc-carpentry.github.io/hpc-intro/)  
 [Samir Amin's documentation](https://sumner.verhaaklab.com/)  
 [Pawsey Center SC workshop](https://pawseysc.github.io/sc19-containers/)
 
 ## Setting up your hpc environment
-Open a terminal app (either stand-alone or RStudio).  
-Tip: If you use the terminal tab in RStudio, you can then source code directly from your editor to the terminal by pressing alt-cmd-enter.
 
-1. Log into sumner  
+1. Log into sumner from your terminal  
 ```{bash}
 ssh <USERNAME>@login.sumner.jax.org
 ```
@@ -79,14 +78,17 @@ Working interactively has the potential to drain the hpc resources for everyone 
 
 See `man srun` for options such as CPU and memory allocation  
 
-### From your local RStudio app
-Open a new terminal in RStudio. Once logged into sumner enter this to start an interactive session with R:  
+### From your local terminal/RStudio
+
+Once logged into sumner enter this to start an interactive session with R:  
 ```{bash}
 srun --pty -q batch bash
 module load singularity
 R.sif
 ```
 You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).  
+
+*Tip:* If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
 
 Once you're in R:
 ```{r}
@@ -102,20 +104,25 @@ here()
 ```
 Type `q()` to quite R. You're still connected to the interactive session.  
 
-**Note:**  
+**Note:**You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
-- This assumes the system dependencies of a given package exist already on the cluster. If not, you'd need to add the package to the container. See the [Containerizing section](Containerizing.html)
-- You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
+Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
+To use an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
+```
+singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
+singularity exec bin/tidyverse_3.6.1.sif R
+```
+You can now load the tidyverse packages as usual.
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
 However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
-If you're developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.
+If you're developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
 
 ### Remote RStudio
 
 You can run Rstudio Server on the hpc and access it from a local browser. See instructions [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
-Here's a similar solution put together by Bill Flynn:  
+Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM):  
 Open an interactive session on sumner
 ```{bash}
 srun --pty -q batch bash

@@ -11,9 +11,9 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-12" />
+<meta name="date" content="2021-01-13" />
 
-<title>Working with the hpc cluster</title>
+<title>Working with the hpc clusters</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -415,23 +415,22 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Working with the hpc cluster</h1>
+<h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-12</h4>
+<h4 class="date">2021-01-13</h4>
 
 </div>
 
 
-<p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using singularity and containers. It’s a good idea to set up the hpc environment with some “module-like” infrastructure to allow some flexibility in interactive sessions for development and testing. For a comparison of using a module-like setup vs containers see <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">here</a></p>
-<p><a href="https://hpc-carpentry.github.io/hpc-intro/">Introduction to HPC from the HPC Carpentry</a><br />
+<p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using <a href="Containerizing.html">singularity and containers</a>. You might want to set up the hpc environment with some <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">“module-like” infrastructure</a> to allow some flexibility in interactive sessions for development and testing.</p>
+<p>Other useful references:<br />
+<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Intro-to-HPC---Documentation.aspx">Jax RIT documentation</a> <a href="https://hpc-carpentry.github.io/hpc-intro/">Introduction to HPC from the HPC Carpentry</a><br />
 <a href="https://sumner.verhaaklab.com/">Samir Amin’s documentation</a><br />
 <a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop</a></p>
 <div id="setting-up-your-hpc-environment" class="section level2">
 <h2>Setting up your hpc environment</h2>
-<p>Open a terminal app (either stand-alone or RStudio).<br />
-Tip: If you use the terminal tab in RStudio, you can then source code directly from your editor to the terminal by pressing alt-cmd-enter.</p>
 <ol style="list-style-type: decimal">
-<li>Log into sumner</li>
+<li>Log into sumner from your terminal</li>
 </ol>
 <pre class="bash"><code>ssh &lt;USERNAME&gt;@login.sumner.jax.org</code></pre>
 <ol start="2" style="list-style-type: decimal">
@@ -479,13 +478,14 @@ Working interactively has the potential to drain the hpc resources for everyone 
 2. Don’t over-allocate resources when initializing the session. Over-allocation will get your session killed and your rapport with IT tarnished.<br />
 3. Be prepared to lose your work at any time. Interactive sessions will be the first to go in times of high demand. Script everything.</p>
 <p>See <code>man srun</code> for options such as CPU and memory allocation</p>
-<div id="from-your-local-rstudio-app" class="section level3">
-<h3>From your local RStudio app</h3>
-<p>Open a new terminal in RStudio. Once logged into sumner enter this to start an interactive session with R:</p>
+<div id="from-your-local-terminalrstudio" class="section level3">
+<h3>From your local terminal/RStudio</h3>
+<p>Once logged into sumner enter this to start an interactive session with R:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
 R.sif</code></pre>
 <p>You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).</p>
+<p><em>Tip:</em> If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.</p>
 <p>Once you’re in R:</p>
 <pre class="r"><code># Specify libs before installing anything
 # dir.create(&quot;~/bin/libs&quot;, recursive=T) # only the first time
@@ -496,18 +496,19 @@ install.packages(&quot;here&quot;, dependencies = TRUE) # only once
 library(here) # once every session
 here()</code></pre>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
-<p><strong>Note:</strong></p>
-<ul>
-<li>This assumes the system dependencies of a given package exist already on the cluster. If not, you’d need to add the package to the container. See the <a href="Containerizing.html">Containerizing section</a></li>
-<li>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</li>
-</ul>
+<p><strong>Note:</strong>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
+<p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
+To use an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
+<pre><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
+singularity exec bin/tidyverse_3.6.1.sif R</code></pre>
+<p>You can now load the tidyverse packages as usual.</p>
 <p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
-If you’re developing the project mostly with RStudio, it would probably be easier to move your project to tier2 and use the RStudio Server.</p>
+If you’re developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
 <p>You can run Rstudio Server on the hpc and access it from a local browser. See instructions <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
-<p>Here’s a similar solution put together by Bill Flynn:<br />
+<p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a>:<br />
 Open an interactive session on sumner</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity</code></pre>
