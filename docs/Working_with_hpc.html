@@ -554,7 +554,7 @@ singularity exec \
     --auth-timeout-minutes=0 \
     --auth-stay-signed-in-days=30</code></pre>
 <p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
-Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch:</p>
+Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch it:</p>
 <pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch</code></pre>
 <p>Here we’re using the rstudio image that includes tidyverse and devtools. This way we won’t need to worry about any system dependencies that they require.</p>
@@ -563,14 +563,14 @@ In the log file you’ll see:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....</code></pre>
-<p>Go to that URL and enter these randomly-generated username and password.</p>
+<p>Go to that URL and enter these username and password.</p>
 <p><strong>type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong></p>
 <p><strong>Note:</strong></p>
 <ul>
 <li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
 </li>
 <li>Make sure all the directories in the launch file exist before running it.</li>
-<li></li>
+<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to manage your packages.</li>
 </ul>
 </div>
 </div>

@@ -172,7 +172,7 @@ singularity exec \
     --auth-stay-signed-in-days=30
 ```
 Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
-Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch: 
+Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch it: 
 ```{bash}
 singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch
@@ -186,7 +186,7 @@ Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....
 ```
-Go to that URL and enter these randomly-generated username and password.
+Go to that URL and enter these username and password.
 
 **type `scancel <job_id>` in your terminal when you're ready to end the session**  
 
@@ -194,7 +194,7 @@ Go to that URL and enter these randomly-generated username and password.
 
 - Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.  
 - Make sure all the directories in the launch file exist before running it.
-- 
+- You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to manage your packages.  
 
 ## Submitting jobs to the cluster
 See [Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx) for how to submit jobs to the cluster, and specifically [with containers instead of modules](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx).  
