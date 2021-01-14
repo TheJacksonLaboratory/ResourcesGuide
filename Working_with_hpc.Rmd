@@ -107,7 +107,7 @@ Type `q()` to quite R. You're still connected to the interactive session.
 **Note:**You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
 Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
-To use an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
+You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
 ```
 singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 singularity exec bin/tidyverse_3.6.1.sif R
@@ -121,7 +121,7 @@ If you're developing the project mostly with RStudio, it might be easier to move
 
 ### Remote RStudio
 
-You can run Rstudio Server on the hpc and access it from a local browser. See instructions [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
+You can run Rstudio Server on the hpc and access it from a local browser, as explained [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
 Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM):  
 Open an interactive session on sumner
@@ -195,6 +195,7 @@ Go to that URL and enter these username and password.
 - Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.  
 - Make sure all the directories in the launch file exist before running it.
 - You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to manage your packages.  
+- See the [Containerizing](Containerizing.html) section on how to customize and build containers
 
 ## Submitting jobs to the cluster
 See [Research IT documentation](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx) for how to submit jobs to the cluster, and specifically [with containers instead of modules](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx).  

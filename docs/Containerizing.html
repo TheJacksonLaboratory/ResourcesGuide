@@ -432,7 +432,7 @@ Containers change the user space into a swappable component. This means that the
 <code>sandbox</code> is basically a directory that can be modified directly, which may be useful for developing and debugging, but that makes it less reproducible. For reproducibility sake, you’d want to package it eventually as a sif file.</p>
 <p>To see the def file of a sif image:</p>
 <pre class="bash"><code>singularity inspect --deffile R.sif</code></pre>
-<p>See the <a href="Working_with_hpc.html">Working With HPC</a> section for how to use singularity containers on the cluster. Here we focus on building new containers and modifying existing ones.</p>
+<p>See the <a href="Working_with_hpc.html">Working With HPC</a> section for how to use singularity containers on the cluster. See the <a href="https://jaxreg.jax.org/">Jax singularity repository</a> to search and pull containers made by other jax users. Here we focus on building new containers and modifying existing ones.</p>
 <p>Here’s an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well. The def file <code>R_bioc3_12_tidy1_3.def</code> can look like this:</p>
 <pre><code>bootstrap: docker
 from: bioconductor/bioconductor_docker:RELEASE_3_12

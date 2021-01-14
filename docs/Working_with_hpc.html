@@ -498,7 +498,7 @@ here()</code></pre>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
 <p><strong>Note:</strong>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
 <p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
-To use an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
+You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
 <pre><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 singularity exec bin/tidyverse_3.6.1.sif R</code></pre>
 <p>In this case we can’t just open an R session by calling the sif file because of how that def file is designed, so instead we do it with <code>exec</code>.<br />
@@ -508,7 +508,7 @@ If you’re developing the project mostly with RStudio, it might be easier to mo
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
-<p>You can run Rstudio Server on the hpc and access it from a local browser. See instructions <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
+<p>You can run Rstudio Server on the hpc and access it from a local browser, as explained <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
 <p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a>:<br />
 Open an interactive session on sumner</p>
 <pre class="bash"><code>srun --pty -q batch bash
@@ -570,7 +570,9 @@ In the log file you’ll see:</p>
 <li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
 </li>
 <li>Make sure all the directories in the launch file exist before running it.</li>
-<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to manage your packages.</li>
+<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to manage your packages.<br />
+</li>
+<li>See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers</li>
 </ul>
 </div>
 </div>
