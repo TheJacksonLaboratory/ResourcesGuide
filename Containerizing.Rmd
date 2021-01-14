@@ -28,7 +28,7 @@ singularity inspect --deffile R.sif
 
 See the [Working With HPC](Working_with_hpc.html) section for how to use singularity containers on the cluster.  
 
-Here's an example of building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
+Here's an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
 The def file `R_bioc3_12_tidy1_3.def` can look like this:
 ```
 bootstrap: docker
@@ -57,7 +57,7 @@ Coming soon: an example for submitting a job that renders an RMarkdown file.
 **Useful references:**  
 [Sigularity tutorial](https://singularity-tutorial.github.io/)   
 [Jax tutorial](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Hands-on--Basics-of-working-with-Singularity.aspx)   
-[How to modifying basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
+[How to modify basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
 
 Carpentry workshops:  
 [Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
