@@ -112,6 +112,7 @@ To use an image that already contains tidyverse (and RStudio etc) from [rocker](
 singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 singularity exec bin/tidyverse_3.6.1.sif R
 ```
+In this case we can't just open an R session by calling the sif file because of how that def file is designed, so instead we do it with `exec`.  
 You can now load the tidyverse packages as usual.
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
@@ -171,12 +172,15 @@ singularity exec \
     --auth-stay-signed-in-days=30
 ```
 Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
-Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch 
+Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio) and launch: 
 ```{bash}
 singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch
 ```
-In the log file you'll see 
+Here we're using the rstudio image that includes tidyverse and devtools. This way we won't need to worry about any system dependencies that they require.
+
+Next you need to open the log file generated in the script above under `#SBATCH --output=/home/flynnb/logs/rstudio-%j.log`  
+In the log file you'll see: 
 ```
 Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....

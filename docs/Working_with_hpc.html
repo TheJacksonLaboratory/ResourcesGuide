@@ -501,7 +501,8 @@ here()</code></pre>
 To use an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
 <pre><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 singularity exec bin/tidyverse_3.6.1.sif R</code></pre>
-<p>You can now load the tidyverse packages as usual.</p>
+<p>In this case we can’t just open an R session by calling the sif file because of how that def file is designed, so instead we do it with <code>exec</code>.<br />
+You can now load the tidyverse packages as usual.</p>
 <p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
 If you’re developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
 </div>
@@ -553,10 +554,12 @@ singularity exec \
     --auth-timeout-minutes=0 \
     --auth-stay-signed-in-days=30</code></pre>
 <p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
-Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch</p>
+Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch:</p>
 <pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch</code></pre>
-<p>In the log file you’ll see</p>
+<p>Here we’re using the rstudio image that includes tidyverse and devtools. This way we won’t need to worry about any system dependencies that they require.</p>
+<p>Next you need to open the log file generated in the script above under <code>#SBATCH --output=/home/flynnb/logs/rstudio-%j.log</code><br />
+In the log file you’ll see:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....</code></pre>
