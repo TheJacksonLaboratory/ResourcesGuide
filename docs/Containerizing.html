@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2021-01-16" />
 
 <title>Containerizing</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Containerizing</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-14</h4>
+<h4 class="date">2021-01-16</h4>
 
 </div>
 
@@ -451,7 +451,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 
 %help
  R base with the latest bioconductor, tidyverse, devtools, and other packages, and all their dependencies as of Jan 10 2020</code></pre>
-<p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, jax RIT has created a builder that we can use without root privileges.<br />
+<p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx">jax RIT has created a builder</a> that we can use without root privileges.<br />
 The building and launching commands are therefore:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
@@ -459,35 +459,6 @@ singularity run http://s3-far.jax.org/builder/builder \
         bin/R_bioc3_12_tidy1_3.def bin/R_bioc3_12_tidy1_3.sif
 singularity exec bin/R_bioc3_12_tidy1_3.sif R</code></pre>
 <p>You can now install other packages on your home directory to be available for future sessions (as long as they don’t require any missing system dependencies) and read/write files from/to your projects and home directories.</p>
-<p>You can use these packages with rstudio on the cluster as explained <a href="Working_with_hpc.html#Remote_RStudio">here</a>. If you need additional system dependencies you can build a new image as follows: (<a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610639550000100?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">modified from Selcan Aydin’s file</a>:</p>
-<pre><code>Bootstrap: docker
-From: rocker/tidyverse:4.0.3
-
-%labels
-    Author selcan.aydin@jax.org
-    R_VERSION 4.0.3
-
-%runscript
-    echo &quot;Container was created $NOW&quot;
-    echo &quot;Arguments received: $*&quot;
-    exec echo &quot;$@&quot;
-
-%post
-# add here any system dependencies you need 
-  apt-get update \
-    &amp;&amp; apt-get install -y --no-install-recommends \
-    ssh \
-    bash \
-    pkg-config \
-    libjpeg62-dev \
-    libz-dev \
-    tk \
-    libxml2 \
-    libxml2-dev \
-    libbz2-dev \
-    liblzma-dev \
-    xterm \
-    x11-utils</code></pre>
 
 
 

@@ -51,7 +51,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 %help
  R base with the latest bioconductor, tidyverse, devtools, and other packages, and all their dependencies as of Jan 10 2020
 ```
-In order to build the image with the `singularity build` command we'd need root privileges on the cluster. To address that, jax RIT has created a builder that we can use without root privileges.  
+In order to build the image with the `singularity build` command we'd need root privileges on the cluster. To address that, [jax RIT has created a builder](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx) that we can use without root privileges.  
 The building and launching commands are therefore:
 ```{bash}
 srun --pty -q batch bash
@@ -61,35 +61,3 @@ singularity run http://s3-far.jax.org/builder/builder \
 singularity exec bin/R_bioc3_12_tidy1_3.sif R
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
-
-You can use these packages with rstudio on the cluster as explained [here](Working_with_hpc.html#Remote_RStudio). If you need additional system dependencies you can build a new image as follows: ([modified from Selcan Aydin's file](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610639550000100?thread_ts=1610466397.059200&cid=CMKS61RLM):
-```
-Bootstrap: docker
-From: rocker/tidyverse:4.0.3
-
-%labels
-    Author selcan.aydin@jax.org
-    R_VERSION 4.0.3
-
-%runscript
-    echo "Container was created $NOW"
-    echo "Arguments received: $*"
-    exec echo "$@"
-
-%post
-# add here any system dependencies you need 
-  apt-get update \
-    && apt-get install -y --no-install-recommends \
-    ssh \
-    bash \
-    pkg-config \
-    libjpeg62-dev \
-    libz-dev \
-    tk \
-    libxml2 \
-    libxml2-dev \
-    libbz2-dev \
-    liblzma-dev \
-    xterm \
-    x11-utils
-```

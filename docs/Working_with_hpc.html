@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-14" />
+<meta name="date" content="2021-01-16" />
 
 <title>Working with the hpc clusters</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-14</h4>
+<h4 class="date">2021-01-16</h4>
 
 </div>
 
@@ -509,10 +509,7 @@ If you’re developing the project mostly with RStudio, it might be easier to mo
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
 <p>You can run Rstudio Server on the hpc and access it from a local browser, as explained <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
-<p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a>:<br />
-Open an interactive session on sumner</p>
-<pre class="bash"><code>srun --pty -q batch bash
-module load singularity</code></pre>
+<p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a>:</p>
 <p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with this content:</p>
 <pre><code>#!/usr/bin/env bash
 ### SLURM HEADER
@@ -554,7 +551,10 @@ singularity exec \
     --auth-timeout-minutes=0 \
     --auth-stay-signed-in-days=30</code></pre>
 <p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
-Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch it:</p>
+Open an interactive session on sumner</p>
+<pre class="bash"><code>srun --pty -q batch bash
+module load singularity</code></pre>
+<p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch it:</p>
 <pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
 sbatch launch_rstudio.sbatch</code></pre>
 <p>Here we’re using the rstudio image that includes tidyverse, biocmanager, and devtools, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. This way we don’t need to worry about any system dependencies that they require. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a></p>
@@ -564,16 +564,11 @@ In the log file you’ll see:</p>
   username: ....
   password: ....</code></pre>
 <p>Go to that URL and enter these username and password.</p>
-<p><strong>type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong></p>
-<p><strong>Note:</strong></p>
-<ul>
-<li>Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.<br />
-</li>
-<li>Make sure all the directories in the launch file exist before running it.</li>
-<li>You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your packages</a>.<br />
-</li>
-<li>See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers</li>
-</ul>
+<p><strong>Type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong><br />
+Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.</p>
+<p><strong>Note:</strong><br />
+- Make sure all the directories in the launch file exist before running it. - You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your packages</a>.<br />
+- See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers</p>
 </div>
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">
