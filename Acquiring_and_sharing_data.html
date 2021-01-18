@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Carter Lab" />
+
+<meta name="date" content="2021-01-18" />
+
+<title>Acquiring and Sharing Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Resources - Carter Lab</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Guide
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Overview.html">Overview</a>
+    </li>
+    <li>
+      <a href="Organizing_projects.html">Organizing Projects</a>
+    </li>
+    <li>
+      <a href="Acquiring_and_sharing_data.html">Acquiring Data</a>
+    </li>
+    <li>
+      <a href="Working_with_hpc.html">Working with HPC</a>
+    </li>
+    <li>
+      <a href="Containerizing.html">Containerizing</a>
+    </li>
+    <li>
+      <a href="Publishing.html">Publishing</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://github.com/TheJacksonLaboratory/ResourcesGuide.git">
+    <span class="fas fa-github"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="mailto:&lt;annat.haber@jax.org&gt;">
+    <span class="fas fa-paper-plane"></span>
+     
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
+<h4 class="author">Carter Lab</h4>
+<h4 class="date">2021-01-18</h4>
+
+</div>
+
+
+<p><strong>Goals:</strong></p>
+<ul>
+<li>Keep shared data (including processed data and results) in a stable shared location</li>
+<li>Link to data instead of copying/moving data</li>
+<li>Incorporate data linking in your script<br />
+</li>
+<li>Treat processed data and results as “raw” data objects for sharing purposes</li>
+<li>Describe data: origin, what’s been done with it, what the columns/rows mean, etc.</li>
+<li>keep data files together with their metadata and any processing scripts when applicable, either physically or with a reliable link between them.</li>
+</ul>
+<p>A good way to interact with data objects is in a manner similar to working with git for developing code: “pushing” and “pulling” data objects to and from remote repositories from within your working directory, scripting everything, instead of copying data manually into the project folder. This not only makes work easier, but also helps maintain data provenance and promotes transparency and reproducibility. Github repositories, however, are (currently) limited in size and are therefore not optimal for sharing large data objects and research projects. Instead we can use services such as Synapse and RStudio Connect and tools such as <a href="https://docs.globus.org">Globus CLI</a> and the R <a href="http://pins.rstudio.com"><code>pins</code> package</a>. In addition to providing a way to incorporate data transfer in the script, these tools also manage the caching and check for updates beforing re-downloading data. The caching ensures that we still have the latest version available in our system in the case that the original becomes unavailable for whatever reason.</p>
+<p>Sharing data between “native” projects on the same file system can be done using the R package <code>pins</code> (see below). Sharing data among file systems (e.g., between tier1, tier2, and local) can be done either directly with Globus or via servers such as Synapse and RStudio Connect. Interacting with servers such as Synapse and RStudio Connect can be done using either their own clients (see below) or with <code>pins</code>.</p>
+<div class="figure">
+<img src="images/data_share.png" alt="" />
+<p class="caption">image</p>
+</div>
+<p>To read more about data provenance and management:<br />
+<a href="https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf" class="uri">https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf</a><br />
+<a href="https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance" class="uri">https://www.w3.org/2005/Incubator/prov/wiki/What_Is_Provenance</a><br />
+<a href="https://docs.synapse.org/articles/provenance.html" class="uri">https://docs.synapse.org/articles/provenance.html</a></p>
+<p>An example for a resource sharing plan to include in NIH grants: <a href="https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md" class="uri">https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md</a></p>
+<div id="from-scientific-services" class="section level2">
+<h2>From Scientific Services</h2>
+<p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a>.</p>
+<ul>
+<li>Keep data files together with all the metadata that come with them.<br />
+</li>
+<li>Keep data in a shared designated location, not in your home directory and not under your name.<br />
+For example: <code>/projects/hepatocytes/data/RRBS/</code><br />
+and not <code>/projects/hepatocytes/USERNAME/data/RRBS</code><br />
+nor <code>/projects/hepatocytes/data/USERNAME/RRBS</code><br />
+</li>
+<li>Set permissions to be accessible to everyone in the Carter-Lab group: <code>chmod -R 775</code><br />
+</li>
+<li>Don’t change file names or content. Leave the raw data raw.</li>
+</ul>
+</div>
+<div id="from-synapse" class="section level2">
+<h2>From Synapse</h2>
+<p><a href="https://docs.synapse.org/articles/" class="uri">https://docs.synapse.org/articles/</a><br />
+Often the best way to work with data that live on Synapse is to download/upload them directly from Synapse using its <a href="https://r-docs.synapse.org/articles/synapser.html">R</a>, <a href="https://python-docs.synapse.org/build/html/index.html">pyhton</a>, or <a href="https://python-docs.synapse.org/build/html/CommandLineClient.html">CLI</a> clients.<br />
+See <a href="https://docs.synapse.org/articles/provenance.html">here</a> for how provenance works on Synapse.</p>
+<p>For example, using the R package <code>synapser</code>:<br />
+The function <code>synGet()</code> downloads the data into a cache folder in your home directory (<code>~/.synapseCache</code>) in whichever file system you’re on. Every time you run the code, it checks your cached copy against the original on Synapse and re-downloads it only if there has been changes since the last download. The cache location is specified in <code>~/.synapseConfig</code>.<br />
+For example, if I need to use mayo metadata (syn11384571) in my analysis:</p>
+<pre class="r"><code>### input code
+library(tidyverse)
+
+synLogin() # include this in every chunk that connects to Synapse
+
+mayo &lt;- synapser::synGet(&quot;syn11384571&quot;)$path %&gt;%  # downloading the file from synapse to the cache
+  read_csv() %&gt;%                                  # loading it from the cache into the workspace
+  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;% # modifying it for this analysis
+  mutate(cohort=&quot;mayo&quot;)</code></pre>
+<p>See <a href="https://r-docs.synapse.org/articles/manageSynapseCredentials.html">here</a> on how to specify your login credentials in <code>.synapseConfig</code>.<br />
+This works the same way from your local machine or RStudio Server. The config file and cache folder will be on your RStudio Server home directory (<code>/unixhome</code>).</p>
+<p>Similarly, it is possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. This allows other users to interact with your results with synGet() as described above. With this function you can also upload the script that was used for generating those results and specify their relations as their provenance.</p>
+<p>This code takes the output file <code>ADvariants_anno.txt</code>, turns it into a file object that synapse understands, including the folder in which it should be stored (‘parent’), and stores it along with its provenance. The function <code>Activity()</code> generates a provenance object that specifies in this case the script that was used to generate it (also stored on synapse as ‘syn23595214’).</p>
+<pre class="r"><code>file &lt;- File(&quot;output/ADvariants_anno.txt&quot;,
+             contentType = &quot;text/plain&quot;,
+             description = &quot;LOAD variant list&quot;,
+             parent = &quot;syn23569714&quot;)
+provenance &lt;- Activity(executed = &quot;syn23595214&quot;)
+file &lt;- synStore(file, activity=provenance)</code></pre>
+<p>See <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/606653">here</a> for an example of how to share an analysis script and results and describe them using the Synapse provenance tool. The .Rmd file in this example includes input and output chunks that demonstrate the use of <code>synapser</code> to download and upload data directly from and to Synapse.</p>
+<p>The package <a href="https://github.com/Sage-Bionetworks/knit2synapse">knit2synapse</a> allows you to knit Rmarkdown files directly to synapse as a wiki page.</p>
+<p>Since we usually work with secured and/or very heavy data from Synapse, we have synapse cache folder inside the sdata folder on both tier1 and tier2 to ensure that the data remain in a secured location when downloaded. Using this cache folder instead of the one on your home directory will also spare you the need to download your own copy, saving you space.<br />
+To do that, open the <code>.synapseConfig</code> file in your home directory and edit the caching part to look like this for tier2 data:</p>
+<pre><code>###########################
+# Caching                 #
+###########################
+
+## your downloaded files are cached to avoid repeat downloads of the same file. change &#39;location&#39; to use a different folder on your computer as the cache location
+[cache]
+location = /tier2/carter-lab/sdata/AMPAD/.synapseCache</code></pre>
+<p>The location on tier1 is <code>/sdata/carter-lab/carter/AMPAD/.synapseCache</code></p>
+<p>It is also possible to provide a different path to download a file from synapse, thus bypassing the cache. This is useful if we want to keep files in a more visible location than the cache. It would still check for updates before downloading and allow you to incorporate data transfer in the script. For example:</p>
+<pre class="r"><code>file &lt;- &quot;NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt&quot;
+synid &lt;- synFindEntityId(file, parent=&quot;syn11707420&quot;)
+synpath &lt;- synapser::synGet(synid, downloadLocation=&quot;sdata/AMPAD/synapseData/ROSMAP/WGS/&quot;)$path
+# using fread because it&#39;s a very big file:
+annot &lt;- data.table::fread(file=synpath, sep=&quot;\t&quot;) </code></pre>
+</div>
+<div id="from-rstudio-connect" class="section level2">
+<h2>From RStudio Connect</h2>
+<p><a href="https://docs.rstudio.com/connect/user/">RStudio Connect</a> is useful for sharing reports, R objects, and various files between different projects from different locations. It is especially useful for projects that are being developed on RStudio Server and live on tier2. From RStudio you can easily <a href="https://docs.rstudio.com/connect/user/publishing/">publish content</a> to RStudio Connect using the publish button in either the editor or the preview windows.</p>
+<p>Using the package <a href="https://rstudio.github.io/connectapi/"><code>connectapi</code></a> it is very similar to working with Synapse.<br />
+Another option is to use <code>pins</code> and its built-in <a href="https://docs.rstudio.com/connect/user/pins/">RStudio Connect board</a> functionality (see below).</p>
+</div>
+<div id="using-pins" class="section level2">
+<h2>Using pins</h2>
+<p><a href="http://pins.rstudio.com/" class="uri">http://pins.rstudio.com/</a><br />
+The R package <code>pins</code> works by pinning data objects to boards (See image below). A type of board is basically a connection to a type of location (data repository), such as RStudio Connect and Github, or another folder. Registering a board opens that connection for that session. The local board (local to whichever file system you’re on) is by default the cache folder, which by default is <code>~/Library/Caches/pins</code> on a mac, and is registered automatically when loading the package. You can see it under the connections tab in RStudio.<br />
+The function <code>pin()</code> sends (‘pushes’) an object from the current workspace into the specified board. If <code>board='local'</code> the object is pinned into the cache, thus made available to other projects on that file system and to future sessions. The function <code>pin_get()</code> retrieves (‘pulls’) the object from the board into the workspace via the cache - or from the cache if <code>board='local'</code> - while checking the original source for updates. In either cases, some basic standardized information about the object is being logged into a text file in the cache folder, creating basic documentation on what is stored there.</p>
+<div class="figure">
+<img src="images/pins2.png" alt="" />
+<p class="caption">image</p>
+</div>
+<p>There can be many connections open to one type of board in a given session, but you’d need to register them separately (per session) under different names.</p>
+<div id="between-projects-in-the-same-file-system" class="section level3">
+<h3>Between projects in the same file system</h3>
+<p>Often we generate results in one project that we then need to use in another “native” project that lives in the same file system. We can either publish these results to RStudio Connect (or to Synapse) and interact with them as described above, or we can pin the results to the local cache (local to the system we’re working in) and pull them into the other project from there, as shown below.</p>
+<p>For example, say I generated a dataframe object with the archetype classification for ROSMAP patients as part of the ampad_archetypes project that lives on tier2. The script that created that result is in <code>/tier2/carter-lab/sdata/AMPAD/ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd</code>. At the end of that Rmarkdown file I include a chunk that pins the generated data object to a local board:</p>
+<pre class="r"><code># output chunk of 1_fit_archetypes.Rmd
+pin(archetypes_meta, 
+    name = &quot;archetypes_meta_k3p20_AD&quot;, 
+    description = &quot;Archetype classification. Output of ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd&quot;,
+    board = &quot;local&quot;)</code></pre>
+<p>Now I can close that session, start a new one within a different project on tier2, say <code>ampad_ADvariants</code> and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and further modify it.</p>
+<pre class="r"><code># input chunk of ampad_ADvariants_MCA.Rmd, 
+archetypes &lt;- pin_get(&quot;archetypes_meta_k3p20_AD&quot;, board=&quot;local&quot;) %&gt;%
+  select(wgs_id, Archetype) %&gt;%
+  filter(!is.na(wgs_id))</code></pre>
+<p>This works the same way from RStudio Server as from your local machine. The local board in RStudio Server is on your home dir on the RStudio Server <code>~/.cache/pins</code>. To see this information you can type <code>pins::board_get("local")</code></p>
+<p>If you’re working with secure data, and you want to pin your results locally for later use, you’d need to pin them to the sdata folder (on tier1 or tier2) instead of the cache. For this purpose, you’d want to register a new local board that points to the pins cache on sdata (once per session). For example, you might have a code chunk like this in your Rmarkdown file:</p>
+<pre class="r"><code>pins::board_register_local(name = &quot;sdata&quot;, cache = &quot;/sdata/.cache/pins&quot;)
+
+synapser::synLogin() # include this in every chunk that connects to Synapse
+
+mayo &lt;- read_csv(synapser::synGet(&quot;syn11384571&quot;)$path) %&gt;%
+  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;%
+  mutate(cohort=&quot;mayo&quot;) %&gt;%
+  pins::pin(name=&quot;mayo_metadata_wgs_apoe_diagnosis&quot;, 
+        description=&quot;ouput of &lt;path/rmd_file&gt; etc&quot;, 
+        board=&quot;sdata&quot;)</code></pre>
+<p>Please see instructions above on how to configure <code>synGet()</code> to download data into the secured cache folder on tier1 and tier2 instead of your home directory.</p>
+<p>In order to retrieve the modified file in another session:</p>
+<pre class="r"><code>board_register_local(name = &quot;sdata&quot;, cache = &quot;/sdata/.cache/pins&quot;)
+pin_find(&quot;mayo&quot;, board=&quot;sdata&quot;)               # see everything available in that board for mayo cohort
+pin_info(&quot;mayo_metadata_wgs_apoe_diagnosis&quot;)  # retrieve info for this data frame
+mayo &lt;- pin_get(&quot;mayo_metadata_wgs_apoe_diagnosis&quot;, board=&quot;sdata&quot;)  # load from sdata chache to workspace</code></pre>
+</div>
+<div id="between-different-file-systems" class="section level3">
+<h3>Between different file systems</h3>
+<p>A good way to share data and results between different projects (whether on the same file system or not) is via a remote server such as RStudio Connect or Synapse. <code>pins</code> has a built-in board functionality for RStudio Connect, github, and any url, as well as other common services. It also has functions to create new types of boards, so it’s probably possible to create a board for Dropbox and Synapse as well.<br />
+See <a href="http://pins.rstudio.com/articles/boards-rsconnect.html">here</a> and <a href="http://pins.rstudio.com/articles/use-cases/reuse-tidy-datasets.html">here</a> for how to use pins with RStudio Connect.</p>
+<p>Before using RStudio Connect as a board, you need to authenticate it first. If you’re working with RStudio, you can register the RStudio Connect account in RStudio using Tools -&gt; Global Options -&gt; Publishing -&gt; Connect, and then you simply register the board with <code>board_register_rsconnect(name="jax_rsconnect", server = "https://rshiny.jax.org")</code> (the name can be anything) and use the same chuncks of code as above but with “jax_rsconnect” as a board.<br />
+If you want to register the board from outside RStudio, you’ll need to include an API key in that command as shown <a href="https://docs.rstudio.com/connect/user/pins/">here</a></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
