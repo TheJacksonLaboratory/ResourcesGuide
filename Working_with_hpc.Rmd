@@ -179,7 +179,7 @@ singularity pull --name bin/rstudio.simg docker://rocker/tidyverse:latest
 cp bin/rstudio.simg /fastscratch/<USERNAME>
 sbatch launch_rstudio.sbatch
 ```
-Here we're using the rstudio image that includes tidyverse, biocmanager, and devtools, as you can see [here](https://hub.docker.com/r/rocker/tidyverse/dockerfile). This way we don't need to worry about any system dependencies that they require. If your project uses packages that need other system dependencies you'd need to add that to the image def file and rebuild the sif file as explained [here](Containerizing.html)
+Here we're using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see [here](https://hub.docker.com/r/rocker/tidyverse/dockerfile). If your project uses packages that need other system dependencies you'd need to add that to the image def file and rebuild the sif file as explained [here](Containerizing.html).  
 
 Next you need to get the URL and login information from the log file: 
 ```{bash}
@@ -198,7 +198,7 @@ Ending the session is crucial here not only to avoid draining hpc resources but 
 
 **Note:**  
 - Make sure all the directories in the launch file exist before running it.
-- You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to [manage your packages](Organizing_projects.html#Recording_the_computational_environment).  
+- You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to [manage your locally-installed packages](Organizing_projects.html#Recording_the_computational_environment).  
 - See the [Containerizing](Containerizing.html) section on how to customize and build containers
 
 ## Submitting jobs to the cluster

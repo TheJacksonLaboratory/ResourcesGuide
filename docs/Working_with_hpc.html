@@ -558,7 +558,7 @@ module load singularity</code></pre>
 <pre class="bash"><code>singularity pull --name bin/rstudio.simg docker://rocker/tidyverse:latest 
 cp bin/rstudio.simg /fastscratch/&lt;USERNAME&gt;
 sbatch launch_rstudio.sbatch</code></pre>
-<p>Here we’re using the rstudio image that includes tidyverse, biocmanager, and devtools, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. This way we don’t need to worry about any system dependencies that they require. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a></p>
+<p>Here we’re using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>
 <p>Next you need to get the URL and login information from the log file:</p>
 <pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
 <p>You’ll see something like this:</p>
@@ -569,7 +569,7 @@ sbatch launch_rstudio.sbatch</code></pre>
 <p><strong>Type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong><br />
 Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.</p>
 <p><strong>Note:</strong><br />
-- Make sure all the directories in the launch file exist before running it. - You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your packages</a>.<br />
+- Make sure all the directories in the launch file exist before running it. - You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your locally-installed packages</a>.<br />
 - See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers</p>
 </div>
 </div>
