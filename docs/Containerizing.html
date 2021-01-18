@@ -451,6 +451,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 
 %help
  R base with the latest bioconductor, tidyverse, devtools, and other packages, and all their dependencies as of Jan 10 2020</code></pre>
+<p>If you need other system dependencies, you can add them under <code>apt-get -y update</code>. See examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
 <p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx">jax RIT has created a builder</a> that we can use without root privileges.<br />
 The building and launching commands are therefore:</p>
 <pre class="bash"><code>srun --pty -q batch bash
