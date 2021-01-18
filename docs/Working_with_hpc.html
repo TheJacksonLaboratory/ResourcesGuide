@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-16" />
+<meta name="date" content="2021-01-18" />
 
 <title>Working with the hpc clusters</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-16</h4>
+<h4 class="date">2021-01-18</h4>
 
 </div>
 
@@ -554,12 +554,14 @@ singularity exec \
 Open an interactive session on sumner</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity</code></pre>
-<p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a> and launch it:</p>
-<pre class="bash"><code>singularity pull --name rstudio.simg docker://rocker/tidyverse:latest 
+<p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a>, copy it to fastscratch, and launch it:</p>
+<pre class="bash"><code>singularity pull --name bin/rstudio.simg docker://rocker/tidyverse:latest 
+cp bin/rstudio.simg /fastscratch/&lt;USERNAME&gt;
 sbatch launch_rstudio.sbatch</code></pre>
 <p>Here we’re using the rstudio image that includes tidyverse, biocmanager, and devtools, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. This way we don’t need to worry about any system dependencies that they require. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a></p>
-<p>Next you need to open the log file specified above under <code>#SBATCH --output=/home/flynnb/logs/rstudio-%j.log</code><br />
-In the log file you’ll see:</p>
+<p>Next you need to get the URL and login information from the log file:</p>
+<pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
+<p>You’ll see something like this:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....</code></pre>
