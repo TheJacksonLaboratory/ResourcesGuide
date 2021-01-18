@@ -123,7 +123,7 @@ If you're developing the project mostly with RStudio, it might be easier to move
 
 You can run Rstudio Server on the hpc and access it from a local browser, as explained [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
-Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM):  
+Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM) (and slightly modified here):  
   
 Open a text editor and create a file named `launch_rstudio.sbatch` with this content:
 ```
