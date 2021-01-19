@@ -72,3 +72,5 @@ singularity run http://s3-far.jax.org/builder/builder \
 singularity exec bin/R_bioc_tidy_4.0.3.sif R
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
+
+This image can also be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio) 
