@@ -38,18 +38,26 @@ Carpentry workshops:
 [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
 [Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
 
-Here's an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
-The def file `R_bioc3_12_tidy1_3.def` can look like this:
+Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
+The def file `R_bioc_tidy_4.0.3.def` can look like this:
 ```
 bootstrap: docker
 from: bioconductor/bioconductor_docker:RELEASE_3_12
 
+%labels
+	AUTHOR Annat Haber annat.haber@jax.org
+	R VERSION 4.0.3
+
 %post
- apt-get -y update
- R --slave -e 'install.packages(c("abind", "ggplot2", "gridExtra", "devtools", "tidyverse", "git2r"), dependencies = TRUE)'
+	apt-get update -y
+	apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
+	apt-get install -y libcurl4-openssl-dev		
+
+	R --slave -e 'install.packages(c("ggplot2", "gridExtra", "devtools", "tidyverse", "git2r"), dependencies = TRUE)'
+ 	R --slave -e 'install.packages("synapser", repos = c("http://ran.synapse.org", "http://cran.fhcrc.org"), dependencies = TRUE)'
 
 %help
- R base with the latest bioconductor, tidyverse, devtools, and other packages, and all their dependencies as of Jan 10 2020
+ 	R base with the latest bioconductor, tidyverse, devtools, synapser, and their dependencies
 ```
 If you need other system dependencies, you can add them under `apt-get -y update`. See examples in the [Jax registry](https://jaxreg.jax.org/).
   
@@ -59,7 +67,7 @@ The building and launching commands are therefore:
 srun --pty -q batch bash
 module load singularity
 singularity run http://s3-far.jax.org/builder/builder \
-        bin/R_bioc3_12_tidy1_3.def bin/R_bioc3_12_tidy1_3.sif
-singularity exec bin/R_bioc3_12_tidy1_3.sif R
+        bin/R_bioc_tidy_4.0.3.def bin/R_bioc_tidy_4.0.3.sif
+singularity exec bin/R_bioc_tidy_4.0.3.sif R
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.

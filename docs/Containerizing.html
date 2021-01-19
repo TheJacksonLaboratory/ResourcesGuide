@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-18" />
+<meta name="date" content="2021-01-19" />
 
 <title>Containerizing</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Containerizing</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-18</h4>
+<h4 class="date">2021-01-19</h4>
 
 </div>
 
@@ -441,24 +441,32 @@ Containers change the user space into a swappable component. This means that the
 <a href="https://carpentries-incubator.github.io/docker-introduction/">Introduction to Docker</a><br />
 <a href="https://carpentries-incubator.github.io/singularity-introduction/index.html">Introduction to Singularity</a><br />
 <a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop focusing on HPC</a></p>
-<p>Here’s an example for building an R image that starts with the bioconductor base image and includes tidyverse and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well. The def file <code>R_bioc3_12_tidy1_3.def</code> can look like this:</p>
+<p>Here’s an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well. The def file <code>R_bioc_tidy_4.0.3.def</code> can look like this:</p>
 <pre><code>bootstrap: docker
 from: bioconductor/bioconductor_docker:RELEASE_3_12
 
+%labels
+    AUTHOR Annat Haber annat.haber@jax.org
+    R VERSION 4.0.3
+
 %post
- apt-get -y update
- R --slave -e &#39;install.packages(c(&quot;abind&quot;, &quot;ggplot2&quot;, &quot;gridExtra&quot;, &quot;devtools&quot;, &quot;tidyverse&quot;, &quot;git2r&quot;), dependencies = TRUE)&#39;
+    apt-get update -y
+    apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
+    apt-get install -y libcurl4-openssl-dev     
+
+    R --slave -e &#39;install.packages(c(&quot;ggplot2&quot;, &quot;gridExtra&quot;, &quot;devtools&quot;, &quot;tidyverse&quot;, &quot;git2r&quot;), dependencies = TRUE)&#39;
+    R --slave -e &#39;install.packages(&quot;synapser&quot;, repos = c(&quot;http://ran.synapse.org&quot;, &quot;http://cran.fhcrc.org&quot;), dependencies = TRUE)&#39;
 
 %help
- R base with the latest bioconductor, tidyverse, devtools, and other packages, and all their dependencies as of Jan 10 2020</code></pre>
+    R base with the latest bioconductor, tidyverse, devtools, synapser, and their dependencies</code></pre>
 <p>If you need other system dependencies, you can add them under <code>apt-get -y update</code>. See examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
 <p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx">jax RIT has created a builder</a> that we can use without root privileges.<br />
 The building and launching commands are therefore:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
 singularity run http://s3-far.jax.org/builder/builder \
-        bin/R_bioc3_12_tidy1_3.def bin/R_bioc3_12_tidy1_3.sif
-singularity exec bin/R_bioc3_12_tidy1_3.sif R</code></pre>
+        bin/R_bioc_tidy_4.0.3.def bin/R_bioc_tidy_4.0.3.sif
+singularity exec bin/R_bioc_tidy_4.0.3.sif R</code></pre>
 <p>You can now install other packages on your home directory to be available for future sessions (as long as they don’t require any missing system dependencies) and read/write files from/to your projects and home directories.</p>
 
 
