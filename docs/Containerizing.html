@@ -441,7 +441,7 @@ Containers change the user space into a swappable component. This means that the
 <a href="https://carpentries-incubator.github.io/docker-introduction/">Introduction to Docker</a><br />
 <a href="https://carpentries-incubator.github.io/singularity-introduction/index.html">Introduction to Singularity</a><br />
 <a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop focusing on HPC</a></p>
-<p>Here’s an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well. The def file <code>R_bioc_tidy_4.0.3.def</code> can look like this:</p>
+<p>Here’s an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well. The def file <code>R_bioc_tidy_4.0.3.def</code> can look like this:</p>
 <pre><code>bootstrap: docker
 from: bioconductor/bioconductor_docker:RELEASE_3_12
 
@@ -451,6 +451,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 
 %post
     apt-get update -y
+    #From synapser dockerfile:
     apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
     apt-get install -y libcurl4-openssl-dev     
 
@@ -459,7 +460,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 
 %help
     R base with the latest bioconductor, tidyverse, devtools, synapser, and their dependencies</code></pre>
-<p>If you need other system dependencies, you can add them under <code>apt-get -y update</code>. See examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
+<p>Here we add a few system dependencies under <code>apt-get -y update</code> that are <a href="https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile">required for synapser</a> and are not included in the <a href="https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile">bioconductor base image</a>, based on their respective dockerfiles. See more examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
 <p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx">jax RIT has created a builder</a> that we can use without root privileges.<br />
 The building and launching commands are therefore:</p>
 <pre class="bash"><code>srun --pty -q batch bash

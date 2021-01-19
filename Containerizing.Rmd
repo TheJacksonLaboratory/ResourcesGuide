@@ -38,7 +38,7 @@ Carpentry workshops:
 [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
 [Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
 
-Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, it is a good idea to install it explicitly to ensure that its own dependencies are all installed as well.
+Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well.
 The def file `R_bioc_tidy_4.0.3.def` can look like this:
 ```
 bootstrap: docker
@@ -50,6 +50,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 
 %post
 	apt-get update -y
+	#From synapser dockerfile:
 	apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
 	apt-get install -y libcurl4-openssl-dev		
 
@@ -59,7 +60,7 @@ from: bioconductor/bioconductor_docker:RELEASE_3_12
 %help
  	R base with the latest bioconductor, tidyverse, devtools, synapser, and their dependencies
 ```
-If you need other system dependencies, you can add them under `apt-get -y update`. See examples in the [Jax registry](https://jaxreg.jax.org/).
+Here we add a few system dependencies under `apt-get -y update` that are [required for synapser](https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile) and are not included in the [bioconductor base image](https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile), based on their respective dockerfiles. See more examples in the [Jax registry](https://jaxreg.jax.org/).
   
 In order to build the image with the `singularity build` command we'd need root privileges on the cluster. To address that, [jax RIT has created a builder](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx) that we can use without root privileges.  
 The building and launching commands are therefore:
