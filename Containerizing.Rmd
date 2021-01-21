@@ -14,6 +14,7 @@ A Unix operating system is broken into two primary components, the kernel space,
 Containers change the user space into a swappable component. This means that the entire user space portion of a Linux operating system, including programs, custom configurations, and environment can be independent from whatever operating system is running underneath.  
 
 Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have [full and direct access to all files ](https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files) you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts`/home/$USER`,`/tmp`, and`$PWD` into your container at runtime. You can specify additional directories to bind mount into your container with the `--bind` option.  
+For example, to access secured data from within a container interactively, you could use `singularity shell --bind /sdata/carter-lab/ bin/mycontainer.sif`.    
 
 It is also possible to [start a shell](https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell) from within any container with, e.g., `singularity shell R.sif`
 

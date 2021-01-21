@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-19" />
+<meta name="date" content="2021-01-21" />
 
 <title>Containerizing</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Containerizing</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-19</h4>
+<h4 class="date">2021-01-21</h4>
 
 </div>
 
@@ -425,7 +425,8 @@ div.tocify {
 <p>From the <a href="https://sylabs.io/guides/3.5/user-guide/introduction.html#why-use-containers">Singularity documentation</a> on why we want to use containers:<br />
 A Unix operating system is broken into two primary components, the kernel space, and the user space. The Kernel talks to the hardware, and provides core system features. The user space is the environment that most people are most familiar with. A given operating system provides a fixed combination of kernel and user space.<br />
 Containers change the user space into a swappable component. This means that the entire user space portion of a Linux operating system, including programs, custom configurations, and environment can be independent from whatever operating system is running underneath.</p>
-<p>Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have <a href="https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files">full and direct access to all files</a> you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts<code>/home/$USER</code>,<code>/tmp</code>, and<code>$PWD</code> into your container at runtime. You can specify additional directories to bind mount into your container with the <code>--bind</code> option.</p>
+<p>Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have <a href="https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files">full and direct access to all files</a> you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts<code>/home/$USER</code>,<code>/tmp</code>, and<code>$PWD</code> into your container at runtime. You can specify additional directories to bind mount into your container with the <code>--bind</code> option.<br />
+For example, to access secured data from within a container interactively, you could use <code>singularity shell --bind /sdata/carter-lab/ bin/mycontainer.sif</code>.</p>
 <p>It is also possible to <a href="https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell">start a shell</a> from within any container with, e.g., <code>singularity shell R.sif</code></p>
 <p>Singularity uses <a href="https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch">two formats for building images</a>: sandbox and sif.<br />
 <code>sif</code> isn’t writable so in order to modify it you’d need to modify <a href="https://sylabs.io/guides/3.0/user-guide/definition_files.html">the def file</a> and re-build the image.<br />

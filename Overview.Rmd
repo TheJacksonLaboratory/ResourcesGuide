@@ -96,6 +96,7 @@ This will also provide you automatic access to full papers in any journals that 
 * [helpdesk self-service](https://jax.service-now.com/jax)
 * [webex](https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx)
 * [Microsof teams](https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/Teams-and-Office-365-Groups.aspx)
+* [Jax computational community](https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity?CT=1568310418608&OR=OWA-NT&CID=be6f5659-d728-0441-53b8-d1f0e03afba6)
 * [Interest groups and Journal clubs](https://jacksonlaboratory.sharepoint.com/:x:/r/sites/ResearchResources/_layouts/15/Doc.aspx?sourcedoc=%7B3C15F833-3032-4560-831B-D6F02A6E6757%7D&file=Interest%20Groups%20and%20Journal%20Clubs%2009.2020.xlsx&action=default&mobileredirect=true&DefaultItemOpen=1)
 
 ## Training
