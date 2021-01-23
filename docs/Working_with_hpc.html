@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-01-21" />
+<meta name="date" content="2021-01-22" />
 
 <title>Working with the hpc clusters</title>
 
@@ -417,7 +417,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-01-21</h4>
+<h4 class="date">2021-01-22</h4>
 
 </div>
 
@@ -480,6 +480,8 @@ Working interactively has the potential to drain the hpc resources for everyone 
 <p>See <code>man srun</code> for options such as CPU and memory allocation</p>
 <div id="from-your-local-terminalrstudio" class="section level3">
 <h3>From your local terminal/RStudio</h3>
+<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
+If you’re developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
 <p>Once logged into sumner enter this to start an interactive session with R:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
@@ -500,11 +502,11 @@ here()</code></pre>
 <p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
 You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
 <pre><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-singularity exec bin/tidyverse_3.6.1.sif R</code></pre>
-<p>In this case we can’t just open an R session by calling the sif file because of how that def file is designed, so instead we do it with <code>exec</code>.<br />
+# including tidyverse, bioconductor, synapser, etc, from jaxreg
+# singularity pull library://habera/modelad/rstudio_etc_4.0.3:1.0&gt;
+singularity exec bin/R_tidy.sif R</code></pre>
+<p>In this case we can’t just open an R session by calling the sif file because of how its def file is designed, so instead we do it with <code>exec</code>.<br />
 You can now load the tidyverse packages as usual.</p>
-<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
-If you’re developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
 </div>
 <div id="remote-rstudio" class="section level3">
 <h3>Remote RStudio</h3>
@@ -513,10 +515,10 @@ If you’re developing the project mostly with RStudio, it might be easier to mo
 <p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with this content:</p>
 <pre><code>#!/usr/bin/env bash
 ### SLURM HEADER
-#SBATCH --job-name=rstudio-flynnb  #!!
-#SBATCH --output=/home/flynnb/logs/rstudio-%j.log  #!!
+#SBATCH --job-name=rstudio  #!!
+#SBATCH --output=/home/&lt;USERNAME&gt;/logs/rstudio-%j.log  #!!
 #SBATCH --mail-type=FAIL
-#SBATCH --mail-user=bill.flynn@jax.org #!!
+#SBATCH --mail-user=first.last@jax.org #!!
 #SBATCH --partition=compute
 #SBATCH --qos=batch
 #SBATCH --time=72:00:00
@@ -527,8 +529,8 @@ If you’re developing the project mostly with RStudio, it might be easier to mo
 #SBATCH --export=ALL
 ### SLURM HEADER
 localcores=${SLURM_CPUS_PER_TASK}
-simg_path=&quot;/fastscratch/flynnb/rstudio.simg&quot; #!!
-work_dir=&quot;/fastscratch/flynnb/work&quot; #!!
+simg_path=&quot;/fastscratch/&lt;USERNAME&gt;/rstudio.simg&quot; #!!
+work_dir=&quot;/fastscratch/&lt;USERNAME&gt;/work&quot; #!!
 set -euo pipefail
 mkdir -p ${work_dir}
 cd ${work_dir}

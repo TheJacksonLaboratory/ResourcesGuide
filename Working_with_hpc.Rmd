@@ -80,6 +80,10 @@ See `man srun` for options such as CPU and memory allocation
 
 ### From your local terminal/RStudio
 
+This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
+However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
+If you're developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
+  
 Once logged into sumner enter this to start an interactive session with R:  
 ```{bash}
 srun --pty -q batch bash
@@ -110,14 +114,13 @@ Installing packages interactively like this assumes that system dependencies of 
 You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
 ```
 singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-singularity exec bin/tidyverse_3.6.1.sif R
+# including tidyverse, bioconductor, synapser, etc, from jaxreg
+# singularity pull library://habera/modelad/rstudio_etc_4.0.3:1.0>
+singularity exec bin/R_tidy.sif R
 ```
-In this case we can't just open an R session by calling the sif file because of how that def file is designed, so instead we do it with `exec`.  
+In this case we can't just open an R session by calling the sif file because of how its def file is designed, so instead we do it with `exec`.  
 You can now load the tidyverse packages as usual.
 
-This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
-However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
-If you're developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
 
 ### Remote RStudio
 
@@ -129,10 +132,10 @@ Open a text editor and create a file named `launch_rstudio.sbatch` with this con
 ```
 #!/usr/bin/env bash
 ### SLURM HEADER
-#SBATCH --job-name=rstudio-flynnb  #!!
-#SBATCH --output=/home/flynnb/logs/rstudio-%j.log  #!!
+#SBATCH --job-name=rstudio  #!!
+#SBATCH --output=/home/<USERNAME>/logs/rstudio-%j.log  #!!
 #SBATCH --mail-type=FAIL
-#SBATCH --mail-user=bill.flynn@jax.org #!!
+#SBATCH --mail-user=first.last@jax.org #!!
 #SBATCH --partition=compute
 #SBATCH --qos=batch
 #SBATCH --time=72:00:00
@@ -143,8 +146,8 @@ Open a text editor and create a file named `launch_rstudio.sbatch` with this con
 #SBATCH --export=ALL
 ### SLURM HEADER
 localcores=${SLURM_CPUS_PER_TASK}
-simg_path="/fastscratch/flynnb/rstudio.simg" #!!
-work_dir="/fastscratch/flynnb/work" #!!
+simg_path="/fastscratch/<USERNAME>/rstudio.simg" #!!
+work_dir="/fastscratch/<USERNAME>/work" #!!
 set -euo pipefail
 mkdir -p ${work_dir}
 cd ${work_dir}
