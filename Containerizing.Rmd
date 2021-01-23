@@ -74,6 +74,5 @@ singularity run http://s3-far.jax.org/builder/builder \
 singularity exec bin/rstudio_etc_4.0.3.sif R # launching interactive R session
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
-
-This image is now available on [JAXREG](https://jaxreg.jax.org/)
-This image can also be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio) 
+  
+This image can also be pulled from [JAXREG](https://jaxreg.jax.org/) with `singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0`, and can be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio).

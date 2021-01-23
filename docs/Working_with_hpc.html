@@ -501,9 +501,9 @@ here()</code></pre>
 <p><strong>Note:</strong>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
 <p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
 You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
-<pre><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
+<pre class="bash"><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 # including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull library://habera/modelad/rstudio_etc_4.0.3:1.0&gt;
+# singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 singularity exec bin/R_tidy.sif R</code></pre>
 <p>In this case we can’t just open an R session by calling the sif file because of how its def file is designed, so instead we do it with <code>exec</code>.<br />
 You can now load the tidyverse packages as usual.</p>
@@ -559,7 +559,7 @@ module load singularity</code></pre>
 <p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a>, copy it to fastscratch, and launch it:</p>
 <pre class="bash"><code>singularity pull --name bin/rstudio.sif docker://rocker/tidyverse:latest 
 # including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull --name bin/rstudio.sif library://habera/modelad/rstudio_etc_4.0.3:1.0&gt;
+# singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 cp bin/rstudio.sif /fastscratch/&lt;USERNAME&gt;
 sbatch launch_rstudio.sbatch</code></pre>
 <p>Here we’re using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. Another option listed above is an image from jaxreg that contains synapser and its dependencies as well. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>

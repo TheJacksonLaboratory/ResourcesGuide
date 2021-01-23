@@ -112,10 +112,10 @@ Type `q()` to quite R. You're still connected to the interactive session.
 
 Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
 You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
-```
+```{bash}
 singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 # including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull library://habera/modelad/rstudio_etc_4.0.3:1.0>
+# singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 singularity exec bin/R_tidy.sif R
 ```
 In this case we can't just open an R session by calling the sif file because of how its def file is designed, so instead we do it with `exec`.  
@@ -180,7 +180,7 @@ Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio), copy 
 ```{bash}
 singularity pull --name bin/rstudio.sif docker://rocker/tidyverse:latest 
 # including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull --name bin/rstudio.sif library://habera/modelad/rstudio_etc_4.0.3:1.0>
+# singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 cp bin/rstudio.sif /fastscratch/<USERNAME>
 sbatch launch_rstudio.sbatch
 ```
