@@ -16,9 +16,9 @@ navbar:
   - text: "Publishing"
     href: Publishing.html
   right:
-  - icon: fa-github
+  - icon: fab fa-github
     href: https://github.com/TheJacksonLaboratory/ResourcesGuide
-  - icon: fa-paper-plane
+  - icon: fas fa-paper-plane
     href: mailto:<annat.haber@jax.org>
 
 output:
