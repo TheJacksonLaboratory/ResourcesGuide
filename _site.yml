@@ -3,25 +3,21 @@ output_dir: "docs"
 navbar:
   title: "Computational Resources - Carter Lab"
   left:
-  - text: "Home"
-    href: index.html
-  - text: "Guide"
-    menu:
-      - text: "Overview"
-        href: Overview.html
-      - text: "Organizing Projects"
-        href: Organizing_projects.html
-      - text: "Acquiring Data"
-        href: Acquiring_and_sharing_data.html
-      - text: "Working with HPC"
-        href: Working_with_hpc.html
-      - text: "Containerizing"
-        href: Containerizing.html
-      - text: "Publishing"
-        href: Publishing.html
-    right:
+  - text: "Overview"
+    href: Overview.html
+  - text: "Organizing Projects"
+    href: Organizing_projects.html
+  - text: "Acquiring Data"
+    href: Acquiring_and_sharing_data.html
+  - text: "Working with HPC"
+    href: Working_with_hpc.html
+  - text: "Containerizing"
+    href: Containerizing.html
+  - text: "Publishing"
+    href: Publishing.html
+  right:
   - icon: fa-github
-    href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
+    href: https://github.com/TheJacksonLaboratory/ResourcesGuide
   - icon: fa-paper-plane
     href: mailto:<annat.haber@jax.org>
 
