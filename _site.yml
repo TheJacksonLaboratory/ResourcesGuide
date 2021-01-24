@@ -17,7 +17,7 @@ navbar:
     href: Publishing.html
   right:
   - icon: fab fa-github
-    href: https://github.com/TheJacksonLaboratory/ResourcesGuide
+    href: https://github.com/TheJacksonLaboratory/ResourcesGuide.git
   - icon: fas fa-paper-plane
     href: mailto:<annat.haber@jax.org>
 
@@ -26,4 +26,5 @@ output:
     toc: yes
     toc_float: yes
     theme: cerulean
+    highlight: textmate
     #keep_md: true
