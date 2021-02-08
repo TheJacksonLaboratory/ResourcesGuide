@@ -92,7 +92,7 @@ R.sif
 ```
 You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).  
 
-*Tip:* If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
+**Tip:** If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
 
 Once you're in R:
 ```{r}
@@ -120,6 +120,12 @@ singularity exec ~/bin/R_tidy.sif R
 ```
 In this case we can't just open an R session by calling the sif file because of how its def file is designed, so instead we do it with `exec`.  
 You can now load the tidyverse packages as usual.
+  
+**These R packages may also be useful for connecting to a remote server from your local environment:**
+[SSH](https://cran.r-project.org/web/packages/ssh/)
+[remoter](https://cran.r-project.org/web/packages/remoter/)
+[rmote](https://github.com/cloudyr/rmote)
+[ssh-utils](https://cran.r-project.org/web/packages/ssh.utils/index.html)
 
 
 ### Remote RStudio
