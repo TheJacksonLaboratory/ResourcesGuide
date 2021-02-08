@@ -546,7 +546,7 @@ Open an interactive session on sumner</p>
 module load singularity</code></pre>
 <p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a>, copy it to fastscratch, and launch it:</p>
 <pre class="bash"><code>singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
-# including tidyverse, bioconductor, synapser, etc, from jaxreg
+# Or download an image that include tidyverse, bioconductor, synapser, etc, from jaxreg:
 # singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 cp bin/rstudio.sif /fastscratch/&lt;USERNAME&gt;
 sbatch launch_rstudio.sbatch</code></pre>
