@@ -548,11 +548,13 @@ module load singularity</code></pre>
 <pre class="bash"><code>singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
 # Or download an image that include tidyverse, bioconductor, synapser, etc, from jaxreg:
 # singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-cp bin/rstudio.sif /fastscratch/&lt;USERNAME&gt;
+
+# mkdir /fastscratch/&lt;USERNAME&gt; # create dir in fastscratch if you haven&#39;t already
+cp bin/rstudio.sif /fastscratch/&lt;USERNAME&gt;/
 sbatch launch_rstudio.sbatch</code></pre>
 <p>Here we’re using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">here</a>. Another option listed above is an image from jaxreg that contains synapser and its dependencies as well. If your project uses packages that need other system dependencies you’d need to add that to the image def file and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>
 <p>Next you need to get the URL and login information from the log file:</p>
-<pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
+<pre class="bash"><code>head -n 3 /home/habera/logs/rstudio-6401652.log</code></pre>
 <p>You’ll see something like this:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
