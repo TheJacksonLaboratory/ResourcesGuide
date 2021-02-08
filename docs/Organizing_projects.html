@@ -426,29 +426,21 @@ From the FAIR publication:<br />
 <p>Here are some rules of thumb for how to set up and organize a FAIR-compliant project. See below for more details. See other sections for acquiring and sharing data and for publishing.</p>
 <p><strong>Rules of thumb:</strong></p>
 <ul>
-<li>Set up your project folder as a formal R project in RStudio, or the equivalent of that in other IDEs<br />
+<li>Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs<br />
 </li>
 <li>Use standardized naming and structure following <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/">community conventions</a></li>
-<li>Keep raw data separate from scripts and output (see separate section on acquiring data)</li>
+<li>Keep raw data separate from scripts and output (more details in <a href="Acquiring_and_sharing_data.html">Acquiring and Sharing Data</a></li>
 <li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a></li>
 <li>Include a “dumbed-down” <a href="https://data.research.cornell.edu/content/readme">README file</a> as a walk-through (maybe a flow chart; maybe md file)</li>
 <li>Include a license file as needed; CC-0 and CC-BY are <a href="https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/">commonly used</a></li>
-<li>If your project involves working on several file systems, duplicate whole project folders, not bits and pieces of data/code (see image below).
+<li>If your project involves working on several file systems, it’s a good idea to duplicate whole project folders, not bits and pieces of data/code.
 <ul>
-<li>Consider syncing your local copy with Box/Dropbox for extra backup and version control.</li>
-<li>Keep a remote copy on tier1 if you’re working on this project mainly on the cluster.<br />
+<li>You can sync your local copy with Box/Dropbox for extra backup and version control (note: box doesn’t work with RStudio projects).</li>
+<li>Options for synchronizing your local and remote copies: Globus, FileZila, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Transferring-Files-to-and-from-the-Cluster-with-rsync.aspx">rsync</a><br />
 </li>
-<li>Keep a remote copy on tier2 if you’re working on this project mainly in Rstudio Server.<br />
-</li>
-<li>Syncronize the local and remote copies using Globus, FileZila, or the like.<br />
-</li>
-<li>Consider <a href="https://git-scm.com/book/en/v2">using git</a> for version control and sharing of code.</li>
+<li>You can use <a href="https://git-scm.com/book/en/v2">git</a> for version control and sharing of code.</li>
 </ul></li>
 </ul>
-<div class="figure">
-<img src="images/local_remote.png" alt="" />
-<p class="caption">image</p>
-</div>
 <p><strong>Other good references:</strong><br />
 <a href="https://riojournal.com/article/56508" class="uri">https://riojournal.com/article/56508</a><br />
 <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a><br />
@@ -461,8 +453,7 @@ From the FAIR publication:<br />
 <div id="r-projects-and-rmarkdown" class="section level2">
 <h2>R projects and Rmarkdown</h2>
 <p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. <a href="https://code.visualstudio.com/docs/setup/setup-overview">Visual Studio</a>.</p>
-<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
-<p>If your project is very complex you can also use <a href="https://www.gnu.org/software/make/">Make</a> to put all the steps together in a reproducible manner, as shown <a href="https://kbroman.org/steps2rr/pages/automate.html">here</a>.</p>
+<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
 <p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison.<br />
 To save a markdown version while rendering it as html:</p>
 <pre><code>output: 
@@ -478,8 +469,7 @@ To save a markdown version while rendering it as html:</p>
 <a href="http://kbroman.org/steps2rr/pages/organize.html" class="uri">http://kbroman.org/steps2rr/pages/organize.html</a><br />
 <a href="https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/" class="uri">https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/</a><br />
 <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html" class="uri">https://cran.r-project.org/web/views/ReproducibleResearch.html</a></p>
-<p>Below are two examples for conventional project structure and naming<br />
-See <a href="https://www.dropbox.com/sh/sai3qc9wgj2hwbb/AAAgTQpKweghQqV5Sw7U5V2da?dl=0">here</a> for a real example</p>
+<p>Below are two examples for conventional project structure and naming</p>
 <div class="figure">
 <img src="images/projectStructure.png" alt="" />
 <p class="caption">image</p>

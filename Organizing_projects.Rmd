@@ -29,20 +29,16 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
 
 **Rules of thumb:**
 
-* Set up your project folder as a formal R project in RStudio, or the equivalent of that in other IDEs   
+* Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs   
 * Use standardized naming and structure following [community conventions](https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/)
-* Keep raw data separate from scripts and output (see separate section on acquiring data)
+* Keep raw data separate from scripts and output (more details in [Acquiring and Sharing Data](Acquiring_and_sharing_data.html)
 * Treat input data as read-only and output as disposable. [Script everything](https://kbroman.org/steps2rr/pages/scripts.html)
 * Include a “dumbed-down” [README file](https://data.research.cornell.edu/content/readme) as a walk-through (maybe a flow chart; maybe md file)
 * Include a license file as needed; CC-0 and CC-BY are [commonly used](https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/)
-* If your project involves working on several file systems, duplicate whole project folders, not bits and pieces of data/code (see image below).  
-  * Consider syncing your local copy with Box/Dropbox for extra backup and version control.
-  * Keep a remote copy on tier1 if you're working on this project mainly on the cluster.  
-  * Keep a remote copy on tier2 if you're working on this project mainly in Rstudio Server.  
-  * Syncronize the local and remote copies using Globus, FileZila, or the like.  
-  * Consider [using git](https://git-scm.com/book/en/v2) for version control and sharing of code.  
-
-![image](images/local_remote.png)
+* If your project involves working on several file systems, it's a good idea to duplicate whole project folders, not bits and pieces of data/code.  
+  * You can sync your local copy with Box/Dropbox for extra backup and version control (note: box doesn't work with RStudio projects).
+  * Options for synchronizing your local and remote copies: Globus, FileZila, [rsync](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Transferring-Files-to-and-from-the-Cluster-with-rsync.aspx)  
+  * You can use [git](https://git-scm.com/book/en/v2) for version control and sharing of code.  
 
 **Other good references:**  
 https://riojournal.com/article/56508    
@@ -57,9 +53,7 @@ https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf
 
 If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can set up your project folder as [a formal R project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects). This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. [Visual Studio](https://code.visualstudio.com/docs/setup/setup-overview).
 
-[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your analysis combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
-
-If your project is very complex you can also use [Make](https://www.gnu.org/software/make/) to put all the steps together in a reproducible manner, as shown [here](https://kbroman.org/steps2rr/pages/automate.html).
+[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
 
 When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison.  
 To save a markdown version while rendering it as html:
@@ -82,7 +76,6 @@ https://chrisvoncsefalvay.com/2018/08/09/structuring-r-projects/
 https://cran.r-project.org/web/views/ReproducibleResearch.html  
 
 Below are two examples for conventional project structure and naming  
-See [here](https://www.dropbox.com/sh/sai3qc9wgj2hwbb/AAAgTQpKweghQqV5Sw7U5V2da?dl=0) for a real example
 
 ![image](images/projectStructure.png)
 
