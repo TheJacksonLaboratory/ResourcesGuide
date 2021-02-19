@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-02-08" />
+<meta name="date" content="2021-02-19" />
 
 <title>Organizing Projects</title>
 
@@ -404,7 +404,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Organizing Projects</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-02-08</h4>
+<h4 class="date">2021-02-19</h4>
 
 </div>
 
@@ -424,15 +424,18 @@ From the FAIR publication:<br />
 <li>To provide a record of our <em>in silico</em> experiments similar to <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004385">a wet-lab notebook</a></li>
 </ul>
 <p>Here are some rules of thumb for how to set up and organize a FAIR-compliant project. See below for more details. See other sections for acquiring and sharing data and for publishing.</p>
-<p><strong>Rules of thumb:</strong></p>
+<p><strong>Rules of thumb for <a href="https://rstats.wtf/project-oriented-workflow.html">a project-oriented workflow</a>:</strong></p>
 <ul>
 <li>Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs<br />
 </li>
 <li>Use standardized naming and structure following <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/">community conventions</a></li>
 <li>Keep raw data separate from scripts and output (more details in <a href="Acquiring_and_sharing_data.html">Acquiring and Sharing Data</a></li>
-<li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a></li>
-<li>Include a “dumbed-down” <a href="https://data.research.cornell.edu/content/readme">README file</a> as a walk-through (maybe a flow chart; maybe md file)</li>
-<li>Include a license file as needed; CC-0 and CC-BY are <a href="https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/">commonly used</a></li>
+<li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a>, and <a href="https://rstats.wtf/save-source.html">save scripts, not workspaces</a><br />
+</li>
+<li>Include a “dumbed-down” <a href="https://data.research.cornell.edu/content/readme">README file</a> as a walk-through (maybe a flow chart; maybe md file)<br />
+</li>
+<li>Include a license file as needed; CC-0 and CC-BY are <a href="https://blog.datadryad.org/2017/09/11/some-dos-and-donts-for-cc0/">commonly used</a><br />
+</li>
 <li>If your project involves working on several file systems, it’s a good idea to duplicate whole project folders, not bits and pieces of data/code.
 <ul>
 <li>You can sync your local copy with Box/Dropbox for extra backup and version control (note: box doesn’t work with RStudio projects).</li>
@@ -480,13 +483,13 @@ To save a markdown version while rendering it as html:</p>
 <p>The R package <a href="https://rstudio.github.io/renv/articles/renv.html"><code>renv</code></a> provides a good way to record the R version and all the packages that your project requires to run, <a href="https://rstudio.github.io/renv/articles/docker.html">regardless of whether you end up dockerizing your project or not</a>. This is the newest incarnation of <code>packrat</code>, by the same developers, so if you’ve been using <code>packrat</code>, it’s a good idea to upgrade to renv.</p>
 <p>A few pointers:</p>
 <ul>
-<li>call renv::init() to initialize a new project-local environment with a private R library for a given project:
+<li>call <code>renv::init()</code> to initialize a new project-specific environment with a private R library for a given project:
 <ul>
 <li>saves all currently loaded packages into a lockfile</li>
-<li>updates the .Rprofile file so that it activates renv, which then looks up the lockfile, every time you restart a session within that project (so no need to tell other/future users to activate renv)</li>
+<li>updates the <code>.Rprofile</code> file so that it activates <code>renv</code>, which then looks up the lockfile, every time you restart a session within that project (so no need to tell other/future users to activate renv)</li>
 </ul></li>
-<li>call renv::snapshot() to update the package list (lockfile) while working on the project</li>
-<li>call renv::restore() to install all packages in the lockfile (e.g., when starting a session on a different system); inform users of the need to do that</li>
+<li>call <code>renv::snapshot()</code> to update the package list (lockfile) while working on the project</li>
+<li>call <code>renv::restore()</code> to install all packages in the lockfile (e.g., when starting a session on a different system); inform users of the need to do that</li>
 <li>Instead of installing a new copy of each package for each project, renv creates a “playlist” for each project that draws from a single global cache</li>
 <li>Integrates python as well: <a href="https://rstudio.github.io/renv/articles/python.html" class="uri">https://rstudio.github.io/renv/articles/python.html</a></li>
 </ul>

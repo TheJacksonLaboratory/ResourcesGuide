@@ -1,0 +1,78 @@
+---
+title: "Containerizing"
+author: "Carter Lab"
+date: "2021-02-19"
+---
+
+
+
+
+From the [Singularity documentation](https://sylabs.io/guides/3.5/user-guide/introduction.html#why-use-containers) on why we want to use containers:  
+A Unix operating system is broken into two primary components, the kernel space, and the user space. The Kernel talks to the hardware, and provides core system features. The user space is the environment that most people are most familiar with. A given operating system provides a fixed combination of kernel and user space.  
+Containers change the user space into a swappable component. This means that the entire user space portion of a Linux operating system, including programs, custom configurations, and environment can be independent from whatever operating system is running underneath.  
+
+Singularity blurs the line between container and host such that your home directory (and other directories) exists within the container. Applications within the container have [full and direct access to all files ](https://sylabs.io/guides/3.5/user-guide/quick_start.html#working-with-files) you own so you can easily incorporate the contained application with your workflow on the host system, or interact with the host user space from within a container. By default Singularity bind mounts`/home/$USER`,`/tmp`, and`$PWD` into your container at runtime. You can specify additional directories to bind mount into your container with the `--bind` option.  
+For example, to access secured data from within a container interactively, you could use `singularity exec --bind /sdata/carter-lab/ bin/mycontainer.sif`.    
+
+It is also possible to [start a shell](https://sylabs.io/guides/3.5/user-guide/quick_start.html#shell) from within any container with, e.g., `singularity shell R.sif`
+
+Singularity uses [two formats for building images](https://sylabs.io/guides/3.5/user-guide/quick_start.html#build-images-from-scratch): sandbox and sif.  
+`sif` isn't writable so in order to modify it you'd need to modify [the def file](https://sylabs.io/guides/3.0/user-guide/definition_files.html) and re-build the image.  
+`sandbox` is basically a directory that can be modified directly, which may be useful for developing and debugging, but that makes it less reproducible. For reproducibility sake, you'd want to package it eventually as a sif file.
+
+To see the def file of a sif image:
+
+```bash
+singularity inspect --deffile R.sif
+```
+
+See the [Working With HPC](Working_with_hpc.html) section for how to use singularity containers on the cluster. See the [Jax singularity registry](https://jaxreg.jax.org/) to search and pull containers made by other jax users. Here we focus on building new containers and modifying existing ones.     
+
+Other useful references:  
+[Sigularity tutorial](https://singularity-tutorial.github.io/)   
+[Jax tutorial](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Hands-on--Basics-of-working-with-Singularity.aspx)   
+[How to modify basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
+
+Carpentry workshops:  
+[Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
+[Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
+[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
+
+Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well.  
+The def file `rstudio_etc_4.0.3.def` can look like this:
+```
+bootstrap: docker
+from: bioconductor/bioconductor_docker:RELEASE_3_12
+
+%labels
+	AUTHOR Annat Haber annat.haber@jax.org
+	R VERSION 4.0.3
+
+%post
+	apt-get update -y
+	#From synapser dockerfile:
+	apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
+	apt-get install -y libcurl4-openssl-dev		
+
+	R --slave -e 'install.packages(c("ggplot2", "gridExtra", "devtools", "tidyverse", "git2r"), dependencies = TRUE)'
+ 	R --slave -e 'install.packages("synapser", repos = c("http://ran.synapse.org", "http://cran.fhcrc.org"), dependencies = TRUE)'
+
+%help
+ 	R base with the latest rstudio bioconductor, tidyverse, devtools, synapser, and their dependencies
+
+```
+Here we add a few system dependencies under `apt-get -y update` that are [required for synapser](https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile) and are not included in the [bioconductor base image](https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile), based on their respective dockerfiles. See more examples in the [Jax registry](https://jaxreg.jax.org/).
+  
+In order to build the image with the `singularity build` command we'd need root privileges on the cluster. To address that, [jax RIT has created a builder](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx) that we can use without root privileges.  
+The building and launching commands are therefore:
+
+```bash
+srun --pty -q batch bash
+module load singularity
+singularity run http://s3-far.jax.org/builder/builder \
+        ~/bin/rstudio_etc_4.0.3.def bin/rstudio_etc_4.0.3.sif # building the image
+singularity exec bin/rstudio_etc_4.0.3.sif R # launching interactive R session
+```
+You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
+  
+This image can also be pulled from [JAXREG](https://jaxreg.jax.org/) with `singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0`, and can be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio).

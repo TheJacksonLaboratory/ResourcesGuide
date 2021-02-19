@@ -1,12 +1,10 @@
 ---
 title: "Overview of computational resources"
 author: "Carter Lab"
-date: "`r Sys.Date()`"
+date: "2021-02-19"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
-```
+
 
 ## JAX HPC
 The JAX HPC infrastructure consists of 2 main clusters available to all users: Sumner and Winter.  The Sumner cluster is our general purpose compute cluster while Winter is our GPU based cluster.

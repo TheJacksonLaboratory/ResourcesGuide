@@ -1,12 +1,10 @@
 ---
 title: "Working with the hpc clusters"
 author: "Carter Lab"
-date: "`r Sys.Date()`"
+date: "2021-02-19"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
-```
+
 
 Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using [singularity and containers](Containerizing.html). You might want to set up the hpc environment with some ["module-like" infrastructure](https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71) to allow some flexibility in interactive sessions for development and testing.
 
@@ -19,22 +17,26 @@ Other useful references:
 ## Setting up your hpc environment
 
 1. Log into sumner from your terminal  
-```{bash}
+
+```bash
 ssh <USERNAME>@login.sumner.jax.org
 ```
 
 2. Create a directory for all your containers, packages, etc and add it to your $PATH  
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx  
-```{bash}
+
+```bash
 mkdir bin
 ```
 Open .bash_profile with a text editor:
-```{bash}
+
+```bash
 cd ~ # make sure you're in home dir
 nano .bash_profile # using nano to edit the file
 ```
 And add these lines to the file (including the comment):
-```{bash}
+
+```bash
 #Singularity Containers
 export PATH=$PATH:~/bin
 ```
@@ -46,7 +48,8 @@ Now you can call containers by their name from anywhere in your home directory, 
 Here we pull the latest r container and put it in the bin directory.  
 For easy reference we rename it R.sif  
 https://singularity-hub.org/collections/4747/usage  
-```{bash}
+
+```bash
 srun --pty -q batch bash # to start an interactive session
 module load singularity
 cd ~/bin
@@ -85,7 +88,8 @@ However, in order to enjoy the full functionality of RStudio (and the R Project 
 If you're developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
   
 Once logged into sumner enter this to start an interactive session with R:  
-```{bash}
+
+```bash
 srun --pty -q batch bash
 module load singularity
 R.sif
@@ -95,7 +99,8 @@ You can now install R packages to your home directory to be available for future
 **Tip:** If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
 
 Once you're in R:
-```{r}
+
+```r
 # Specify libs before installing anything
 # dir.create("~/bin/libs", recursive=T) # only the first time
 .libPaths("~/bin/libs") # once every session
@@ -104,7 +109,6 @@ Once you're in R:
 install.packages("here", dependencies = TRUE) # only once
 library(here) # once every session
 here()
-
 ```
 Type `q()` to quite R. You're still connected to the interactive session.  
 
@@ -112,7 +116,8 @@ Type `q()` to quite R. You're still connected to the interactive session.
 
 Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
 You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
-```{bash}
+
+```bash
 singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 # including tidyverse, bioconductor, synapser, etc, from jaxreg
 # singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
@@ -178,12 +183,14 @@ singularity exec \
 ```
 Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
 Open an interactive session on sumner
-```{bash}
+
+```bash
 srun --pty -q batch bash
 module load singularity
 ```
 Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio), copy it to fastscratch, and launch it:   
-```{bash}
+
+```bash
 singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
 # Or download an image that include tidyverse, bioconductor, synapser, etc, from jaxreg:
 # singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
@@ -195,7 +202,8 @@ sbatch launch_rstudio.sbatch
 Here we're using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see [here](https://hub.docker.com/r/rocker/tidyverse/dockerfile). Another option listed above is an image from jaxreg that contains synapser and its dependencies as well. If your project uses packages that need other system dependencies you'd need to add that to the image def file and rebuild the sif file as explained [here](Containerizing.html).  
 
 Next you need to get the URL and login information from the log file: 
-```{bash}
+
+```bash
 head -n 3 /home/habera/logs/rstudio-6401652.log
 ```
 You'll see something like this:

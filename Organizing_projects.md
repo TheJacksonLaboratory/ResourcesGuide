@@ -1,12 +1,10 @@
 ---
 title: "Organizing Projects"
 author: "Carter Lab"
-date: "`r Sys.Date()`"
+date: "2021-02-19"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
-```
+
 ## FAIR Principles
 
 In 2016 a consortium of scientists and organizations published ["The FAIR Guiding Principles for scientific data management and stewardship”](https://www.nature.com/articles/sdata201618
