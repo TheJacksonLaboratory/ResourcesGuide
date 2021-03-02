@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-02-19" />
+<meta name="date" content="2021-03-02" />
 
 <title>Organizing Projects</title>
 
@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -40,11 +49,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -57,32 +61,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 
@@ -93,10 +71,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -113,40 +87,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -174,7 +121,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -186,7 +133,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -197,10 +144,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -212,7 +172,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -338,13 +297,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -398,13 +357,13 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
 <h1 class="title toc-ignore">Organizing Projects</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-02-19</h4>
+<h4 class="date">2021-03-02</h4>
 
 </div>
 
@@ -426,8 +385,10 @@ From the FAIR publication:<br />
 <p>Here are some rules of thumb for how to set up and organize a FAIR-compliant project. See below for more details. See other sections for acquiring and sharing data and for publishing.</p>
 <p><strong>Rules of thumb for <a href="https://rstats.wtf/project-oriented-workflow.html">a project-oriented workflow</a>:</strong></p>
 <ul>
-<li>Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs<br />
-</li>
+<li>Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs
+<ul>
+<li>In Rstudio: set ‘save workspace on exit’ to ‘never’ (Preferences -&gt; General)</li>
+</ul></li>
 <li>Use standardized naming and structure following <a href="https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/">community conventions</a></li>
 <li>Keep raw data separate from scripts and output (more details in <a href="Acquiring_and_sharing_data.html">Acquiring and Sharing Data</a></li>
 <li>Treat input data as read-only and output as disposable. <a href="https://kbroman.org/steps2rr/pages/scripts.html">Script everything</a>, and <a href="https://rstats.wtf/save-source.html">save scripts, not workspaces</a><br />
@@ -455,15 +416,16 @@ From the FAIR publication:<br />
 </div>
 <div id="r-projects-and-rmarkdown" class="section level2">
 <h2>R projects and Rmarkdown</h2>
-<p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. <a href="https://code.visualstudio.com/docs/setup/setup-overview">Visual Studio</a>.</p>
-<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using the markdown language. This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
-<p>When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison.<br />
-To save a markdown version while rendering it as html:</p>
+<p>If you’re working with <a href="https://rstudio.com/products/rstudio/">RStudio</a>, you can set up your project folder as <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">a formal R project</a>. This makes it easier to combine analyses into one complex project in a modular and self-contained manner. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. <a href="https://code.visualstudio.com/docs/setup/setup-overview">Visual Studio</a>.</p>
+<p><a href="https://bookdown.org/yihui/rmarkdown/">RMarkdown</a> is a file type <a href="https://rmarkdown.rstudio.com">adopted by RStudio</a> for making <a href="https://kbroman.org/steps2rr/pages/reports.html">reproducible reports</a> using <a href="https://guides.github.com/features/mastering-markdown/">the markdown language</a>. This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., <a href="https://jupyter.org/try">jupyter notebooks</a>. Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.</p>
+<p>When Rmarkdown files are rendered they can be converted into several formats. The most commonly used is html. See <a href="https://bookdown.org/yihui/blogdown/output-format.html">here</a> for format comparison. If you push your project to GitHub, it might be useful to have a markdown version of your report, which can then be viewed on <a href="#Working%20with%20Git%20and%20GitHub">GitHub</a> as a rendered html-like report. That basically gives you an easy way to publish your reports. To save a markdown version while rendering your report as html, add <code>keep_md:true</code> to the yaml frontmatter (the text at the top of your file between leading and trailing lines of —) like this:</p>
 <pre><code>output: 
   html_document:
     keep_md: true</code></pre>
-<p>You don’t have to use RStudio to generate reports with R Markdown, you can use the <code>rmarkdown</code> package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.</p>
+<p>To save a markdown version without rendering as html you’d simply replace the output section with <code>output: github_document</code>.</p>
+<p>You don’t have to use RStudio to generate reports with R Markdown, you can use the <code>rmarkdown</code> package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization and reproducibility.</p>
 <p>Two other major advances in the R world in recent years include the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://ggplot2.tidyverse.org/index.html">ggplot</a> approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see <a href="https://peerj.com/preprints/3180v1/">here</a> for examples).</p>
+<p>For a more effective use of R and RMarkdown see <a href="https://rstats.wtf/">What They Forgot to Teach You About R by Jenny Bryan</a></p>
 </div>
 <div id="folder-structure-and-naming" class="section level2">
 <h2>Folder structure and naming</h2>
@@ -495,10 +457,12 @@ To save a markdown version while rendering it as html:</p>
 </ul>
 </div>
 <div id="working-with-git-and-github" class="section level2">
-<h2>Working with git and github</h2>
-<p><a href="https://www.atlassian.com/git/tutorials/what-is-version-control" class="uri">https://www.atlassian.com/git/tutorials/what-is-version-control</a> <a href="https://git-scm.com/book/en/v2" class="uri">https://git-scm.com/book/en/v2</a><br />
-<a href="https://lab.github.com/githubtraining/introduction-to-github" class="uri">https://lab.github.com/githubtraining/introduction-to-github</a><br />
-Specifically with R and RStudio: <a href="https://happygitwithr.com/" class="uri">https://happygitwithr.com/</a></p>
+<h2>Working with Git and GitHub</h2>
+<p><a href="https://www.atlassian.com/git/tutorials/what-is-version-control">Intro to version control and git</a><br />
+<a href="https://git-scm.com/book/en/v2">The entire Pro Git book</a><br />
+[Into to GitHub)(<a href="https://lab.github.com/githubtraining/introduction-to-github" class="uri">https://lab.github.com/githubtraining/introduction-to-github</a>)<br />
+<a href="https://happygitwithr.com/">Happy git with R by Jenny Bryan</a><br />
+<a href="https://ohshitgit.com/">Troubleshooting Git</a></p>
 <p>One way to get started -<br />
 <strong>Pushing an existing project folder to a new remote repo:</strong></p>
 <ol style="list-style-type: decimal">
@@ -565,7 +529,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

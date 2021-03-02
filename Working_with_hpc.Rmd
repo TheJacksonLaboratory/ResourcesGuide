@@ -185,18 +185,17 @@ module load singularity
 Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio), copy it to fastscratch, and launch it:   
 ```{bash}
 singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
-# Or download an image that include tidyverse, bioconductor, synapser, etc, from jaxreg:
 # singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 
 # mkdir /fastscratch/<USERNAME> # create dir in fastscratch if you haven't already
 cp bin/rstudio.sif /fastscratch/<USERNAME>/
 sbatch launch_rstudio.sbatch
 ```
-Here we're using the rstudio image that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies, as you can see [here](https://hub.docker.com/r/rocker/tidyverse/dockerfile). Another option listed above is an image from jaxreg that contains synapser and its dependencies as well. If your project uses packages that need other system dependencies you'd need to add that to the image def file and rebuild the sif file as explained [here](Containerizing.html).  
+Here we're using [an rstudio image](https://hub.docker.com/r/rocker/tidyverse/dockerfile) that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies. Another option listed above is [an image from jaxreg](https://jaxreg.jax.org/containers/447/download/recipe) that contains synapser and renv as well. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).  
 
 Next you need to get the URL and login information from the log file: 
 ```{bash}
-head -n 3 /home/habera/logs/rstudio-6401652.log
+head -n 3 /home/<USERNAME>/logs/rstudio-<job_id>.log
 ```
 You'll see something like this:
 ```

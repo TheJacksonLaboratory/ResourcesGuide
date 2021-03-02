@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-02-19" />
+<meta name="date" content="2021-03-02" />
 
 <title>Acquiring and Sharing Data</title>
 
@@ -21,6 +21,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
@@ -40,11 +49,6 @@
     </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -57,32 +61,6 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
 
 
 
@@ -93,10 +71,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -113,40 +87,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -174,7 +121,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -186,7 +133,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -197,10 +144,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -212,7 +172,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -338,13 +297,13 @@ div.tocify {
 
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
+<div class="row">
+<div class="col-sm-12 col-md-4 col-lg-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+<div class="toc-content col-sm-12 col-md-8 col-lg-9">
 
 
 
@@ -398,13 +357,13 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
 <h1 class="title toc-ignore">Acquiring and Sharing Data</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-02-19</h4>
+<h4 class="date">2021-03-02</h4>
 
 </div>
 
@@ -432,7 +391,7 @@ div.tocify {
 <p>An example for a resource sharing plan to include in NIH grants: <a href="https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md" class="uri">https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md</a></p>
 <div id="from-scientific-services" class="section level2">
 <h2>From Scientific Services</h2>
-<p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a>.</p>
+<p>Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the <a href="https://docs.globus.org/how-to/get-started/">Globus web interface</a> if that is more convenient.</p>
 <ul>
 <li>Keep data files together with all the metadata that come with them.<br />
 </li>
@@ -461,8 +420,8 @@ synLogin() # include this in every chunk that connects to Synapse
 
 mayo &lt;- synapser::synGet(&quot;syn11384571&quot;)$path %&gt;%  # downloading the file from synapse to the cache
   read_csv() %&gt;%                                  # loading it from the cache into the workspace
-  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;% # modifying it for this analysis
-  mutate(cohort=&quot;mayo&quot;)</code></pre>
+  select(WGS_Participant_ID, ApoE, Diagnosis) %&gt;% # modifying for this analysis: selecting variables
+  mutate(cohort=&quot;mayo&quot;)                           # modifying for this analysis: adding cohort</code></pre>
 <p>See <a href="https://r-docs.synapse.org/articles/manageSynapseCredentials.html">here</a> on how to specify your login credentials in <code>.synapseConfig</code>.<br />
 This works the same way from your local machine or RStudio Server. The config file and cache folder will be on your RStudio Server home directory (<code>/unixhome</code>).</p>
 <p>Similarly, it is possible to upload (push/publish) your results back to synapse, and specify its relations to other synapse entities, using the <code>synStore()</code> function. This allows other users to interact with your results with synGet() as described above. With this function you can also upload the script that was used for generating those results and specify their relations as their provenance.</p>
@@ -489,7 +448,7 @@ location = /tier2/carter-lab/sdata/AMPAD/.synapseCache</code></pre>
 <pre class="r"><code>file &lt;- &quot;NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt&quot;
 synid &lt;- synFindEntityId(file, parent=&quot;syn11707420&quot;)
 synpath &lt;- synapser::synGet(synid, downloadLocation=&quot;sdata/AMPAD/synapseData/ROSMAP/WGS/&quot;)$path
-# using fread because it&#39;s a very big file:
+# using fread() here because it&#39;s a very big file:
 annot &lt;- data.table::fread(file=synpath, sep=&quot;\t&quot;) </code></pre>
 </div>
 <div id="from-rstudio-connect" class="section level2">
@@ -517,7 +476,7 @@ pin(archetypes_meta,
     name = &quot;archetypes_meta_k3p20_AD&quot;, 
     description = &quot;Archetype classification. Output of ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd&quot;,
     board = &quot;local&quot;)</code></pre>
-<p>Now I can close that session, start a new one within a different project on tier2, say <code>ampad_ADvariants</code> and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and further modify it.</p>
+<p>Now I can close that session, start a new one within a different project on tier2, say <code>ampad_ADvariants</code> and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and then modifies it.</p>
 <pre class="r"><code># input chunk of ampad_ADvariants_MCA.Rmd, 
 archetypes &lt;- pin_get(&quot;archetypes_meta_k3p20_AD&quot;, board=&quot;local&quot;) %&gt;%
   select(wgs_id, Archetype) %&gt;%
@@ -579,7 +538,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

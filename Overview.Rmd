@@ -55,9 +55,11 @@ You need to ask IT to add you to this server specifically. You can log into it e
 [Nextflow](https://www.nextflow.io/) is [a workflow management system](https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full) that has become popular in recent years in general and [at jax](https://github.com/lifebit-ai/jax-tutorial). It is also incorporated in the [Lifebit CloudOS](https://jacksonlaboratory.sharepoint.com/sites/CloudOS) platform (used by some labs at jax but not the Carter lab at this point).
 
 The main use of workflow management systems is in developing standardized pipelines that need to be run repeatedly (e.g., preliminary processing of RNA-seq fastq files).  
-Jax has in the past developed its own workflow management framework called [civet](https://github.com/TheJacksonLaboratory/civet), with a web-based interface called [JODAP](https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md). However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as [CWL](https://www.commonwl.org/), [WDL](https://openwdl.org/), or [Nextflow](https://www.nextflow.io/).
+Jax has in the past developed its own workflow management framework called [civet](https://github.com/TheJacksonLaboratory/civet), with a web-based interface called [JODAP](https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md). However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as [CWL](https://www.commonwl.org/), [WDL](https://openwdl.org/), or [Nextflow](https://www.nextflow.io/). [The R package `targets` provides workflow management within R](https://books.ropensci.org/targets/).
 
-[An example for how to configure a nextflow pipeline to run on sumner.](https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config) 
+[An example for how to configure a nextflow pipeline to run on sumner.](https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config)  
+[Nextflow-based pipeline to run and deploy reproducible analyses](https://github.com/grst/universal_analysis_pipeline)  
+[Demonstrations of various programming techniques for use inside Nextflow pipelines](https://github.com/stevekm/nextflow-demos)  
 
 ## JAXREG
 https://jaxreg.jax.org/  
@@ -89,7 +91,8 @@ To get started you need to request IT to open a dropbox account for you (if you 
 
 ## Working remotely
 In order to work remotely using jax resources, you'll need to [connect via VPN](https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx).   
-This will also provide you automatic access to full papers in any journals that jax library subscribes to.
+This will also provide you automatic access to full papers in any journals that jax library subscribes to.  
+Alternatively, you can access the library resources [here](https://login.ezproxy.jax.org/login) without getting on the vpn. 
 
 ## Get connected, get help
 
@@ -115,6 +118,7 @@ This will also provide you automatic access to full papers in any journals that 
 [Data Science Textbook by Rafael A. Irizarry](https://rafalab.github.io/dsbook/)  
 [Reproducible Research by Karl Broman](https://kbroman.org/steps2rr/)  
 [Computational Genomics with R by Altuna Akalin](https://compgenomr.github.io/book/)  
-[What they forgot to teach you about R](https://rstats.wtf/)
+[What they forgot to teach you about R by Jenny Bryan](https://rstats.wtf/)
+[Happy git with R by Jenny Bryan](https://happygitwithr.com/)
 
 ![image](images/googling.jpg)

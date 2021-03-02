@@ -33,7 +33,7 @@ https://docs.synapse.org/articles/provenance.html
 An example for a resource sharing plan to include in NIH grants:   https://github.com/lab-carpentry/blueprint-resourcesharing/blob/master/examples/NIH-example.md  
 
 ## From Scientific Services
-Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the [Globus web interface](https://docs.globus.org/how-to/get-started/).  
+Because this data transfer is meant to be a one-time thing - data is permanently moved from GT to its (presumably) final resting place in our lab storage - there is no need to include it in any script. Therefore, this can be done using the [Globus web interface](https://docs.globus.org/how-to/get-started/) if that is more convenient.  
 
 * Keep data files together with all the metadata that come with them.  
 * Keep data in a shared designated location, not in your home directory and not under your name.  
@@ -59,8 +59,8 @@ synLogin() # include this in every chunk that connects to Synapse
 
 mayo <- synapser::synGet("syn11384571")$path %>%  # downloading the file from synapse to the cache
   read_csv() %>%                                  # loading it from the cache into the workspace
-  select(WGS_Participant_ID, ApoE, Diagnosis) %>% # modifying it for this analysis
-  mutate(cohort="mayo")
+  select(WGS_Participant_ID, ApoE, Diagnosis) %>% # modifying for this analysis: selecting variables
+  mutate(cohort="mayo")                           # modifying for this analysis: adding cohort
 ```
 See [here](https://r-docs.synapse.org/articles/manageSynapseCredentials.html) on how to specify your login credentials in `.synapseConfig`.  
 This works the same way from your local machine or RStudio Server. The config file and cache folder will be on your RStudio Server home directory (`/unixhome`).  
@@ -98,7 +98,7 @@ It is also possible to provide a different path to download a file from synapse,
 file <- "NIA_JG_1898_samples_GRM_WGS_b37_JointAnalysis01_2017-12-08_19.recalibrated_variants.annotated.txt"
 synid <- synFindEntityId(file, parent="syn11707420")
 synpath <- synapser::synGet(synid, downloadLocation="sdata/AMPAD/synapseData/ROSMAP/WGS/")$path
-# using fread because it's a very big file:
+# using fread() here because it's a very big file:
 annot <- data.table::fread(file=synpath, sep="\t") 
 
 ```
@@ -130,7 +130,7 @@ pin(archetypes_meta,
     description = "Archetype classification. Output of ampad_archetypes/analyses/rnaseq/1_fit_archetypes/1_fit_archetypes.Rmd",
     board = "local")
 ```
-Now I can close that session, start a new one within a different project on tier2, say `ampad_ADvariants` and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and further modify it.
+Now I can close that session, start a new one within a different project on tier2, say `ampad_ADvariants` and in its Rmarkdown file I can include a chunk that retrieves that data file from the local cache, and then modifies it.
 ```{r}
 # input chunk of ampad_ADvariants_MCA.Rmd, 
 archetypes <- pin_get("archetypes_meta_k3p20_AD", board="local") %>%

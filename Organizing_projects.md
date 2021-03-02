@@ -1,7 +1,7 @@
 ---
 title: "Organizing Projects"
 author: "Carter Lab"
-date: "2021-02-19"
+date: "2021-03-02"
 ---
 
 
@@ -27,7 +27,8 @@ Here are some rules of thumb for how to set up and organize a FAIR-compliant pro
 
 **Rules of thumb for [a project-oriented workflow](https://rstats.wtf/project-oriented-workflow.html):**
 
-* Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs   
+* Set up your project folder as a formal R project in RStudio, or the equivalent in other IDEs  
+  * In Rstudio: set 'save workspace on exit' to 'never' (Preferences -> General)
 * Use standardized naming and structure following [community conventions](https://community.rstudio.com/t/best-practice-for-good-documented-reproducible-analysis/1995/)
 * Keep raw data separate from scripts and output (more details in [Acquiring and Sharing Data](Acquiring_and_sharing_data.html)
 * Treat input data as read-only and output as disposable. [Script everything](https://kbroman.org/steps2rr/pages/scripts.html), and [save scripts, not workspaces](https://rstats.wtf/save-source.html)  
@@ -49,21 +50,24 @@ https://old.dataone.org/sites/all/documents/DataONE_BP_Primer_020212.pdf
   
 ## R projects and Rmarkdown
 
-If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can set up your project folder as [a formal R project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects). This makes it easier to combine analyses into one complex project in a modular and self-contained way. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. [Visual Studio](https://code.visualstudio.com/docs/setup/setup-overview).
+If you're working with [RStudio](https://rstudio.com/products/rstudio/), you can set up your project folder as [a formal R project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects). This makes it easier to combine analyses into one complex project in a modular and self-contained manner. RStudio also provides built-in functionality for version control of projects with git, running multiple projects in parallel, and other useful features. Other IDEs have their own set up, e.g. [Visual Studio](https://code.visualstudio.com/docs/setup/setup-overview).
 
-[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using the markdown language. This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
+[RMarkdown](https://bookdown.org/yihui/rmarkdown/) is a file type [adopted by RStudio](https://rmarkdown.rstudio.com) for making [reproducible reports](https://kbroman.org/steps2rr/pages/reports.html) using [the markdown language](https://guides.github.com/features/mastering-markdown/). This means that you can document your whole analysis, combining text, code, and results all in one file, and re-run it all with a click of a button. The same can be achieved with e.g., [jupyter notebooks](https://jupyter.org/try). Both RMarkdown and jupyter notebooks can run code in many languages, not just R or python, which makes it easy to document all steps of your analysis in one file in the right sequence.  
 
-When Rmarkdown files are rendered they can be converted into several formats, though the most commonly used is html. It is also possible to convert it to markdown file. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison.  
-To save a markdown version while rendering it as html:
+When Rmarkdown files are rendered they can be converted into several formats. The most commonly used is html. See [here](https://bookdown.org/yihui/blogdown/output-format.html) for format comparison. If you push your project to GitHub, it might be useful to have a markdown version of your report, which can then be viewed on [GitHub](#Working with Git and GitHub) as a rendered html-like report. That basically gives you an easy way to publish your reports.
+To save a markdown version while rendering your report as html, add `keep_md:true` to the yaml frontmatter (the text at the top of your file between leading and trailing lines of ---) like this:
 ```
 output: 
   html_document:
     keep_md: true
 ```
+To save a markdown version without rendering as html you'd simply replace the output section with `output: github_document`.  
 
-You don't have to use RStudio to generate reports with R Markdown, you can use the `rmarkdown` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization.
+You don't have to use RStudio to generate reports with R Markdown, you can use the `rmarkdown` package in any R console, but RStudio provides integrated functionality that makes it easier and promotes standardization and reproducibility.
 
 Two other major advances in the R world in recent years include the [tidyverse](https://www.tidyverse.org/) and [ggplot](https://ggplot2.tidyverse.org/index.html) approaches to data analysis and visualization, respectively. Although they involve quite a learning curve, they make R code more streamlined and readable, and overcome some default behaviors in R that have become a nuisance in the new age of data science (see [here](https://peerj.com/preprints/3180v1/) for examples).  
+
+For a more effective use of R and RMarkdown see [What They Forgot to Teach You About R by Jenny Bryan](https://rstats.wtf/)
 
 ## Folder structure and naming
 Using community standards for structuring projects and naming files and folders makes it easier for other people to understand your workflow, with or without a readme file. There are several good discussions out there, and several R packages that help setting up a standardized R project. The principles are the same for other languages and IDEs.
@@ -90,11 +94,12 @@ A few pointers:
 * Instead of installing a new copy of each package for each project, renv creates a "playlist" for each project that draws from a single global cache
 * Integrates python as well: https://rstudio.github.io/renv/articles/python.html
 
-## Working with git and github
-https://www.atlassian.com/git/tutorials/what-is-version-control
-https://git-scm.com/book/en/v2  
-https://lab.github.com/githubtraining/introduction-to-github  
-Specifically with R and RStudio: https://happygitwithr.com/  
+## Working with Git and GitHub
+[Intro to version control and git](https://www.atlassian.com/git/tutorials/what-is-version-control)  
+[The entire Pro Git book](https://git-scm.com/book/en/v2)  
+[Into to GitHub)(https://lab.github.com/githubtraining/introduction-to-github)  
+[Happy git with R by Jenny Bryan](https://happygitwithr.com/)  
+[Troubleshooting Git](https://ohshitgit.com/)
 
 One way to get started -  
 **Pushing an existing project folder to a new remote repo:**  

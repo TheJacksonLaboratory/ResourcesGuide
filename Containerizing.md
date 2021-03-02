@@ -1,7 +1,7 @@
 ---
 title: "Containerizing"
 author: "Carter Lab"
-date: "2021-02-19"
+date: "2021-03-02"
 ---
 
 
@@ -39,7 +39,7 @@ Carpentry workshops:
 [Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
 
 Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well.  
-The def file `rstudio_etc_4.0.3.def` can look like this:
+The def file `rstudio_etc_4.0.3.def` can look [like this](https://jaxreg.jax.org/containers/447/download/recipe):
 ```
 bootstrap: docker
 from: bioconductor/bioconductor_docker:RELEASE_3_12
