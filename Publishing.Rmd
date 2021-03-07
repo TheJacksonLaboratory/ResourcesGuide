@@ -46,7 +46,7 @@ Increases accessibility and reproducibility, promotes detailed descriptions as w
   * Standardization is up to you
 
 * A website	https://rmarkdown.rstudio.com/lesson-13.html  
-  Centralized, with the option to link to the original files on github/box/etc – keeps everything together. See below
+  Centralized, with the option to link to the original files on github/box/etc – keeps everything together. See [an example](http://carterdev:3838/2DG_BL6_website/_site/index.html) and more details below
 
 * A website directly from your github repo for code and reports (https://lab.github.com/githubtraining/github-pages)
 
