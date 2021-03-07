@@ -99,10 +99,10 @@ A few pointers:
 ## Working with Git and GitHub
 [Intro to version control and git](https://www.atlassian.com/git/tutorials/what-is-version-control)  
 [The entire Pro Git book](https://git-scm.com/book/en/v2)  
-[Into to GitHub)(https://lab.github.com/githubtraining/introduction-to-github)  
+[Into to GitHub](https://lab.github.com/githubtraining/introduction-to-github)  
 [Happy git with R by Jenny Bryan](https://happygitwithr.com/)  
-[Troubleshooting Git](https://ohshitgit.com/)
-
+[Troubleshooting Git](https://ohshitgit.com/)  
+[Publishing RMarkdown websites on Github Pages](https://resources.github.com/whitepapers/github-and-rstudio/)
 One way to get started -  
 **Pushing an existing project folder to a new remote repo:**  
 
@@ -136,7 +136,4 @@ git clone https://github.com/TheJacksonLaboratory/someproject.git
 2. Make changes and repeat step 3 above
 3. Repeat step 5 above
 
-See [here](https://resources.github.com/whitepapers/github-and-rstudio/) on how to publish R markdown reports/websites on Github Pages.
-
-If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/).  
-It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. This is especially useful for monitoring and managing complex merges. 
+If you're going to collaborate on code/text development through github, it helps to [understand the github flow](https://guides.github.com/introduction/flow/) and [how branching works](https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/). It is also a good idea to work with a graphic client such as the one provided in [RStudio](https://jennybc.github.io/2014-05-12-ubc/ubc-r/session03_git.html#learngit) and Visual Studio, or the stand-alone [GitHub Desktop](https://desktop.github.com/), rather than working from the command line. This is especially useful for monitoring and managing complex merges. 

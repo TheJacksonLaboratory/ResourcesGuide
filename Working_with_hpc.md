@@ -1,7 +1,7 @@
 ---
 title: "Working with the hpc clusters"
 author: "Carter Lab"
-date: "2021-03-02"
+date: "2021-03-07"
 ---
 
 
@@ -217,7 +217,8 @@ Go to that URL and enter these username and password.
 Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.
 
 **Note:**  
-- Make sure all the directories in the launch file exist before running it.    
+- Make sure all the directories in the launch file exist before running it.   
+- If you already have the image in the relevant directory then you can just run the sbatch command from the login node (no need to start an interactive job).  
 - You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to [manage your locally-installed packages](Organizing_projects.html#Recording_the_computational_environment).  
 - See the [Containerizing](Containerizing.html) section on how to customize and build containers.  
 

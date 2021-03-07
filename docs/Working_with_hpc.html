@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-03-02" />
+<meta name="date" content="2021-03-07" />
 
 <title>Working with the hpc clusters</title>
 
@@ -363,7 +363,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-03-02</h4>
+<h4 class="date">2021-03-07</h4>
 
 </div>
 
@@ -522,6 +522,7 @@ sbatch launch_rstudio.sbatch</code></pre>
 Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.</p>
 <p><strong>Note:</strong><br />
 - Make sure all the directories in the launch file exist before running it.<br />
+- If you already have the image in the relevant directory then you can just run the sbatch command from the login node (no need to start an interactive job).<br />
 - You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your locally-installed packages</a>.<br />
 - See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers.</p>
 </div>

@@ -60,7 +60,7 @@ See [here](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) for the bas
 
 More evolved (and involved) ways to build an R-based websites include the packages [workflowr](https://jdblischak.github.io/workflowr/index.html) and [distill](https://rstudio.github.io/distill/)
 
-Below is an example of a yml file with multiple menus and submenus, as well as links for a shiny app, dropbox, github, a link to email, and various outputs.
+Below is an example of a yml file with multiple menus and sub-menus, as well as links for a shiny app, dropbox, github, a link to email, and various outputs.
 
 ```
 name: "my-website"
