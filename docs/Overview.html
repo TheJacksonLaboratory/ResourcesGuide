@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-03-07" />
+<meta name="date" content="2021-03-08" />
 
 <title>Overview of computational resources</title>
 
@@ -363,7 +363,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Overview of computational resources</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-03-07</h4>
+<h4 class="date">2021-03-08</h4>
 
 </div>
 
@@ -416,8 +416,8 @@ This is an online platform for hosting, managing, and sharing data and research 
 <p><a href="https://www.nextflow.io/">Nextflow</a> is <a href="https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full">a workflow management system</a> that has become popular in recent years in general and <a href="https://github.com/lifebit-ai/jax-tutorial">at jax</a>. It is also incorporated in the <a href="https://jacksonlaboratory.sharepoint.com/sites/CloudOS">Lifebit CloudOS</a> platform (used by some labs at jax but not the Carter Lab at this point).</p>
 <p>The main use of workflow management systems is in developing standardized pipelines that need to be run repeatedly (e.g., preliminary processing of RNA-seq fastq files).<br />
 Jax has in the past developed its own workflow management framework called <a href="https://github.com/TheJacksonLaboratory/civet">civet</a>, with a web-based interface called <a href="https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md">JODAP</a>. However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as <a href="https://www.commonwl.org/">CWL</a>, <a href="https://openwdl.org/">WDL</a>, or <a href="https://www.nextflow.io/">Nextflow</a>. <a href="https://books.ropensci.org/targets/">The R package <code>targets</code></a> provides workflow management within R.</p>
-<p><a href="https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config">An example for how to configure a nextflow pipeline to run on sumner.</a><br />
-<a href="https://github.com/grst/universal_analysis_pipeline">Nextflow-based pipeline to run and deploy reproducible analyses</a><br />
+<p><a href="https://github.com/TheJacksonLaboratory/universal-nextflow-config">A universal config file to run on Jax HPC</a> <a href="https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config">Another example for how to configure a nextflow pipeline to run on sumner.</a><br />
+<a href="https://github.com/grst/universal_analysis_pipeline">Nextflow-based pipeline to run and deploy reproducible analyses from jupyter/RMarkdown notebooks</a><br />
 <a href="https://github.com/stevekm/nextflow-demos">Demonstrations of various programming techniques for use inside Nextflow pipelines</a></p>
 </div>
 <div id="jaxreg" class="section level2">

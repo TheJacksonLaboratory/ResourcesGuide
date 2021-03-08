@@ -1,7 +1,7 @@
 ---
 title: "Overview of computational resources"
 author: "Carter Lab"
-date: "2021-03-07"
+date: "2021-03-08"
 ---
 
 
@@ -55,8 +55,9 @@ You need to ask IT to add you to this server specifically. You can log into it e
 The main use of workflow management systems is in developing standardized pipelines that need to be run repeatedly (e.g., preliminary processing of RNA-seq fastq files).  
 Jax has in the past developed its own workflow management framework called [civet](https://github.com/TheJacksonLaboratory/civet), with a web-based interface called [JODAP](https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md). However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as [CWL](https://www.commonwl.org/), [WDL](https://openwdl.org/), or [Nextflow](https://www.nextflow.io/). [The R package `targets`](https://books.ropensci.org/targets/) provides workflow management within R.
 
-[An example for how to configure a nextflow pipeline to run on sumner.](https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config)  
-[Nextflow-based pipeline to run and deploy reproducible analyses](https://github.com/grst/universal_analysis_pipeline)  
+[A universal config file to run on Jax HPC](https://github.com/TheJacksonLaboratory/universal-nextflow-config)
+[Another example for how to configure a nextflow pipeline to run on sumner.](https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config)  
+[Nextflow-based pipeline to run and deploy reproducible analyses from jupyter/RMarkdown notebooks](https://github.com/grst/universal_analysis_pipeline)  
 [Demonstrations of various programming techniques for use inside Nextflow pipelines](https://github.com/stevekm/nextflow-demos)  
 
 ## JAXREG

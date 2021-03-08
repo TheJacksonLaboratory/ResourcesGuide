@@ -1,7 +1,7 @@
 ---
 title: "Publishing"
 author: "Carter Lab"
-date: "2021-03-07"
+date: "2021-03-08"
 ---
 
 
@@ -50,13 +50,11 @@ Increases accessibility and reproducibility, promotes detailed descriptions as w
 
 ### Making websites from Rmarkdown files
 
-https://jules32.github.io/rmarkdown-website-tutorial/index.html  
+Rmarkdown files that are rendered as html files can be [wrapped together into a website](https://jules32.github.io/rmarkdown-website-tutorial/index.html), including links to the original project folder, any associated rshiny apps, github repo, etc. This is a convenient option for making your work accessible to collaborators, especially non-computational ones. You can use any number of site generators for that, but [the easiest for not-too-complex projects is to use the default generator in `rmarkdown`](https://bookdown.org/yihui/blogdown/rmd-website.html). In order to use that default generator you'd need to have all .Rmd files together in the root directory of your project. [For a more complex folder structure, the `blogdown` package provides an easy way to work with other generators](https://bookdown.org/yihui/blogdown/).  
 
-Rmarkdown files that are rendered as html files can be wrapped together into a website, including links to the original project folder, any associated rshiny apps, github repo, etc. This is a convenient option for making your work accessible to collaborators, especially non-computational ones. To build a website you need two additional files in the same folder as the rest of your .Rmd files: 1.) index.Rmd and 2.) _site.yml. The index.Rmd file is essentially the home page of the website. The file has to be named index.Rmd (or index.md) in order for the website to work. The _site.yml file defines the structure of the website. This is where you can specify which files, what menus/submenus, and what other information will be on the website. This website contains static htmls, so everytime the site yaml file is updated all of the rmarkdowns will be rendered again (see Rmarkdown cache options to somehwat alleviate this feature).
+Other packages for building R-based websites include [workflowr](https://jdblischak.github.io/workflowr/index.html) and [distill](https://rstudio.github.io/distill/).  
 
-See [here](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) for the basics of rendering sites from Rmarkdown files. 
-
-More evolved (and involved) ways to build an R-based websites include the packages [workflowr](https://jdblischak.github.io/workflowr/index.html) and [distill](https://rstudio.github.io/distill/)
+[To build a website with `rmarkdown`](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) you need two additional files in the project root directory, along with the rest of your .Rmd files: 1.) index.Rmd and 2.) _site.yml. The index.Rmd file is essentially the home page of the website. The file has to be named index.Rmd (or index.md) in order for the website to work. The _site.yml file defines the structure of the website. This is where you can specify which files, what menus/submenus, and what other information will be on the website. This website contains static htmls, so every time the site yaml file is updated all of the rmarkdowns will be rendered again (see Rmarkdown cache options to somewhat alleviate this issue).
 
 Below is an example of a yml file with multiple menus and sub-menus, as well as links for a shiny app, dropbox, github, a link to email, and various outputs.
 
