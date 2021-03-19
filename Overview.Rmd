@@ -60,7 +60,8 @@ Jax has in the past developed its own workflow management framework called [cive
 [A universal config file to run on Jax HPC](https://github.com/TheJacksonLaboratory/universal-nextflow-config)
 [Another example for how to configure a nextflow pipeline to run on sumner.](https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config)  
 [Nextflow-based pipeline to run and deploy reproducible analyses from jupyter/RMarkdown notebooks](https://github.com/grst/universal_analysis_pipeline)  
-[Demonstrations of various programming techniques for use inside Nextflow pipelines](https://github.com/stevekm/nextflow-demos)  
+[Demonstrations of various programming techniques for use inside Nextflow pipelines](https://github.com/stevekm/nextflow-demos) 
+[Installing edge releases](https://nf-co.re/viralrecon/dev/usage#nextflow-edge-releases)
 
 ## JAXREG
 https://jaxreg.jax.org/  
