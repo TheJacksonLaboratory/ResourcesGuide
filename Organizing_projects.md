@@ -1,7 +1,7 @@
 ---
 title: "Organizing Projects"
 author: "Carter Lab"
-date: "2021-03-08"
+date: "2021-03-19"
 ---
 
 
@@ -100,13 +100,14 @@ A few pointers:
 [Into to GitHub](https://lab.github.com/githubtraining/introduction-to-github)  
 [Happy git with R by Jenny Bryan](https://happygitwithr.com/)  
 [Troubleshooting Git](https://ohshitgit.com/)  
-[Publishing RMarkdown websites on Github Pages](https://resources.github.com/whitepapers/github-and-rstudio/)
-One way to get started -  
+[Publishing RMarkdown websites on Github Pages](https://resources.github.com/whitepapers/github-and-rstudio/)  
+
+One way to get started -   
 **Pushing an existing project folder to a new remote repo:**  
 
 1. Create a new remote (empty) repository under [the Jackson Laboratory account](https://github.com/TheJacksonLaboratory)  
   -- do not initialize with README/.gitignore/license
-2. Initiate your project folder as a local git repo and link it to the remote one:
+2. Initialize your project folder as a local git repo and link it to the remote one:
 ```
 cd myproject
 git init
