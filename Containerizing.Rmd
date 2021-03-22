@@ -70,8 +70,8 @@ The building and launching commands are therefore:
 srun --pty -q batch bash
 module load singularity
 singularity run http://s3-far.jax.org/builder/builder \
-        ~/bin/rstudio_etc_4.0.3.def bin/rstudio_etc_4.0.3.sif # building the image
-singularity exec bin/rstudio_etc_4.0.3.sif R # launching interactive R session
+        ~/bin/rstudio_etc_4.0.3.def ~/bin/rstudio_etc_4.0.3.sif # building the image
+singularity exec ~/bin/rstudio_etc_4.0.3.sif R # launching interactive R session
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
   

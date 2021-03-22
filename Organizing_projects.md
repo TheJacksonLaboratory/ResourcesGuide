@@ -1,7 +1,7 @@
 ---
 title: "Organizing Projects"
 author: "Carter Lab"
-date: "2021-03-19"
+date: "2021-03-22"
 ---
 
 
@@ -91,8 +91,9 @@ A few pointers:
   * updates the `.Rprofile` file so that it activates `renv`, which then looks up the lockfile, every time you restart a session within that project (so no need to tell other/future users to activate renv)
 * call `renv::snapshot()` to update the package list (lockfile) while working on the project
 * call `renv::restore()` to install all packages in the lockfile (e.g., when starting a session on a different system); inform users of the need to do that
-* Instead of installing a new copy of each package for each project, renv creates a "playlist" for each project that draws from a single global cache
-* Integrates python as well: https://rstudio.github.io/renv/articles/python.html
+* Instead of installing a new copy of each package for each project, renv creates a "playlist" for each project that draws from the user library. If it can't find it there, it will install it in the project library by default. See the function's reference to change that default.
+* To install Bioconductor packages, use `renv::install("bioc::Biobase")`. To include Bioconductor packages when initializing or restoring a project enter `options(repos = BiocManager::repositories())` first. 
+* Integrates python as well: https://rstudio.github.io/renv/articles/python.html  
 
 ## Working with Git and GitHub
 [Intro to version control and git](https://www.atlassian.com/git/tutorials/what-is-version-control)  
