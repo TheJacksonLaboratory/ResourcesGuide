@@ -33,7 +33,8 @@ Files on tier1 can be recovered within [7 days of deletion](https://jacksonlabor
 You can use [Globus](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx) or [SCP](https://haydenjames.io/linux-securely-copy-files-using-scp/) to transfer data between the different storages. You can also use [Globus CLI](https://docs.globus.org/cli/quickstart/) to incorporate data transfer in the script whenever applicable.  
 
 ## carterdev
-Development space for out lab. Hosts shiny apps and websites for ongoing projects. To connect type http://carterdev:3838/ in your browser.
+http://carterdev:3838/
+Development space for out lab. Hosts shiny apps and websites for ongoing projects.
 
 ## Synapse
 https://www.synapse.org/  
@@ -93,8 +94,10 @@ To get started you need to request IT to open a dropbox account for you (if you 
 
 ## Working remotely
 In order to work remotely using jax resources, you'll need to [connect via VPN](https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx).   
-This will also provide you automatic access to full papers in any journals that jax library subscribes to.  
-Alternatively, you can access the library resources [here](https://login.ezproxy.jax.org/login) without getting on the vpn. 
+
+## Library
+In order to access [Jax library](https://jacksonlaboratory.sharepoint.com/sites/Library) off-campus you'll need to [connect via VPN](https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx). This will also provide you automatic access to full papers in any journals that jax library subscribes to.  
+Alternatively, you can access the library resources [here](https://login.ezproxy.jax.org/login) with your jax credentials, without getting on the vpn
 
 ## Get connected, get help
 
