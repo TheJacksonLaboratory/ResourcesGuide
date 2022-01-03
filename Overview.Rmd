@@ -13,7 +13,7 @@ The JAX HPC infrastructure consists of 2 main clusters available to all users: S
 Research IT provides extensive documentation on what's available and how to use it:  
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx  
 https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md  
-See also the [Working with HPC section](Working_with_hpc.html) in this guide and [Samir Amin's documentation](https://code.sbamin.com/hpc ).
+See also the [Working with HPC section](Working_with_hpc.html) in this guide and [Samir Amin's documentation](https://code.sbamin.com/hpc).
 
 ## Storage
 https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx
