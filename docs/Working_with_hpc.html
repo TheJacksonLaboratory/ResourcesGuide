@@ -11,11 +11,12 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-03-22" />
+<meta name="date" content="2022-04-12" />
 
 <title>Working with the hpc clusters</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -298,12 +299,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -363,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-03-22</h4>
+<h4 class="date">2022-04-12</h4>
 
 </div>
 
@@ -427,7 +428,7 @@ Working interactively has the potential to drain the hpc resources for everyone 
 <div id="from-your-local-terminalrstudio" class="section level3">
 <h3>From your local terminal/RStudio</h3>
 <p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
-If you’re developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
+If you’re developing the project mostly with RStudio, and don’t need any files from tier1, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
 <p>Once logged into sumner enter this to start an interactive session with R:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
@@ -446,20 +447,24 @@ here()</code></pre>
 <p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
 <p><strong>Note:</strong>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
 <p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
-You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a> and open an R session with those packages installed:</p>
-<pre class="bash"><code>singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-# including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-singularity exec ~/bin/R_tidy.sif R</code></pre>
+You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a>, or you can pull a container from <a href="library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0">jax registry</a> that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. This second container has also been tested and works with remote RStudio as explained in the following section. If your project uses packages that need other system dependencies you’d need to add those to the def file of one of these containers and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>
+<pre class="bash"><code>singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
+singularity exec ~/bin/rstudio_etc.sif R
+# singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
+# singularity exec ~/bin/R_tidy.sif R</code></pre>
 <p>In this case we can’t just open an R session by calling the sif file because of how its def file is designed, so instead we do it with <code>exec</code>.<br />
-You can now load the tidyverse packages as usual.</p>
-<p><strong>These R packages may also be useful for connecting to a remote server from your local environment:</strong> <a href="https://cran.r-project.org/web/packages/ssh/">SSH</a> <a href="https://cran.r-project.org/web/packages/remoter/">remoter</a> <a href="https://github.com/cloudyr/rmote">rmote</a> <a href="https://cran.r-project.org/web/packages/ssh.utils/index.html">ssh-utils</a></p>
+You can now load any of the pre-installed packages as usual.</p>
+<p><strong>These R packages may also be useful for connecting to a remote server from your local environment:</strong> <a href="https://cran.r-project.org/web/packages/ssh/">SSH</a><br />
+<a href="https://cran.r-project.org/web/packages/remoter/">remoter</a><br />
+<a href="https://github.com/cloudyr/rmote">rmote</a><br />
+<a href="https://cran.r-project.org/web/packages/ssh.utils/index.html">ssh-utils</a></p>
 </div>
-<div id="remote-rstudio" class="section level3">
-<h3>Remote RStudio</h3>
+</div>
+<div id="remote-rstudio" class="section level2">
+<h2>Remote RStudio</h2>
 <p>You can run Rstudio Server on the hpc and access it from a local browser, as explained <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
 <p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a> (and slightly modified here):</p>
-<p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with this content:</p>
+<p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with the following content. You might want to use your home directory instead of fastscratch.</p>
 <pre><code>#!/usr/bin/env bash
 ### SLURM HEADER
 #SBATCH --job-name=rstudio  #!!
@@ -503,14 +508,9 @@ singularity exec \
 Open an interactive session on sumner</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity</code></pre>
-<p>Pull rstudio image from <a href="https://hub.docker.com/r/rocker/rstudio">rocker</a>, copy it to fastscratch, and launch it:</p>
-<pre class="bash"><code>singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
-# singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-
-# mkdir /fastscratch/&lt;USERNAME&gt; # create dir in fastscratch if you haven&#39;t already
-cp bin/rstudio.sif /fastscratch/&lt;USERNAME&gt;/
+<p>Pull rstudio image from <a href="library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0">jax registry</a>, put it in your <code>simg_path</code>, and launch it:</p>
+<pre class="bash"><code>singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
 sbatch launch_rstudio.sbatch</code></pre>
-<p>Here we’re using <a href="https://hub.docker.com/r/rocker/tidyverse/dockerfile">an rstudio image</a> that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies. Another option listed above is <a href="https://jaxreg.jax.org/containers/447/download/recipe">an image from jaxreg</a> that contains synapser and renv as well. If your project uses packages that need other system dependencies you’d need to add those to the def file of one of these containers and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>
 <p>Next you need to get the URL and login information from the log file:</p>
 <pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
 <p>You’ll see something like this:</p>
@@ -522,10 +522,9 @@ sbatch launch_rstudio.sbatch</code></pre>
 Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.</p>
 <p><strong>Note:</strong><br />
 - Make sure all the directories in the launch file exist before running it.<br />
-- If you already have the image in the relevant directory then you can just run the sbatch command from the login node (no need to start an interactive job).<br />
+- If you already have the image in the relevant directory then you can just run the sbatch command from the login node. You only need to start an interactive job in order to pull the image.<br />
 - You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your locally-installed packages</a>.<br />
 - See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers.</p>
-</div>
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">
 <h2>Submitting jobs to the cluster</h2>
@@ -574,6 +573,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

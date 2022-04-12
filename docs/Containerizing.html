@@ -11,11 +11,12 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2021-03-22" />
+<meta name="date" content="2022-04-12" />
 
 <title>Containerizing</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -298,12 +299,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -363,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Containerizing</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-03-22</h4>
+<h4 class="date">2022-04-12</h4>
 
 </div>
 
@@ -389,36 +390,39 @@ For example, to access secured data from within a container interactively, you c
 <a href="https://carpentries-incubator.github.io/singularity-introduction/index.html">Introduction to Singularity</a><br />
 <a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop focusing on HPC</a></p>
 <p>Here’s an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well.<br />
-The def file <code>rstudio_etc_4.0.3.def</code> can look <a href="https://jaxreg.jax.org/containers/447/download/recipe">like this</a>:</p>
+The def file <code>rstudio_etc_4.1.3.def</code> can look <a href="https://jaxreg.jax.org/containers/447/download/recipe">like this</a>:</p>
 <pre><code>bootstrap: docker
-from: bioconductor/bioconductor_docker:RELEASE_3_12
+from: bioconductor/bioconductor_docker:RELEASE_3_14
 
 %labels
     AUTHOR Annat Haber annat.haber@jax.org
-    R VERSION 4.0.3
+    R VERSION 4.1.3
 
 %post
     apt-get update -y
     #From synapser dockerfile:
     apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
-    apt-get install -y libcurl4-openssl-dev     
+    apt-get install -y curl libcurl4-openssl-dev        
+    # also for synapser
+    export CRYPTOGRAPHY_DONT_BUILD_RUST=true
 
-    R --slave -e &#39;install.packages(c(&quot;ggplot2&quot;, &quot;gridExtra&quot;, &quot;devtools&quot;, &quot;tidyverse&quot;, &quot;git2r&quot;), dependencies = TRUE)&#39;
-    R --slave -e &#39;install.packages(&quot;synapser&quot;, repos = c(&quot;http://ran.synapse.org&quot;, &quot;http://cran.fhcrc.org&quot;), dependencies = TRUE)&#39;
+    R --slave -e &#39;install.packages(c(&quot;Rcpp&quot;, &quot;ggplot2&quot;, &quot;gridExtra&quot;, &quot;devtools&quot;, &quot;tidyverse&quot;, &quot;git2r&quot;, &quot;renv&quot;), dependencies = TRUE)&#39;
+    R --slave -e &#39;install.packages(&quot;synapser&quot;, repos = c(&quot;http://ran.synapse.org&quot;, &quot;http://cran.fhcrc.org&quot;))&#39;
 
 %help
-    R base with the latest rstudio bioconductor, tidyverse, devtools, synapser, and their dependencies
-</code></pre>
-<p>Here we add a few system dependencies under <code>apt-get -y update</code> that are <a href="https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile">required for synapser</a> and are not included in the <a href="https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile">bioconductor base image</a>, based on their respective dockerfiles. See more examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
+    R base with the latest rstudio, bioconductor, tidyverse, devtools, synapser, renv, and their dependencies.
+    To launch rstudio on hpc see https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio</code></pre>
+<p>Here we add a few system dependencies under <code>%post</code> that are <a href="https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile">required for synapser</a> and are not included in the <a href="https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile">bioconductor base image</a>, based on their respective dockerfiles. See more examples in the <a href="https://jaxreg.jax.org/">Jax registry</a>.</p>
 <p>In order to build the image with the <code>singularity build</code> command we’d need root privileges on the cluster. To address that, <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx">jax RIT has created a builder</a> that we can use without root privileges.<br />
-The building and launching commands are therefore:</p>
+Another option, recommended by IT but has its drawbacks in practice, is to use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Scilabs-Tutorial.aspx">the SyLabs builder</a>.<br />
+Using Jax builder, the building and launching commands are:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
 singularity run http://s3-far.jax.org/builder/builder \
-        ~/bin/rstudio_etc_4.0.3.def ~/bin/rstudio_etc_4.0.3.sif # building the image
-singularity exec ~/bin/rstudio_etc_4.0.3.sif R # launching interactive R session</code></pre>
+        ~/bin/rstudio_etc_4.1.3.def ~/bin/rstudio_etc_4.1.3.sif # building the image
+singularity exec ~/bin/rstudio_etc_4.1.3.sif R # launching interactive R session</code></pre>
 <p>You can now install other packages on your home directory to be available for future sessions (as long as they don’t require any missing system dependencies) and read/write files from/to your projects and home directories.</p>
-<p>This image can also be pulled from <a href="https://jaxreg.jax.org/">JAXREG</a> with <code>singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0</code>, and can be used to <a href="https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio">launch a remote session of RStudio</a>.</p>
+<p>This image can also be pulled from <a href="https://jaxreg.jax.org/">JAXREG</a> with <code>singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0</code>, and can be used to <a href="https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio">launch a remote session of RStudio</a>.</p>
 
 
 
@@ -458,6 +462,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

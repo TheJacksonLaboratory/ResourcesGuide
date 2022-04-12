@@ -33,46 +33,50 @@ Other useful references:
 [Sigularity tutorial](https://singularity-tutorial.github.io/)   
 [Jax tutorial](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Hands-on--Basics-of-working-with-Singularity.aspx)   
 [How to modify basic R image and running as a pipeline on sumner](https://hpctalk.jax.org/t/running-first-r-pipeline-on-sumner/73)
-
+  
 Carpentry workshops:  
 [Introduction to Docker](https://carpentries-incubator.github.io/docker-introduction/)  
 [Introduction to Singularity](https://carpentries-incubator.github.io/singularity-introduction/index.html)  
-[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)
+[Pawsey Center SC workshop focusing on HPC](https://pawseysc.github.io/sc19-containers/)  
 
 Here's an example for building an R image that starts with the bioconductor base image and includes rstudio, tidyverse, synapser, and other packages in the container from the get go. Although ggplot2 is a dependency of tidyverse, some suggest to install it explicitly to ensure that its own dependencies are all installed as well.  
-The def file `rstudio_etc_4.0.3.def` can look [like this](https://jaxreg.jax.org/containers/447/download/recipe):
+The def file `rstudio_etc_4.1.3.def` can look [like this](https://jaxreg.jax.org/containers/447/download/recipe):
 ```
 bootstrap: docker
-from: bioconductor/bioconductor_docker:RELEASE_3_12
+from: bioconductor/bioconductor_docker:RELEASE_3_14
 
 %labels
 	AUTHOR Annat Haber annat.haber@jax.org
-	R VERSION 4.0.3
+	R VERSION 4.1.3
 
 %post
 	apt-get update -y
 	#From synapser dockerfile:
 	apt-get install -y dpkg-dev zlib1g-dev libssl-dev libffi-dev
-	apt-get install -y libcurl4-openssl-dev		
+	apt-get install -y curl libcurl4-openssl-dev		
+	# also for synapser
+	export CRYPTOGRAPHY_DONT_BUILD_RUST=true
 
-	R --slave -e 'install.packages(c("ggplot2", "gridExtra", "devtools", "tidyverse", "git2r"), dependencies = TRUE)'
- 	R --slave -e 'install.packages("synapser", repos = c("http://ran.synapse.org", "http://cran.fhcrc.org"), dependencies = TRUE)'
+	R --slave -e 'install.packages(c("Rcpp", "ggplot2", "gridExtra", "devtools", "tidyverse", "git2r", "renv"), dependencies = TRUE)'
+ 	R --slave -e 'install.packages("synapser", repos = c("http://ran.synapse.org", "http://cran.fhcrc.org"))'
 
 %help
- 	R base with the latest rstudio bioconductor, tidyverse, devtools, synapser, and their dependencies
-
+ 	R base with the latest rstudio, bioconductor, tidyverse, devtools, synapser, renv, and their dependencies.
+ 	To launch rstudio on hpc see https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio
 ```
-Here we add a few system dependencies under `apt-get -y update` that are [required for synapser](https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile) and are not included in the [bioconductor base image](https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile), based on their respective dockerfiles. See more examples in the [Jax registry](https://jaxreg.jax.org/).
+
+Here we add a few system dependencies under `%post` that are [required for synapser](https://github.com/Sage-Bionetworks/synapser/blob/master/Dockerfile) and are not included in the [bioconductor base image](https://github.com/Bioconductor/bioconductor_docker/blob/master/Dockerfile), based on their respective dockerfiles. See more examples in the [Jax registry](https://jaxreg.jax.org/).
   
 In order to build the image with the `singularity build` command we'd need root privileges on the cluster. To address that, [jax RIT has created a builder](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Using-the-JAX-internal-Container-Builder-Service.aspx) that we can use without root privileges.  
-The building and launching commands are therefore:
+Another option, recommended by IT but has its drawbacks in practice, is to use [the SyLabs builder](https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Scilabs-Tutorial.aspx).  
+Using Jax builder, the building and launching commands are:
 ```{bash}
 srun --pty -q batch bash
 module load singularity
 singularity run http://s3-far.jax.org/builder/builder \
-        ~/bin/rstudio_etc_4.0.3.def ~/bin/rstudio_etc_4.0.3.sif # building the image
-singularity exec ~/bin/rstudio_etc_4.0.3.sif R # launching interactive R session
+        ~/bin/rstudio_etc_4.1.3.def ~/bin/rstudio_etc_4.1.3.sif # building the image
+singularity exec ~/bin/rstudio_etc_4.1.3.sif R # launching interactive R session
 ```
 You can now install other packages on your home directory to be available for future sessions (as long as they don't require any missing system dependencies) and read/write files from/to your projects and home directories.
   
-This image can also be pulled from [JAXREG](https://jaxreg.jax.org/) with `singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0`, and can be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio).
+This image can also be pulled from [JAXREG](https://jaxreg.jax.org/) with `singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0`, and can be used to [launch a remote session of RStudio](https://thejacksonlaboratory.github.io/ResourcesGuide/Working_with_hpc.html#Remote_RStudio).

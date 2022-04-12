@@ -1,7 +1,7 @@
 ---
 title: "Working with the hpc clusters"
 author: "Carter Lab"
-date: "2021-03-22"
+date: "2022-04-12"
 ---
 
 
@@ -85,7 +85,7 @@ See `man srun` for options such as CPU and memory allocation
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
 However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
-If you're developing the project mostly with RStudio, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
+If you're developing the project mostly with RStudio, and don't need any files from tier1, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
   
 Once logged into sumner enter this to start an interactive session with R:  
 
@@ -115,31 +115,31 @@ Type `q()` to quite R. You're still connected to the interactive session.
 **Note:**You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
 Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
-You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse) and open an R session with those packages installed:
+You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse), or you can pull a container from [jax registry](library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0) that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. This second container has also been tested and works with remote RStudio as explained in the following section. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).
 
 ```bash
-singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-# including tidyverse, bioconductor, synapser, etc, from jaxreg
-# singularity pull library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-singularity exec ~/bin/R_tidy.sif R
+singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
+singularity exec ~/bin/rstudio_etc.sif R
+# singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
+# singularity exec ~/bin/R_tidy.sif R
 ```
 In this case we can't just open an R session by calling the sif file because of how its def file is designed, so instead we do it with `exec`.  
-You can now load the tidyverse packages as usual.
+You can now load any of the pre-installed packages as usual.
   
 **These R packages may also be useful for connecting to a remote server from your local environment:**
-[SSH](https://cran.r-project.org/web/packages/ssh/)
-[remoter](https://cran.r-project.org/web/packages/remoter/)
-[rmote](https://github.com/cloudyr/rmote)
-[ssh-utils](https://cran.r-project.org/web/packages/ssh.utils/index.html)
+[SSH](https://cran.r-project.org/web/packages/ssh/)  
+[remoter](https://cran.r-project.org/web/packages/remoter/)  
+[rmote](https://github.com/cloudyr/rmote)  
+[ssh-utils](https://cran.r-project.org/web/packages/ssh.utils/index.html)  
 
 
-### Remote RStudio
+## Remote RStudio
 
 You can run Rstudio Server on the hpc and access it from a local browser, as explained [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
 Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM) (and slightly modified here):  
   
-Open a text editor and create a file named `launch_rstudio.sbatch` with this content:
+Open a text editor and create a file named `launch_rstudio.sbatch` with the following content. You might want to use your home directory instead of fastscratch.
 ```
 #!/usr/bin/env bash
 ### SLURM HEADER
@@ -188,17 +188,12 @@ Open an interactive session on sumner
 srun --pty -q batch bash
 module load singularity
 ```
-Pull rstudio image from [rocker](https://hub.docker.com/r/rocker/rstudio), copy it to fastscratch, and launch it:   
+Pull rstudio image from [jax registry](library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0), put it in your `simg_path`, and launch it:   
 
 ```bash
-singularity pull --name ~/bin/rstudio.sif docker://rocker/tidyverse:latest 
-# singularity pull --name bin/rstudio.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-
-# mkdir /fastscratch/<USERNAME> # create dir in fastscratch if you haven't already
-cp bin/rstudio.sif /fastscratch/<USERNAME>/
+singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
 sbatch launch_rstudio.sbatch
 ```
-Here we're using [an rstudio image](https://hub.docker.com/r/rocker/tidyverse/dockerfile) that includes tidyverse, biocmanager, devtools, and a bunch of system dependencies. Another option listed above is [an image from jaxreg](https://jaxreg.jax.org/containers/447/download/recipe) that contains synapser and renv as well. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).  
 
 Next you need to get the URL and login information from the log file: 
 
@@ -218,7 +213,7 @@ Ending the session is crucial here not only to avoid draining hpc resources but 
 
 **Note:**  
 - Make sure all the directories in the launch file exist before running it.   
-- If you already have the image in the relevant directory then you can just run the sbatch command from the login node (no need to start an interactive job).  
+- If you already have the image in the relevant directory then you can just run the sbatch command from the login node. You only need to start an interactive job in order to pull the image.  
 - You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to [manage your locally-installed packages](Organizing_projects.html#Recording_the_computational_environment).  
 - See the [Containerizing](Containerizing.html) section on how to customize and build containers.  
 
