@@ -11,7 +11,7 @@
 
 <meta name="author" content="Carter Lab" />
 
-<meta name="date" content="2022-04-12" />
+<meta name="date" content="2022-04-15" />
 
 <title>Working with the hpc clusters</title>
 
@@ -364,7 +364,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
 <h4 class="author">Carter Lab</h4>
-<h4 class="date">2022-04-12</h4>
+<h4 class="date">2022-04-15</h4>
 
 </div>
 
@@ -467,11 +467,9 @@ You can now load any of the pre-installed packages as usual.</p>
 <p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with the following content. You might want to use your home directory instead of fastscratch.</p>
 <pre><code>#!/usr/bin/env bash
 ### SLURM HEADER
-#SBATCH --job-name=rstudio  #!!
 #SBATCH --output=/home/&lt;USERNAME&gt;/logs/rstudio-%j.log  #!!
 #SBATCH --mail-type=FAIL
-#SBATCH --mail-user=first.last@jax.org #!!
-#SBATCH --partition=compute
+#SBATCH --mail-user=annat.haber@jax.org #!!
 #SBATCH --qos=batch
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
@@ -481,36 +479,35 @@ You can now load any of the pre-installed packages as usual.</p>
 #SBATCH --export=ALL
 ### SLURM HEADER
 localcores=${SLURM_CPUS_PER_TASK}
-simg_path=&quot;/fastscratch/&lt;USERNAME&gt;/rstudio.sif&quot; #!!
-work_dir=&quot;/fastscratch/&lt;USERNAME&gt;/work&quot; #!!
+simg_path=&quot;/home/&lt;USERNAME&gt;/bin/rstudio_etc_4.0.3_0.sif&quot; #!!
+work_dir=&quot;/home/&lt;USERNAME&gt;/work&quot; #!!
 set -euo pipefail
-mkdir -p ${work_dir}
+#mkdir -p ${work_dir}
 cd ${work_dir}
 mkdir -p run tmp
 export PASSWORD=$(openssl rand -base64 15)
 PORT=$(shuf -i8899-11999 -n1)
 hostname_with_port=$(echo $(hostname -A):${PORT} | tr -d &quot; &quot;)
-cat 1&gt;&amp;2 &lt;&lt;EOF
-Login to ${hostname_with_port} with
-  username: ${USER}
-  password: ${PASSWORD}
-EOF
+echo Login to ${hostname_with_port} with username: ${USER} password: ${PASSWORD}
 module load singularity
 singularity exec \
     -B $(pwd)/run:/run \
     -B $(pwd)/tmp:/tmp \
+    -B /sdata/carter-lab \
     ${simg_path} rserver \
     --www-port ${PORT} \
     --auth-none=0 --auth-pam-helper-path=pam-helper \
     --auth-timeout-minutes=0 \
-    --auth-stay-signed-in-days=30</code></pre>
+    --auth-stay-signed-in-days=30
+</code></pre>
 <p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
 Open an interactive session on sumner</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity</code></pre>
-<p>Pull rstudio image from <a href="library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0">jax registry</a>, put it in your <code>simg_path</code>, and launch it:</p>
-<pre class="bash"><code>singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
+<p>Pull rstudio image from <a href="https://jaxreg.jax.org/containers/447">jax registry</a>, put it in your <code>simg_path</code>, and launch it:</p>
+<pre class="bash"><code>singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 sbatch launch_rstudio.sbatch</code></pre>
+<p>You can also download it from the <a href="https://jaxreg.jax.org/containers/447">jax registry</a>.</p>
 <p>Next you need to get the URL and login information from the log file:</p>
 <pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
 <p>You’ll see something like this:</p>
