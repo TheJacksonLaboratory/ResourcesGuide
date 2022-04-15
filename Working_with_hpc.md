@@ -118,8 +118,8 @@ Installing packages interactively like this assumes that system dependencies of 
 You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse), or you can pull a container from [jax registry](library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0) that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. This second container has also been tested and works with remote RStudio as explained in the following section. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).
 
 ```bash
-singularity pull --name rstudio_etc.sif library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0
-singularity exec ~/bin/rstudio_etc.sif R
+singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
+singularity exec ~/bin/rstudio_etc_4.0.3.sif R
 # singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 # singularity exec ~/bin/R_tidy.sif R
 ```
