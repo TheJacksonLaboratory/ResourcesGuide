@@ -145,7 +145,7 @@ Open a text editor and create a file named `launch_rstudio.sbatch` with the foll
 ### SLURM HEADER
 #SBATCH --output=/home/<USERNAME>/logs/rstudio-%j.log  #!!
 #SBATCH --mail-type=FAIL
-#SBATCH --mail-user=annat.haber@jax.org #!!
+#SBATCH --mail-user=<FIRST.LAST>@jax.org #!!
 #SBATCH --qos=batch
 #SBATCH --time=72:00:00
 #SBATCH --nodes=1
@@ -155,7 +155,7 @@ Open a text editor and create a file named `launch_rstudio.sbatch` with the foll
 #SBATCH --export=ALL
 ### SLURM HEADER
 localcores=${SLURM_CPUS_PER_TASK}
-simg_path="/home/<USERNAME>/bin/rstudio_etc_4.0.3_0.sif" #!!
+simg_path="/home/<USERNAME>/bin/rstudio_etc_4.0.3.sif" #!!
 work_dir="/home/<USERNAME>/work" #!!
 set -euo pipefail
 #mkdir -p ${work_dir}
@@ -190,7 +190,7 @@ Pull rstudio image from [jax registry](https://jaxreg.jax.org/containers/447), p
 singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 sbatch launch_rstudio.sbatch
 ```
-You can also download it from the [jax registry](https://jaxreg.jax.org/containers/447).
+You can also download it directly from the [jax registry](https://jaxreg.jax.org/containers/447).
 
 Next you need to get the URL and login information from the log file: 
 
