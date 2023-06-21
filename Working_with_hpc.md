@@ -1,7 +1,7 @@
 ---
 title: "Working with the hpc clusters"
-author: "Carter Lab"
-date: "2022-04-15"
+author: "Annat Haber"
+date: "2023-06-18"
 ---
 
 
@@ -45,7 +45,7 @@ Save and exit the editor, and restart your terminal.
 Now you can call containers by their name from anywhere in your home directory, without having to specify the path.
 
 3. Initialize an interactive session, load singularity, and pull containers:  
-Here we pull the latest r container and put it in the bin directory.  
+Here we pull the latest r container and put it in the bin directory. See below for using R with Rstudio instead. 
 For easy reference we rename it R.sif  
 https://singularity-hub.org/collections/4747/usage  
 
@@ -84,8 +84,8 @@ See `man srun` for options such as CPU and memory allocation
 ### From your local terminal/RStudio
 
 This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1.
-However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.  
-If you're developing the project mostly with RStudio, and don't need any files from tier1, it might be easier to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/).
+However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder you'd need to use an Rstudio container as explained in the next section.  
+You also have the option to move your project to tier2 and use the [RStudio Server](https://rstudio.jax.org/) but then you wouldn't be able to access tier1 for that project.
   
 Once logged into sumner enter this to start an interactive session with R:  
 
@@ -94,11 +94,7 @@ srun --pty -q batch bash
 module load singularity
 R.sif
 ```
-You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).  
-
-**Tip:** If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
-
-Once you're in R:
+Once you have R open, you can install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix):  
 
 ```r
 # Specify libs before installing anything
@@ -112,19 +108,12 @@ here()
 ```
 Type `q()` to quite R. You're still connected to the interactive session.  
 
+**Tip:** If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.
+
 **Note:**You can do the above from any tier1 folder. If you want to work on a project in e.g., `/sdata/`, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.  
 
-Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don't have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the [Containerizing](Containerizing.html) section for more details.  
-You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse), or you can pull a container from [jax registry](library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0) that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. This second container has also been tested and works with remote RStudio as explained in the following section. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).
-
-```bash
-singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-singularity exec ~/bin/rstudio_etc_4.0.3.sif R
-# singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-# singularity exec ~/bin/R_tidy.sif R
-```
-In this case we can't just open an R session by calling the sif file because of how its def file is designed, so instead we do it with `exec`.  
-You can now load any of the pre-installed packages as usual.
+Us regular folks don't have root privileges to install system dependencies on the cluster. Therefore, installing packages interactively assumes that all dependencies of a given package already exist on the cluster or in the container. For example, if you try to install tidyverse in this manner, you'd get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go.  
+You can pull an image that already contains tidyverse (and RStudio etc) from [rocker](https://hub.docker.com/r/rocker/tidyverse), or you can pull a container from [jax registry](library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0) that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. See the next section for how to use this container to work on sumner with RStudio. If your project uses packages that need other system dependencies you'd need to add those to the def file of one of these containers and rebuild the sif file as explained [here](Containerizing.html).
   
 **These R packages may also be useful for connecting to a remote server from your local environment:**
 [SSH](https://cran.r-project.org/web/packages/ssh/)  
@@ -135,9 +124,9 @@ You can now load any of the pre-installed packages as usual.
 
 ## Remote RStudio
 
-You can run Rstudio Server on the hpc and access it from a local browser, as explained [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
+You can run Rstudio on the hpc and access it from a local browser, as explained [here](https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html) and [here](https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/).
 
-Here's a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM) (and slightly modified here):  
+Below is a similar solution put together by [Bill Flynn](https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&cid=CMKS61RLM) (and slightly modified here):  
   
 Open a text editor and create a file named `launch_rstudio.sbatch` with the following content. You might want to use your home directory instead of fastscratch.
 ```
@@ -178,19 +167,22 @@ singularity exec \
 
 ```
 Change every line that ends with `#!!` to reflect your own info. Save it to your home directory.  
-Open an interactive session on sumner
+
+Open an interactive session on sumner, pull rstudio image from [jax registry](https://jaxreg.jax.org/containers/447), and put it in your `simg_path` as defined in the file above
 
 ```bash
 srun --pty -q batch bash
 module load singularity
+singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 ```
-Pull rstudio image from [jax registry](https://jaxreg.jax.org/containers/447), put it in your `simg_path`, and launch it:   
+Type 'exit' when you're done to close the session.  
+You can also download it directly from the [jax registry](https://jaxreg.jax.org/containers/447).
+
+Now you can launch Rstudio, using that container, from the login node
 
 ```bash
-singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
 sbatch launch_rstudio.sbatch
 ```
-You can also download it directly from the [jax registry](https://jaxreg.jax.org/containers/447).
 
 Next you need to get the URL and login information from the log file: 
 
@@ -213,6 +205,14 @@ Ending the session is crucial here not only to avoid draining hpc resources but 
 - If you already have the image in the relevant directory then you can just run the sbatch command from the login node. You only need to start an interactive job in order to pull the image.  
 - You might want to use [`renv`](https://rstudio.github.io/renv/articles/docker.html) to [manage your locally-installed packages](Organizing_projects.html#Recording_the_computational_environment).  
 - See the [Containerizing](Containerizing.html) section on how to customize and build containers.  
+
+It is also possible to use this rstudio container to open R in an interactive session without launching rstudio:
+
+```bash
+singularity exec ~/bin/rstudio_etc_4.0.3.sif R
+```
+In this case we can't just open an R session by calling the sif file, so instead we do it with `exec`.  
+You can now load any of the pre-installed packages as usual.
 
 ## Submitting jobs to the cluster
 

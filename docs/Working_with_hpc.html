@@ -9,13 +9,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Carter Lab" />
+<meta name="author" content="Annat Haber" />
 
-<meta name="date" content="2022-04-15" />
+<meta name="date" content="2023-06-18" />
 
 <title>Working with the hpc clusters</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
@@ -31,14 +31,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -67,6 +67,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -87,6 +88,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -144,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -177,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -186,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -312,7 +313,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -363,17 +364,29 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Working with the hpc clusters</h1>
-<h4 class="author">Carter Lab</h4>
-<h4 class="date">2022-04-15</h4>
+<h4 class="author">Annat Haber</h4>
+<h4 class="date">2023-06-18</h4>
 
 </div>
 
 
-<p>Two ways to work with the hpcc: interactive sessions and job submission. Both need to be done using <a href="Containerizing.html">singularity and containers</a>. You might want to set up the hpc environment with some <a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">“module-like” infrastructure</a> to allow some flexibility in interactive sessions for development and testing.</p>
+<p>Two ways to work with the hpcc: interactive sessions and job
+submission. Both need to be done using <a
+href="Containerizing.html">singularity and containers</a>. You might
+want to set up the hpc environment with some <a
+href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71">“module-like”
+infrastructure</a> to allow some flexibility in interactive sessions for
+development and testing.</p>
 <p>Other useful references:<br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Intro-to-HPC---Documentation.aspx">Jax RIT documentation</a> <a href="https://hpc-carpentry.github.io/hpc-intro/">Introduction to HPC from the HPC Carpentry</a><br />
-<a href="https://sumner.verhaaklab.com/">Samir Amin’s documentation</a><br />
-<a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC workshop</a></p>
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Intro-to-HPC---Documentation.aspx">Jax
+RIT documentation</a> <a
+href="https://hpc-carpentry.github.io/hpc-intro/">Introduction to HPC
+from the HPC Carpentry</a><br />
+<a href="https://sumner.verhaaklab.com/">Samir Amin’s
+documentation</a><br />
+<a href="https://pawseysc.github.io/sc19-containers/">Pawsey Center SC
+workshop</a></p>
 <div id="setting-up-your-hpc-environment" class="section level2">
 <h2>Setting up your hpc environment</h2>
 <ol style="list-style-type: decimal">
@@ -381,8 +394,11 @@ div.tocify {
 </ol>
 <pre class="bash"><code>ssh &lt;USERNAME&gt;@login.sumner.jax.org</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Create a directory for all your containers, packages, etc and add it to your $PATH<br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx</a></li>
+<li>Create a directory for all your containers, packages, etc and add it
+to your $PATH<br />
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx"
+class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Executing-Host-Machine-Binaries-Inside-a-Container.aspx</a></li>
 </ol>
 <pre class="bash"><code>mkdir bin</code></pre>
 <p>Open .bash_profile with a text editor:</p>
@@ -391,14 +407,19 @@ nano .bash_profile # using nano to edit the file</code></pre>
 <p>And add these lines to the file (including the comment):</p>
 <pre class="bash"><code>#Singularity Containers
 export PATH=$PATH:~/bin</code></pre>
-<p>Change the path accordingly if you want to put the bin elsewhere.<br />
+<p>Change the path accordingly if you want to put the bin
+elsewhere.<br />
 Save and exit the editor, and restart your terminal.<br />
-Now you can call containers by their name from anywhere in your home directory, without having to specify the path.</p>
+Now you can call containers by their name from anywhere in your home
+directory, without having to specify the path.</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Initialize an interactive session, load singularity, and pull containers:<br />
-Here we pull the latest r container and put it in the bin directory.<br />
-For easy reference we rename it R.sif<br />
-<a href="https://singularity-hub.org/collections/4747/usage" class="uri">https://singularity-hub.org/collections/4747/usage</a></li>
+<li>Initialize an interactive session, load singularity, and pull
+containers:<br />
+Here we pull the latest r container and put it in the bin directory. See
+below for using R with Rstudio instead. For easy reference we rename it
+R.sif<br />
+<a href="https://singularity-hub.org/collections/4747/usage"
+class="uri">https://singularity-hub.org/collections/4747/usage</a></li>
 </ol>
 <pre class="bash"><code>srun --pty -q batch bash # to start an interactive session
 module load singularity
@@ -406,36 +427,65 @@ cd ~/bin
 singularity pull --name R.sif docker://r-base:latest
 # singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
 # singularity pull docker://bioconductor/bioconductor_docker:devel</code></pre>
-<p>Now you can start an interactive session with R (see below) because a sif file can be used as an executable file on its own. You can do the same with any software, e.g., samtools from jaxreg</p>
-<p><strong>Close the interactive session by typing <code>exit</code> or <code>ctrl-D</code></strong></p>
+<p>Now you can start an interactive session with R (see below) because a
+sif file can be used as an executable file on its own. You can do the
+same with any software, e.g., samtools from jaxreg</p>
+<p><strong>Close the interactive session by typing <code>exit</code> or
+<code>ctrl-D</code></strong></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Add jax container registry as a remote endpoint:<br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx</a></li>
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx"
+class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/JAX-Singularity-Container-Registry-User-Guide.aspx</a></li>
 </ol>
-<p><strong>Type <code>logout</code> to close the connection to sumner</strong><br />
-See also <a href="https://hpctalk.jax.org/t/sumner-crash-course/77" class="uri">https://hpctalk.jax.org/t/sumner-crash-course/77</a></p>
-<p>See these links for installing software on the cluster: <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx</a><br />
-<a href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71" class="uri">https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71</a></p>
+<p><strong>Type <code>logout</code> to close the connection to
+sumner</strong><br />
+See also <a href="https://hpctalk.jax.org/t/sumner-crash-course/77"
+class="uri">https://hpctalk.jax.org/t/sumner-crash-course/77</a></p>
+<p>See these links for installing software on the cluster: <a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx"
+class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Installing-Software-on-the-Cluster.aspx</a><br />
+<a
+href="https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71"
+class="uri">https://hpctalk.jax.org/t/need-software-that-isn-t-installed-on-sumner/71</a></p>
 </div>
 <div id="working-interactively-on-the-cluster" class="section level2">
 <h2>Working interactively on the cluster</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx</a><br />
-Working interactively has the potential to drain the hpc resources for everyone else. Therefore, please keep in mind the following:<br />
-1. Shut down the session when you’re done working by typing <code>exit</code> or <code>ctrl-D</code>. Idle sessions are killed pretty quickly.<br />
-2. Don’t over-allocate resources when initializing the session. Over-allocation will get your session killed and your rapport with IT tarnished.<br />
-3. Be prepared to lose your work at any time. Interactive sessions will be the first to go in times of high demand. Script everything.</p>
-<p>See <code>man srun</code> for options such as CPU and memory allocation</p>
+<p><a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx"
+class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Interactive-Jobs-with-SLURM.aspx</a><br />
+Working interactively has the potential to drain the hpc resources for
+everyone else. Therefore, please keep in mind the following:<br />
+1. Shut down the session when you’re done working by typing
+<code>exit</code> or <code>ctrl-D</code>. Idle sessions are killed
+pretty quickly.<br />
+2. Don’t over-allocate resources when initializing the session.
+Over-allocation will get your session killed and your rapport with IT
+tarnished.<br />
+3. Be prepared to lose your work at any time. Interactive sessions will
+be the first to go in times of high demand. Script everything.</p>
+<p>See <code>man srun</code> for options such as CPU and memory
+allocation</p>
 <div id="from-your-local-terminalrstudio" class="section level3">
 <h3>From your local terminal/RStudio</h3>
-<p>This approach allows you to install packages and doing simple tests on the cluster while developing your project mostly on your local machine. You will need to synchronize your local project folder with a full copy on tier1. However, in order to enjoy the full functionality of RStudio (and the R Project setup) while working directly on your tier1 folder see the next section.<br />
-If you’re developing the project mostly with RStudio, and don’t need any files from tier1, it might be easier to move your project to tier2 and use the <a href="https://rstudio.jax.org/">RStudio Server</a>.</p>
-<p>Once logged into sumner enter this to start an interactive session with R:</p>
+<p>This approach allows you to install packages and doing simple tests
+on the cluster while developing your project mostly on your local
+machine. You will need to synchronize your local project folder with a
+full copy on tier1. However, in order to enjoy the full functionality of
+RStudio (and the R Project setup) while working directly on your tier1
+folder you’d need to use an Rstudio container as explained in the next
+section.<br />
+You also have the option to move your project to tier2 and use the <a
+href="https://rstudio.jax.org/">RStudio Server</a> but then you wouldn’t
+be able to access tier1 for that project.</p>
+<p>Once logged into sumner enter this to start an interactive session
+with R:</p>
 <pre class="bash"><code>srun --pty -q batch bash
 module load singularity
 R.sif</code></pre>
-<p>You can now install R packages to your home directory to be available for future sessions, (almost) like you would on your local machine (or in the past, on helix).</p>
-<p><strong>Tip:</strong> If you use the terminal tab in RStudio, you can source code directly from your editor to the terminal by pressing ctrl-cmd-enter.</p>
-<p>Once you’re in R:</p>
+<p>Once you have R open, you can install R packages to your home
+directory to be available for future sessions, (almost) like you would
+on your local machine (or in the past, on helix):</p>
 <pre class="r"><code># Specify libs before installing anything
 # dir.create(&quot;~/bin/libs&quot;, recursive=T) # only the first time
 .libPaths(&quot;~/bin/libs&quot;) # once every session
@@ -444,27 +494,57 @@ R.sif</code></pre>
 install.packages(&quot;here&quot;, dependencies = TRUE) # only once
 library(here) # once every session
 here()</code></pre>
-<p>Type <code>q()</code> to quite R. You’re still connected to the interactive session.</p>
-<p><strong>Note:</strong>You can do the above from any tier1 folder. If you want to work on a project in e.g., <code>/sdata/</code>, you can navigate to it at any time: before initializing the interactive session, before calling R.sif, or from inside R.</p>
-<p>Installing packages interactively like this assumes that system dependencies of a given package already exist on the cluster or in the container, since us regular folks don’t have root privileges to install these dependencies on the cluster. For example, if you try to install tidyverse in this manner, you’d get error messages saying that some packages such as libxml, libcurl, openssl, etc. are not found. Therefore, tidyverse and/or these system dependencies need to be included in the container from the get go. See the <a href="Containerizing.html">Containerizing</a> section for more details.<br />
-You can pull an image that already contains tidyverse (and RStudio etc) from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a>, or you can pull a container from <a href="library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0">jax registry</a> that already contains bioconductor, renv, synapser, and other useful packages, in addition to tidyverse and RStudio. This second container has also been tested and works with remote RStudio as explained in the following section. If your project uses packages that need other system dependencies you’d need to add those to the def file of one of these containers and rebuild the sif file as explained <a href="Containerizing.html">here</a>.</p>
-<pre class="bash"><code>singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-singularity exec ~/bin/rstudio_etc_4.0.3.sif R
-# singularity pull --name R_tidy.sif docker://rocker/tidyverse:latest
-# singularity exec ~/bin/R_tidy.sif R</code></pre>
-<p>In this case we can’t just open an R session by calling the sif file because of how its def file is designed, so instead we do it with <code>exec</code>.<br />
-You can now load any of the pre-installed packages as usual.</p>
-<p><strong>These R packages may also be useful for connecting to a remote server from your local environment:</strong> <a href="https://cran.r-project.org/web/packages/ssh/">SSH</a><br />
-<a href="https://cran.r-project.org/web/packages/remoter/">remoter</a><br />
+<p>Type <code>q()</code> to quite R. You’re still connected to the
+interactive session.</p>
+<p><strong>Tip:</strong> If you use the terminal tab in RStudio, you can
+source code directly from your editor to the terminal by pressing
+ctrl-cmd-enter.</p>
+<p><strong>Note:</strong>You can do the above from any tier1 folder. If
+you want to work on a project in e.g., <code>/sdata/</code>, you can
+navigate to it at any time: before initializing the interactive session,
+before calling R.sif, or from inside R.</p>
+<p>Us regular folks don’t have root privileges to install system
+dependencies on the cluster. Therefore, installing packages
+interactively assumes that all dependencies of a given package already
+exist on the cluster or in the container. For example, if you try to
+install tidyverse in this manner, you’d get error messages saying that
+some packages such as libxml, libcurl, openssl, etc. are not found.
+Therefore, tidyverse and/or these system dependencies need to be
+included in the container from the get go.<br />
+You can pull an image that already contains tidyverse (and RStudio etc)
+from <a href="https://hub.docker.com/r/rocker/tidyverse">rocker</a>, or
+you can pull a container from <a
+href="library://habera/rnaseq-modelad/rstudio_etc_4.1.3:1.0">jax
+registry</a> that already contains bioconductor, renv, synapser, and
+other useful packages, in addition to tidyverse and RStudio. See the
+next section for how to use this container to work on sumner with
+RStudio. If your project uses packages that need other system
+dependencies you’d need to add those to the def file of one of these
+containers and rebuild the sif file as explained <a
+href="Containerizing.html">here</a>.</p>
+<p><strong>These R packages may also be useful for connecting to a
+remote server from your local environment:</strong> <a
+href="https://cran.r-project.org/web/packages/ssh/">SSH</a><br />
+<a
+href="https://cran.r-project.org/web/packages/remoter/">remoter</a><br />
 <a href="https://github.com/cloudyr/rmote">rmote</a><br />
-<a href="https://cran.r-project.org/web/packages/ssh.utils/index.html">ssh-utils</a></p>
+<a
+href="https://cran.r-project.org/web/packages/ssh.utils/index.html">ssh-utils</a></p>
 </div>
 </div>
 <div id="remote-rstudio" class="section level2">
 <h2>Remote RStudio</h2>
-<p>You can run Rstudio Server on the hpc and access it from a local browser, as explained <a href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a> and <a href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
-<p>Here’s a similar solution put together by <a href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill Flynn</a> (and slightly modified here):</p>
-<p>Open a text editor and create a file named <code>launch_rstudio.sbatch</code> with the following content. You might want to use your home directory instead of fastscratch.</p>
+<p>You can run Rstudio on the hpc and access it from a local browser, as
+explained <a
+href="https://pawseysc.github.io/sc19-containers/08-gui-rstudio/index.html">here</a>
+and <a
+href="https://divingintogeneticsandgenomics.rbind.io/post/run-rstudio-server-with-singularity-on-hpc/">here</a>.</p>
+<p>Below is a similar solution put together by <a
+href="https://thejacksonlaboratory.slack.com/archives/CMKS61RLM/p1610466642060300?thread_ts=1610466397.059200&amp;cid=CMKS61RLM">Bill
+Flynn</a> (and slightly modified here):</p>
+<p>Open a text editor and create a file named
+<code>launch_rstudio.sbatch</code> with the following content. You might
+want to use your home directory instead of fastscratch.</p>
 <pre><code>#!/usr/bin/env bash
 ### SLURM HEADER
 #SBATCH --output=/home/&lt;USERNAME&gt;/logs/rstudio-%j.log  #!!
@@ -500,36 +580,68 @@ singularity exec \
     --auth-timeout-minutes=0 \
     --auth-stay-signed-in-days=30
 </code></pre>
-<p>Change every line that ends with <code>#!!</code> to reflect your own info. Save it to your home directory.<br />
-Open an interactive session on sumner</p>
+<p>Change every line that ends with <code>#!!</code> to reflect your own
+info. Save it to your home directory.</p>
+<p>Open an interactive session on sumner, pull rstudio image from <a
+href="https://jaxreg.jax.org/containers/447">jax registry</a>, and put
+it in your <code>simg_path</code> as defined in the file above</p>
 <pre class="bash"><code>srun --pty -q batch bash
-module load singularity</code></pre>
-<p>Pull rstudio image from <a href="https://jaxreg.jax.org/containers/447">jax registry</a>, put it in your <code>simg_path</code>, and launch it:</p>
-<pre class="bash"><code>singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0
-sbatch launch_rstudio.sbatch</code></pre>
-<p>You can also download it directly from the <a href="https://jaxreg.jax.org/containers/447">jax registry</a>.</p>
-<p>Next you need to get the URL and login information from the log file:</p>
+module load singularity
+singularity pull --name rstudio_etc_4.0.3.sif library://habera/rnaseq-modelad/rstudio_etc_4.0.3:1.0</code></pre>
+<p>Type ‘exit’ when you’re done to close the session.<br />
+You can also download it directly from the <a
+href="https://jaxreg.jax.org/containers/447">jax registry</a>.</p>
+<p>Now you can launch Rstudio, using that container, from the login
+node</p>
+<pre class="bash"><code>sbatch launch_rstudio.sbatch</code></pre>
+<p>Next you need to get the URL and login information from the log
+file:</p>
 <pre class="bash"><code>head -n 3 /home/&lt;USERNAME&gt;/logs/rstudio-&lt;job_id&gt;.log</code></pre>
 <p>You’ll see something like this:</p>
 <pre><code>Login to sumnerXYZ.sumner.jax.org:12345 with
   username: ....
   password: ....</code></pre>
 <p>Go to that URL and enter these username and password.</p>
-<p><strong>Type <code>scancel &lt;job_id&gt;</code> in your terminal when you’re ready to end the session</strong><br />
-Ending the session is crucial here not only to avoid draining hpc resources but also to avoid RStudio session log filling up your allotted storage.</p>
+<p><strong>Type <code>scancel &lt;job_id&gt;</code> in your terminal
+when you’re ready to end the session</strong><br />
+Ending the session is crucial here not only to avoid draining hpc
+resources but also to avoid RStudio session log filling up your allotted
+storage.</p>
 <p><strong>Note:</strong><br />
-- Make sure all the directories in the launch file exist before running it.<br />
-- If you already have the image in the relevant directory then you can just run the sbatch command from the login node. You only need to start an interactive job in order to pull the image.<br />
-- You might want to use <a href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a> to <a href="Organizing_projects.html#Recording_the_computational_environment">manage your locally-installed packages</a>.<br />
-- See the <a href="Containerizing.html">Containerizing</a> section on how to customize and build containers.</p>
+- Make sure all the directories in the launch file exist before running
+it.<br />
+- If you already have the image in the relevant directory then you can
+just run the sbatch command from the login node. You only need to start
+an interactive job in order to pull the image.<br />
+- You might want to use <a
+href="https://rstudio.github.io/renv/articles/docker.html"><code>renv</code></a>
+to <a
+href="Organizing_projects.html#Recording_the_computational_environment">manage
+your locally-installed packages</a>.<br />
+- See the <a href="Containerizing.html">Containerizing</a> section on
+how to customize and build containers.</p>
+<p>It is also possible to use this rstudio container to open R in an
+interactive session without launching rstudio:</p>
+<pre class="bash"><code>singularity exec ~/bin/rstudio_etc_4.0.3.sif R</code></pre>
+<p>In this case we can’t just open an R session by calling the sif file,
+so instead we do it with <code>exec</code>.<br />
+You can now load any of the pre-installed packages as usual.</p>
 </div>
 <div id="submitting-jobs-to-the-cluster" class="section level2">
 <h2>Submitting jobs to the cluster</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Research IT documentation</a><br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx">Submitting jobs with containers instead of modules</a><br />
-<a href="https://jacksonlaboratory.sharepoint.com/:u:/r/sites/ResearchIT/SitePages/What%20are%20the%20Cluster%20SLURM%20Settings%20and%20Job%20Limits.aspx?csf=1&amp;web=1&amp;e=zWk2zy">Slurm settings and Sumner job limits</a><br />
-<a href="https://slurm.schedmd.com/rosetta.pdf">Translating PBS/Torque to Slurm</a><br />
-<a href="https://slurm.schedmd.com/quickstart.html">Slurm Quick Start User Guide</a></p>
+<p><a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Research
+IT documentation</a><br />
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Submitting-a-Batch-Job-That-Uses-Containers.aspx">Submitting
+jobs with containers instead of modules</a><br />
+<a
+href="https://jacksonlaboratory.sharepoint.com/:u:/r/sites/ResearchIT/SitePages/What%20are%20the%20Cluster%20SLURM%20Settings%20and%20Job%20Limits.aspx?csf=1&amp;web=1&amp;e=zWk2zy">Slurm
+settings and Sumner job limits</a><br />
+<a href="https://slurm.schedmd.com/rosetta.pdf">Translating PBS/Torque
+to Slurm</a><br />
+<a href="https://slurm.schedmd.com/quickstart.html">Slurm Quick Start
+User Guide</a></p>
 </div>
 
 
