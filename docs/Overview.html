@@ -9,13 +9,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Carter Lab" />
+<meta name="author" content="Annat Haber" />
 
-<meta name="date" content="2021-03-22" />
+<meta name="date" content="2023-06-21" />
 
-<title>Overview of computational resources</title>
+<title>Overview of Computational Resources</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -30,14 +31,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -66,6 +67,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -86,6 +88,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -143,11 +148,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -176,8 +185,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -185,16 +194,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -298,12 +300,12 @@ div.tocify {
 
 <!-- setup 3col/9col grid for toc_float and main content  -->
 <div class="row">
-<div class="col-sm-12 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-4 col-md-3">
 <div id="TOC" class="tocify">
 </div>
 </div>
 
-<div class="toc-content col-sm-12 col-md-8 col-lg-9">
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -311,7 +313,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -361,81 +363,192 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Overview of computational resources</h1>
-<h4 class="author">Carter Lab</h4>
-<h4 class="date">2021-03-22</h4>
+<h1 class="title toc-ignore">Overview of Computational Resources</h1>
+<h4 class="author">Annat Haber</h4>
+<h4 class="date">2023-06-21</h4>
 
 </div>
 
 
 <div id="jax-hpc" class="section level2">
-<h2>JAX HPC</h2>
-<p>The JAX HPC infrastructure consists of 2 main clusters available to all users: Sumner and Winter. The Sumner cluster is our general purpose compute cluster while Winter is our GPU based cluster. Research IT provides extensive documentation on what’s available and how to use it:<br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx</a><br />
-<a href="https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md" class="uri">https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md</a><br />
-See also the <a href="Working_with_hpc.html">Working with HPC section</a> in this guide and <a href="https://sumner.verhaaklab.com/">Samir Amin’s documentation</a>.</p>
+<h2><a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx">JAX
+HPC</a></h2>
+<p>The JAX HPC infrastructure consists of 2 main clusters available to
+all users: Sumner and Winter. The Sumner cluster is our general purpose
+compute cluster while Winter is our GPU based cluster. Research IT
+provides extensive documentation on what’s available and how to use
+it.<br />
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Quickstart.aspx">HPC
+Quickstart</a><br />
+<a
+href="https://github.com/TheJacksonLaboratory/IntroToHPC/blob/master/Topic%20Outline.md">Intro
+to HPC</a><br />
+See also the <a href="Working_with_hpc.html">Working with HPC
+section</a> in this guide and <a
+href="https://code.sbamin.com/hpc">Samir Amin’s documentation</a>.</p>
 </div>
 <div id="storage" class="section level2">
-<h2>Storage</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx" class="uri">https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx</a></p>
-<p><strong>tier1</strong> is best used for standardized pipelines and research projects that are developed and deployed mainly on the cluster.<br />
-<code>/home/</code> Personal space; by default, only the user can view and access.<br />
+<h2><a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/HPC-Storage-Resources.aspx">Storage</a></h2>
+<p><strong>tier1</strong> is best used for standardized pipelines and
+research projects that are developed and deployed mainly on the
+cluster.<br />
+<code>/home/</code> Personal space; by default, only the user can view
+and access.<br />
 <code>/projects/carter-lab/</code> for shared projects<br />
-<code>/sdata/carter-lab/</code> for shared projects that involve secured data<br />
-<code>/fastscratch/</code> for temporary files. <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx">See here for usage guidelines</a></p>
-<p>Files on tier1 can be recovered within <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx">7 days of deletion</a></p>
-<p><strong>tier2</strong> is best used for research project that are developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as well as “cold data”. Can be accessed with Globus or from RStudio Server. Projects that involve secured data should be in <code>/tier2/carter-lab/sdata/</code></p>
-<p><strong>/unixhome</strong> is the space mounted on RStudio Server. It is limited to 50GB and therefore not suitable for big projects.</p>
-<p>You can use <a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a> or <a href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a> to transfer data between the different storages. You can also use <a href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to incorporate data transfer in the script whenever applicable.</p>
+<code>/sdata/carter-lab/</code> for shared projects that involve secured
+data<br />
+<code>/fastscratch/</code> for temporary files. <a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Fastscratch-Guidelines-and-Usage.aspx">See
+here for usage guidelines</a></p>
+<p>Files on tier1 can be recovered within <a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Recovering-Data-from-the-.snapshot-Directory.aspx">7
+days of deletion</a></p>
+<p><strong>tier2</strong> is best used for research project that are
+developed mainly in <a href="#rstudio-server">Rstudio Server</a>, as
+well as “cold data”. Can be accessed with Globus or from RStudio Server.
+Projects that involve secured data should be in
+<code>/tier2/carter-lab/sdata/</code></p>
+<p><strong>/unixhome</strong> is the space mounted on RStudio Server. It
+is limited to 50GB and therefore not suitable for big projects.</p>
+<p>You can use <a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Globus-Data-Transfers.aspx">Globus</a>
+or <a
+href="https://haydenjames.io/linux-securely-copy-files-using-scp/">SCP</a>
+to transfer data between the different storages. You can also use <a
+href="https://docs.globus.org/cli/quickstart/">Globus CLI</a> to
+incorporate data transfer in the script wherever applicable.</p>
 </div>
 <div id="carterdev" class="section level2">
-<h2>carterdev</h2>
-<p>Development space for out lab. Hosts shiny apps and websites for ongoing projects. To connect type <a href="http://carterdev:3838/" class="uri">http://carterdev:3838/</a> in your browser.</p>
+<h2><a href="http://carterdev:3838/">carterdev</a></h2>
+<p>Development space for out lab. Hosts shiny apps and websites for
+ongoing projects.</p>
 </div>
 <div id="synapse" class="section level2">
-<h2>Synapse</h2>
-<p><a href="https://www.synapse.org/" class="uri">https://www.synapse.org/</a><br />
-This is an online platform for hosting, managing, and sharing data and research projects, including results and report, in a reproducible and reusable manner. We have <a href="https://www.synapse.org/#!Synapse:syn23573590/wiki/">a private workspace there</a>, which can be used for any project. There is also a separate space specifically for <a href="https://www.synapse.org/#!Synapse:syn7419026/wiki/586126">Model-AD</a> and <a href="https://www.synapse.org/#!Synapse:syn21532474">TREAT-AD</a>. You’d need to register on Synapse and then be added to the relevant team. See <a href="Acquiring_and_sharing_data.html">here</a> for more details.</p>
+<h2><a href="https://www.synapse.org/">Synapse</a></h2>
+<p>This is an online platform for hosting, managing, and sharing data
+and projects, including results and reports, in a reproducible and
+reusable manner. We have <a
+href="https://www.synapse.org/#!Synapse:syn23573590/wiki/">a private
+workspace there</a>, which can be used for any project. There are also
+separate spaces specifically for <a
+href="https://www.synapse.org/#!Synapse:syn7419026/wiki/586126">Model-AD</a>
+and <a
+href="https://www.synapse.org/#!Synapse:syn21532474">TREAT-AD</a>. You’d
+need to register on Synapse and then be added to the relevant team. See
+<a href="Acquiring_and_sharing_data.html">here</a> for more details.</p>
+</div>
+<div id="climb.bio" class="section level2">
+<h2><a href="https://climb.bio/">Climb.bio</a></h2>
+<p>A Lab Information Management System specifically designed for colony
+management of lab animals, used by MODEL-AD and Marmo-AD to manage their
+colonies. If you work with datasets generated by these consortia, it’s a
+good idea to get animal metadata directly from climb rather than relying
+on files from other people. Information from climb can be downloaded
+manually from the web app, or programmatically using the <a
+href="https://api.climb.bio/docs">climb API</a> and its <a
+href="https://github.com/TheJacksonLaboratory/ClimbR">R client</a>.</p>
 </div>
 <div id="rstudio-server" class="section level2">
 <h2>RStudio Server</h2>
 <ol style="list-style-type: decimal">
 <li>Open a ticket with IT to request an account</li>
-<li>Go to <a href="https://rstudio.jax.org/" class="uri">https://rstudio.jax.org/</a> and sign in with your jax credential<br />
+<li>Go to <a href="https://rstudio.jax.org/"
+class="uri">https://rstudio.jax.org/</a> and sign in with your jax
+credential<br />
 </li>
-<li>To navigate to tier2 space: Click on the three dots in the upper-right corner of the files management block. In the “go to folder” pop-up enter <code>/tier2/carter-lab/</code>.</li>
+<li>To navigate to tier2 space: Click on the three dots in the
+upper-right corner of the files management block. In the “go to folder”
+pop-up enter <code>/tier2/carter-lab/</code>. The space provided with
+RStudio Server is limited in size. It is therefore best to use
+tier2.</li>
 </ol>
-<p>The space provided with RStudio Server is limited in size and is threfore best to use as a dumpster/attic only. It is better to use tier2 for developing and sharing projects, especially ones that involve heavy and/or secured data.</p>
 </div>
 <div id="rstudio-connect" class="section level2">
 <h2>RStudio Connect</h2>
-<p>RStudio Connect is a publishing platform for sharing Shiny applications, <a href="Publishing.html#Making_websites_from_Rmarkdown_files">R Markdown reports/websites</a>, figures and tables, Jupyter Notebooks, etc. You need to ask IT to add you to this server specifically. You can log into it either from RStudio Server or <a href="https://rshiny.jax.org/connect/" class="uri">https://rshiny.jax.org/connect/</a>.</p>
+<p>RStudio Connect is a publishing platform for sharing Shiny
+applications, <a
+href="Publishing.html#Making_websites_from_Rmarkdown_files">R Markdown
+reports/websites</a>, figures and tables, Jupyter Notebooks, etc. You
+need to ask IT to add you to this server specifically. You can log into
+it either from RStudio Server or <a
+href="https://rshiny.jax.org/connect/"
+class="uri">https://rshiny.jax.org/connect/</a>.</p>
 </div>
 <div id="nextflow" class="section level2">
-<h2>Nextflow</h2>
-<p><a href="https://www.nextflow.io/">Nextflow</a> is <a href="https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full">a workflow management system</a> that has become popular in recent years in general and <a href="https://github.com/lifebit-ai/jax-tutorial">at jax</a>. It is also incorporated in the <a href="https://jacksonlaboratory.sharepoint.com/sites/CloudOS">Lifebit CloudOS</a> platform (used by some labs at jax but not the Carter Lab at this point).</p>
-<p>The main use of workflow management systems is in developing standardized pipelines that need to be run repeatedly (e.g., preliminary processing of RNA-seq fastq files).<br />
-Jax has in the past developed its own workflow management framework called <a href="https://github.com/TheJacksonLaboratory/civet">civet</a>, with a web-based interface called <a href="https://bitbucket.jax.org/projects/CIV/repos/wiki/browse/home.md">JODAP</a>. However, this system has been generated based on the now-retired helix and TORQUE. Moving forward it is best to use community-based frameworks such as <a href="https://www.commonwl.org/">CWL</a>, <a href="https://openwdl.org/">WDL</a>, or <a href="https://www.nextflow.io/">Nextflow</a>. <a href="https://books.ropensci.org/targets/">The R package <code>targets</code></a> provides workflow management within R.</p>
-<p><a href="https://github.com/TheJacksonLaboratory/universal-nextflow-config">A universal config file to run on Jax HPC</a> <a href="https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config">Another example for how to configure a nextflow pipeline to run on sumner.</a><br />
-<a href="https://github.com/grst/universal_analysis_pipeline">Nextflow-based pipeline to run and deploy reproducible analyses from jupyter/RMarkdown notebooks</a><br />
-<a href="https://github.com/stevekm/nextflow-demos">Demonstrations of various programming techniques for use inside Nextflow pipelines</a> <a href="https://nf-co.re/viralrecon/dev/usage#nextflow-edge-releases">Installing edge releases</a></p>
+<h2><a href="https://www.nextflow.io/">Nextflow</a></h2>
+<p><a href="https://www.nextflow.io/">Nextflow</a> is <a
+href="https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full">a
+workflow management system</a> that has become popular in recent years
+in general and <a href="https://github.com/lifebit-ai/jax-tutorial">at
+jax</a>. It is also incorporated in the <a
+href="https://jacksonlaboratory.sharepoint.com/sites/CloudOS">Lifebit
+CloudOS</a> platform (used by some labs at jax but not the Carter Lab at
+this point).<br />
+NF-Core is a community-based collection of standardized pipelines built
+with nextflow. MODEL-AD and Marmo-AD use nf-core pipelines for
+processing <a
+href="https://www.synapse.org/#!Synapse:syn7419026/wiki/611613">bulk
+RNAseq</a> and <a
+href="https://www.synapse.org/#!Synapse:syn23573590/wiki/614361">WGS</a>
+data.</p>
+<p><a
+href="https://github.com/TheJacksonLaboratory/universal-nextflow-config">A
+universal config file to run on Jax HPC</a> <a
+href="https://bitbucket.jax.org/users/peera/repos/prepare_genome/browse/nextflow.config">Another
+example for how to configure a nextflow pipeline to run on
+sumner.</a><br />
+<a
+href="https://github.com/grst/universal_analysis_pipeline">Nextflow-based
+pipeline to run and deploy reproducible analyses from jupyter/RMarkdown
+notebooks</a><br />
+<a href="https://github.com/stevekm/nextflow-demos">Demonstrations of
+various programming techniques for use inside Nextflow pipelines</a> <a
+href="https://nf-co.re/viralrecon/dev/usage#nextflow-edge-releases">Installing
+edge releases</a></p>
 </div>
 <div id="jaxreg" class="section level2">
-<h2>JAXREG</h2>
-<p><a href="https://jaxreg.jax.org/" class="uri">https://jaxreg.jax.org/</a><br />
-A platform for Singularity containers by JAX HPC users. The Carter lab has its own team space there. Once you login with your jax credentials, you can upload containers and create collections. You can then either make it public - open to the whole jax community - or you can make it private and invite team members and anyone else at jax.</p>
+<h2><a href="https://jaxreg.jax.org/">JAXREG</a></h2>
+<p>A platform for Singularity containers by JAX HPC users. The Carter
+lab has its own team space there. Once you login with your jax
+credentials, you can upload containers and create collections. You can
+then either make it public - open to the whole jax community - or you
+can make it private and invite team members and anyone else at jax.</p>
 </div>
 <div id="jax-github" class="section level2">
 <h2>Jax GitHub</h2>
-<p>The main advantage of <a href="Organizing_projects.html#Working_with_Git_and_GitHub">using git and github</a> is in its version control and the clone/fork/merge functionality that facilitates collaborative development. Main disadvantage is currently the size limitation on files and repositories. This is why github is mostly useful for developing and sharing code and text, and for research projects that are light on data files.</p>
-<p>The Carter Lab has its own team space inside the <a href="https://github.com/TheJacksonLaboratory">Jax account</a>. When making new repositories you can make it under jax account and then link it to the carterlab team. This can be done by inviting the carterlab team under Settings and Manage Access within your repository. You can do the same under your own personal account, and invite anyone in or outside jax, but unless you have a premium account, you will not be able to make the repository private. Also, it will be less visible to other jax members when it’s under your personal account.<br />
-<strong>Note:</strong> There is no difference in the definition of <em>public</em> and <em>private</em> repositories between organization accounts and individual user accounts. If you create a public repository under the jax account, it is visible to the whole wide world.</p>
-<p>See <a href="https://git-scm.com/book/en/v2">the git tutorial</a> and <a href="https://lab.github.com/">github courses</a>.</p>
+<p>The main advantage of <a
+href="Organizing_projects.html#Working_with_Git_and_GitHub">using git
+and github</a> is in its version control and the clone/fork/merge
+functionality that facilitates collaborative development. Main
+disadvantage is currently the size limitation on files and repositories.
+This is why github is mostly useful for developing and sharing code and
+text, and for research projects that are light on data files.</p>
+<p>The Carter Lab has its own team space inside the <a
+href="https://github.com/TheJacksonLaboratory">Jax account</a>. When
+making new repositories you can make it under jax account and then link
+it to the carterlab team. This can be done by inviting the carterlab
+team under Settings and Manage Access within your repository. You can do
+the same under your own personal account, and invite anyone in or
+outside jax, but unless you have a premium account, you will not be able
+to make the repository private. Also, it will be less visible to other
+jax members when it’s under your personal account.<br />
+<strong>Note:</strong> There is no difference in the definition of
+<em>public</em> and <em>private</em> repositories between organization
+accounts and individual user accounts. If you create a public repository
+under the jax account, it is visible to the whole wide world.</p>
+<p>See <a href="https://git-scm.com/book/en/v2">git tutorial</a> and <a
+href="https://lab.github.com/">github courses</a>.</p>
 </div>
 <div id="box" class="section level2">
 <h2>Box</h2>
-<p>Personal accounts as well as <a href="https://thejacksonlaboratory.ent.box.com/folder/49919058619">lab’s account</a><br />
-Doesn’t work with RStudio projects, but good for sharing documents within the lab, across jax, and outside jax. A favorite of HR.<br />
+<p>Personal accounts as well as <a
+href="https://thejacksonlaboratory.ent.box.com/folder/49919058619">lab’s
+account</a> are available through jax.<br />
+Box doesn’t work with RStudio projects, but good for sharing documents
+within the lab, across jax, and outside jax. A favorite of HR.<br />
 If you work with RStudio Projects it’s better to use Dropbox.</p>
 </div>
 <div id="dropbox" class="section level2">
@@ -445,50 +558,108 @@ If you work with RStudio Projects it’s better to use Dropbox.</p>
 </li>
 <li>Plays nicely with RStudio projects.<br />
 </li>
-<li>Allows version control and backup with unlimited size (you’d need another tool to view version differences though).<br />
+<li>Allows version control and backup with unlimited size (you’d need
+another tool to view version differences though).<br />
 </li>
-<li>Files can be set up to be ignored during synchronization in either direction: they can be either <a href="https://help.dropbox.com/files-folders/restore-delete/ignored-files">saved only on local machines</a> (just like .gitignore) or accesible only online throu the Smart Sync feature in Preferences (to save space on local machine).</li>
+<li>Files can be set up to be ignored during synchronization in either
+direction: they can be either <a
+href="https://help.dropbox.com/files-folders/restore-delete/ignored-files">saved
+only on local machines</a> (just like .gitignore) or accesible only
+online throu the Smart Sync feature in Preferences (to save space on
+local machine).</li>
 </ul>
-<p><strong>Note:</strong> only one account can be linked to one device. You can’t have both personal and jax account on the same device. If you have your personal account currently linked to your jax device, you’d need to unlink that account first, and then link the jax account. Once unlilnked, all files on your personal account that have been synced to the device will still be saved on the device but no longer synced with your account.</p>
-<p>To get started you need to request IT to open a dropbox account for you (if you haven’t been added already), activate the account via the email you’ll get, download the desktop app, and get started. By default, all files are set up as Smart Sync, which means they are not saved on your local machine for offline use, so make sure you reveiw the Sync settings under Preferences. To make a file/folder available offline, right-click it in your local file viewer and choose Smart Sync -&gt; Local</p>
+<p><strong>Note:</strong> only one account can be linked to one device.
+You can’t have both personal and jax account on the same device. If you
+have your personal account currently linked to your jax device, you’d
+need to unlink that account first, and then link the jax account. Once
+unlilnked, all files on your personal account that have been synced to
+the device will still be saved on the device but no longer synced with
+your account.</p>
+<p>To get started you need to request IT to open a dropbox account for
+you (if you haven’t been added already), activate the account via the
+email you’ll get, download the desktop app, and get started. By default,
+all files are set up as Smart Sync, which means they are not saved on
+your local machine for offline use, so make sure you reveiw the Sync
+settings under Preferences. To make a file/folder available offline,
+right-click it in your local file viewer and choose Smart Sync -&gt;
+Local</p>
 </div>
 <div id="working-remotely" class="section level2">
 <h2>Working remotely</h2>
-<p>In order to work remotely using jax resources, you’ll need to <a href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx">connect via VPN</a>.<br />
-This will also provide you automatic access to full papers in any journals that jax library subscribes to.<br />
-Alternatively, you can access the library resources <a href="https://login.ezproxy.jax.org/login">here</a> without getting on the vpn.</p>
+<p>In order to work remotely using jax resources, you’ll need to <a
+href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx">connect
+via VPN</a>.</p>
+</div>
+<div id="library" class="section level2">
+<h2>Library</h2>
+<p>In order to access <a
+href="https://jacksonlaboratory.sharepoint.com/sites/Library">Jax
+library</a> off-campus you’ll need to <a
+href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/How-To-Use-VPN.aspx">connect
+via VPN</a>. This will also provide you automatic access to full papers
+in any journals that jax library subscribes to.<br />
+Alternatively, you can access the library resources <a
+href="https://login.ezproxy.jax.org/login">here</a> with your jax
+credentials, without getting on the vpn</p>
 </div>
 <div id="get-connected-get-help" class="section level2">
 <h2>Get connected, get help</h2>
 <ul>
-<li><a href="https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/How-to-use-Slack.aspx">slack</a>: Look for the CarterLabJax workspace and The Jackson Laboratory workspace. Once logged into a workspace, you can browse and join channels.<br />
+<li><a
+href="https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/How-to-use-Slack.aspx">slack</a>:
+Look for the CarterLabJax workspace and The Jackson Laboratory
+workspace. Once logged into a workspace, you can browse and join
+channels.<br />
 </li>
 <li><a href="https://hpctalk.jax.org/">hpctalks</a></li>
-<li><a href="https://jax.service-now.com/jax">helpdesk self-service</a></li>
-<li><a href="https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx">webex</a></li>
-<li><a href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/Teams-and-Office-365-Groups.aspx">Microsof teams</a></li>
-<li><a href="https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity?CT=1568310418608&amp;OR=OWA-NT&amp;CID=be6f5659-d728-0441-53b8-d1f0e03afba6">Jax computational community</a></li>
-<li><a href="https://jacksonlaboratory.sharepoint.com/:x:/r/sites/ResearchResources/_layouts/15/Doc.aspx?sourcedoc=%7B3C15F833-3032-4560-831B-D6F02A6E6757%7D&amp;file=Interest%20Groups%20and%20Journal%20Clubs%2009.2020.xlsx&amp;action=default&amp;mobileredirect=true&amp;DefaultItemOpen=1">Interest groups and Journal clubs</a></li>
+<li><a href="https://jax.service-now.com/jax">helpdesk
+self-service</a></li>
+<li><a
+href="https://jacksonlaboratory.sharepoint.com/sites/IT/SitePages/Webex-Meetings-Introduction.aspx">webex</a></li>
+<li><a
+href="https://jacksonlaboratory.sharepoint.com/sites/DigitalWorkspace/SitePages/Teams-and-Office-365-Groups.aspx">Microsof
+teams</a></li>
+<li><a
+href="https://jacksonlaboratory.sharepoint.com/sites/ComputationalCommunity?CT=1568310418608&amp;OR=OWA-NT&amp;CID=be6f5659-d728-0441-53b8-d1f0e03afba6">Jax
+computational community</a></li>
+<li><a
+href="https://jacksonlaboratory.sharepoint.com/:x:/r/sites/ResearchResources/_layouts/15/Doc.aspx?sourcedoc=%7B3C15F833-3032-4560-831B-D6F02A6E6757%7D&amp;file=Interest%20Groups%20and%20Journal%20Clubs%2009.2020.xlsx&amp;action=default&amp;mobileredirect=true&amp;DefaultItemOpen=1">Interest
+groups and Journal clubs</a></li>
 </ul>
 </div>
 <div id="training" class="section level2">
 <h2>Training</h2>
-<p><a href="https://jacksonlaboratory.sharepoint.com/sites/JAXBioinformaticsTrainingProgram">Jax Bioinformatics Training Program</a><br />
-<a href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Jax Research IT documentation</a><br />
-<a href="http://jaxbhflash02.jax.org/index/default.aspx">Jax videos</a><br />
-<a href="https://carpentries.org/community-lessons/">Software Carpentry lessons</a><br />
-<a href="https://swcarpentry.github.io/r-novice-inflammation/">Software Carpentry on Programming with R</a><br />
+<p><a
+href="https://jacksonlaboratory.sharepoint.com/sites/JAXBioinformaticsTrainingProgram">Jax
+Bioinformatics Training Program</a><br />
+<a
+href="https://jacksonlaboratory.sharepoint.com/sites/ResearchIT/SitePages/Documentation.aspx">Jax
+Research IT documentation</a><br />
+<a href="http://jaxbhflash02.jax.org/index/default.aspx">Jax
+videos</a><br />
+<a href="https://carpentries.org/community-lessons/">Software Carpentry
+lessons</a><br />
+<a href="https://swcarpentry.github.io/r-novice-inflammation/">Software
+Carpentry on Programming with R</a><br />
 <a href="https://www.hpc-carpentry.org/">HPC Carpentry lessons</a><br />
 <a href="https://education.rstudio.com/">RStudio lessons</a><br />
 <a href="https://lab.github.com/">GitHub lessons</a><br />
-<a href="https://dataoneorg.github.io/Education/">The Data Management Skillbuilding Hub by DataOneOrg</a><br />
-<a href="https://astrobiomike.github.io/">Happy Belly Bioinformatics</a><br />
-<a href="https://rafalab.github.io/dsbook/">Data Science Textbook by Rafael A. Irizarry</a><br />
-<a href="https://kbroman.org/steps2rr/">Reproducible Research by Karl Broman</a><br />
-<a href="https://compgenomr.github.io/book/">Computational Genomics with R by Altuna Akalin</a><br />
-<a href="https://rstats.wtf/">What they forgot to teach you about R by Jenny Bryan</a><br />
-<a href="https://happygitwithr.com/">Happy git with R by Jenny Bryan</a><br />
-<a href="https://www.youtube.com/watch?v=Ssso_5X1UPs&amp;t=63s">Data visualization by Karl Broman</a></p>
+<a href="https://dataoneorg.github.io/Education/">The Data Management
+Skillbuilding Hub by DataOneOrg</a><br />
+<a href="https://astrobiomike.github.io/">Happy Belly
+Bioinformatics</a><br />
+<a href="https://rafalab.github.io/dsbook/">Data Science Textbook by
+Rafael A. Irizarry</a><br />
+<a href="https://kbroman.org/steps2rr/">Reproducible Research by Karl
+Broman</a><br />
+<a href="https://compgenomr.github.io/book/">Computational Genomics with
+R by Altuna Akalin</a><br />
+<a href="https://rstats.wtf/">What they forgot to teach you about R by
+Jenny Bryan</a><br />
+<a href="https://happygitwithr.com/">Happy git with R by Jenny
+Bryan</a><br />
+<a href="https://www.youtube.com/watch?v=Ssso_5X1UPs&amp;t=63s">Data
+visualization by Karl Broman</a></p>
 <div class="figure">
 <img src="images/googling.jpg" alt="" />
 <p class="caption">image</p>
@@ -533,6 +704,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
